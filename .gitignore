@@ -1,0 +1,6 @@
+# -------------------------------------
+# ⚙️ Configuration files
+# -------------------------------------
+
+# sensitive configuration file
+app/config/SilvaConfig.yaml
