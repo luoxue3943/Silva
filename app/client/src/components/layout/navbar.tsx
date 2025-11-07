@@ -43,6 +43,15 @@ export default function Navbar() {
             <span>文稿</span>
           </div>
         </Link>
+        {/* 时间轴 */}
+        <Link href="/timeline" className="link-button">
+          <div className={`title ${isActive("/timeline") ? "active" : ""}`}>
+            <span
+              className={`icon-[mynaui--message-dots] ${isActive("/timeline") ? "" : "hidden"}`}
+            />
+            <span>时间轴</span>
+          </div>
+        </Link>
         {/* 留言 */}
         <Link href="/messages" className="link-button">
           <div className={`title ${isActive("/messages") ? "active" : ""}`}>
