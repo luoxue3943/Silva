@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { ViewTransitions } from "next-view-transitions";
 import "@/styles/globals.css";
+import "@/styles/globals.scss";
 import Navbar from "@/components/layout/navbar";
 
 /**
