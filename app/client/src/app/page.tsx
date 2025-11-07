@@ -1,21 +1,12 @@
 import { getTranslations, getLocale } from "next-intl/server";
-import { readFileSync } from "node:fs";
-import { parse } from "yaml";
+import { SilvaConfig } from "@/lib/config-loader";
 import "../styles/home.scss";
 
-/**
- * 首页主组件
- */
 export default async function Home() {
-  // 获取当前语言环境（例如 "en"、"zh"）
+  // 获取当前语言环境
   const locale = await getLocale();
 
   const t = await getTranslations("HomePage");
-
-  // 读取项目配置文件
-  const SilvaConfig = parse(
-    readFileSync("../config/SilvaConfig.yaml", "utf-8"),
-  );
 
   /**
    * 根据语言从配置文件中获取对应的网站所有者名称。
@@ -25,7 +16,7 @@ export default async function Home() {
     SilvaConfig.site[`name_${locale.split("-")[0]}`] ?? SilvaConfig.site.name;
 
   /**
-   * 将字符串拆分为单个字符的 <span> 元素，用于文字动画。
+   * 将字符串拆分为单个字符的 <span> 元素
    * @param text - 需要拆分的文本
    * @param className - 可选的附加类名
    * @param delay - 动画延迟起始偏移量
@@ -39,13 +30,11 @@ export default async function Home() {
     ));
 
   return (
-    <div>
-      {/* =====================
-          首页介绍区块
-         ===================== */}
+    <main>
+      {/* 首页介绍区块 */}
       <h1 className="text-4xl">
         {(() => {
-          // 文本分离，便于后续动画与计算
+          // 文本分离
           const welcome = t("welcome"); // “欢迎”文本
           const owner = siteOwnerName; // 站点所有者名
           const totalLength = (welcome + owner).length; // 总字符长度
@@ -55,7 +44,7 @@ export default async function Home() {
               {/* “欢迎”文本 */}
               {splitToSpans(welcome)}
 
-              {/* 网站所有者名称 */}
+              {/* 网站所有者名 */}
               <span className="inline px-3 font-bold">
                 {splitToSpans(owner, "", welcome.length)}
               </span>
@@ -70,6 +59,6 @@ export default async function Home() {
           );
         })()}
       </h1>
-    </div>
+    </main>
   );
 }

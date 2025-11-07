@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@import "tailwindcss";
+@plugin "@iconify/tailwind4";
+
+.root {
+  min-height: 160vh;
+  background-color: #212121;
+  color: oklch(1 0 0);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: relative;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+main {
+  position: relative;
+  right: 0;
+  left: 0;
+}
+footer {
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

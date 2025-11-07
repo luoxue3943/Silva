@@ -1,0 +1,35 @@
+@use "./variables" as var;
+
+.link-button {
+  display: grid;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+
+  .title {
+    column-gap: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.3s;
+
+    @media (width >= 1024px) {
+      &:hover {
+        color: var.$select-color;
+      }
+    }
+
+    &.active {
+      color: var.$theme-color;
+    }
+  }
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}

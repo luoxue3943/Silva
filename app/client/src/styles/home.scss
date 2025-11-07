@@ -1,12 +1,14 @@
-@keyframes popUp {
+@keyframes pop-up-translate {
   0% {
     transform: translateY(1em);
     opacity: 0;
   }
+
   60% {
     transform: translateY(-0.2em);
     opacity: 1;
   }
+
   100% {
     transform: translateY(0);
   }
@@ -14,7 +16,7 @@
 
 .pop-up {
   display: inline-block;
-  animation: popUp 0.6s ease forwards;
+  animation: pop-up-translate 0.6s ease forwards;
   will-change: transform, opacity;
 }
 
