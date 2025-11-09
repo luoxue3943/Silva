@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "generate:license": "pnpx generate-license-file --input ./package.json --output ./THIRD_PARTY_LICENSES.txt --overwrite"
+    "generate:license": "pnpx generate-license-file --input ./package.json --output ../../THIRD_PARTY_LICENSES.txt --overwrite"
   },
   "dependencies": {
     "next": "16.0.0",
