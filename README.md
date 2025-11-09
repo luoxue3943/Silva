@@ -2,9 +2,7 @@
 
 ## 📄 License
 
-[AGPL-3.0](LICENSE) © 2025 [珞雪(luoxue)](https://github.com/luoxue3943)
-
----
+[**AGPL-3.0**](LICENSE) © 2025 [珞雪(luoxue)](https://github.com/luoxue3943)
 
 This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
