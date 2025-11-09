@@ -1,5 +1,12 @@
 {
   "HomePage": {
     "welcome": "Welcome,\u00A0Here\u00A0is"
+  },
+  "Navbar": {
+    "home": "Home",
+    "posts": "Posts",
+    "timeline": "Timeline",
+    "messages": "Messages",
+    "more": "More"
   }
 }

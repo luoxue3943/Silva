@@ -1,5 +1,12 @@
 {
   "HomePage": {
     "welcome": "Welcome, 这里是"
+  },
+  "Navbar": {
+    "home": "首页",
+    "posts": "文章",
+    "timeline": "时间线",
+    "messages": "留言",
+    "more": "更多"
   }
 }

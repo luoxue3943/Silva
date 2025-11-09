@@ -4,7 +4,17 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import "../../styles/navbar.scss";
 
-export default function Navbar() {
+interface NavbarProps {
+  labels: {
+    home: string;
+    posts: string;
+    timeline: string;
+    messages: string;
+    more: string;
+  };
+}
+
+export default function Navbar({ labels }: NavbarProps) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const isActive = (pName: string) => pathname === pName;
@@ -29,7 +39,7 @@ export default function Navbar() {
               className={`nav-icon icon-[mynaui--home] ${isActive("/") ? "" : "hidden"}`}
             />
             <span className="nav-text" data-page="home">
-              首页
+              {labels.home}
             </span>
           </div>
         </Link>
@@ -41,7 +51,7 @@ export default function Navbar() {
               className={`nav-icon icon-[mynaui--file-text] ${isActive("/posts") ? "" : "hidden"}`}
             />
             <span className="nav-text" data-page="posts">
-              文稿
+              {labels.posts}
             </span>
           </div>
         </Link>
@@ -50,10 +60,10 @@ export default function Navbar() {
         <Link href="/timeline" className="link-button">
           <div className={`title ${isActive("/timeline") ? "active" : ""}`}>
             <span
-              className={`nav-icon icon-[mynaui--message-dots] ${isActive("/timeline") ? "" : "hidden"}`}
+              className={`nav-icon icon-[meteor-icons--clock-rotate] ${isActive("/timeline") ? "" : "hidden"}`}
             />
             <span className="nav-text" data-page="timeline">
-              时间轴
+              {labels.timeline}
             </span>
           </div>
         </Link>
@@ -65,7 +75,7 @@ export default function Navbar() {
               className={`nav-icon icon-[mynaui--message-dots] ${isActive("/messages") ? "" : "hidden"}`}
             />
             <span className="nav-text" data-page="messages">
-              留言
+              {labels.messages}
             </span>
           </div>
         </Link>
@@ -77,7 +87,7 @@ export default function Navbar() {
               className={`nav-icon icon-[mynaui--dots-circle] ${isActive("/more") ? "" : "hidden"}`}
             />
             <span className="nav-text" data-page="more">
-              更多
+              {labels.more}
             </span>
           </div>
         </Link>

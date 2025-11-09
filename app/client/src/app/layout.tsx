@@ -3,23 +3,15 @@ import { NextIntlClientProvider } from "next-intl";
 import { ViewTransitions } from "next-view-transitions";
 import "@/styles/globals.css";
 import "@/styles/globals.scss";
-import Navbar from "@/components/layout/navbar";
+import Particles from "@/components/ReactBits/particles";
+import NavbarWrapper from "@/components/layout/navbar-wrapper";
 
 /**
  * Chill Round F 字体配置
  * 字体文件位于项目 public 目录
  */
 const ChillRoundF = localFont({
-  src: [
-    {
-      path: "../../public/ChillRoundFBold.ttf",
-      style: "bold",
-    },
-    {
-      path: "../../public/ChillRoundFRegular.ttf",
-      style: "regular",
-    },
-  ],
+  src: "../../public/ChillRoundM.otf",
 });
 
 export default async function RootLayout({
@@ -35,8 +27,21 @@ export default async function RootLayout({
           {/* next-intl提供国际化支持，包裹应用程序提供多语言功能 */}
           <NextIntlClientProvider>
             <div className="root">
+              {/* 背景 */}
+              <div className="basics-background">
+                <Particles
+                  particleColors={["#ffffff", "#ffffff"]}
+                  particleCount={200}
+                  particleSpread={10}
+                  speed={0.0375}
+                  particleBaseSize={100}
+                  moveParticlesOnHover={false}
+                  alphaParticles={true}
+                  disableRotation={false}
+                />
+              </div>
               {/* 导航栏 */}
-              <Navbar />
+              <NavbarWrapper />
               {children}
             </div>
           </NextIntlClientProvider>
