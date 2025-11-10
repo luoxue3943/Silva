@@ -30,7 +30,7 @@ export default async function RootLayout({
               {/* 背景 */}
               <div className="basics-background">
                 <Particles
-                  particleColors={["#ffffff", "#ffffff"]}
+                  particleColors={["#ffffff", "#98F2B9"]}
                   particleCount={200}
                   particleSpread={10}
                   speed={0.0375}
