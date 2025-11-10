@@ -36,7 +36,7 @@ export default function ParticlesBackground({
   }, [pathname, renderKey]);
 
   const containerClassName = [
-    "fixed inset-0 transition-opacity duration-238 ease-linear",
+    "fixed inset-0 transition-opacity duration-260 ease-in-out",
     visible ? "opacity-100" : "opacity-0",
   ].join(" ");
 

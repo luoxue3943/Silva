@@ -34,6 +34,7 @@ export default async function RootLayout({
                   particleCount={200}
                   particleSpread={10}
                   speed={0.0375}
+                  sizeRandomness={0.5}
                   particleBaseSize={100}
                   moveParticlesOnHover={false}
                   alphaParticles={true}
