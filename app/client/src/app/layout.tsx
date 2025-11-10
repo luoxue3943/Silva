@@ -1,10 +1,11 @@
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { ViewTransitions } from "next-view-transitions";
-import "@/styles/globals.css";
-import "@/styles/globals.scss";
 import ParticlesBackground from "@/components/layout/particles-background";
 import NavbarWrapper from "@/components/layout/navbar-wrapper";
+import { getLocale } from "next-intl/server";
+import "@/styles/globals.css";
+import "@/styles/globals.scss";
 
 /**
  * Chill Round F 字体配置
@@ -14,6 +15,8 @@ const ChillRoundF = localFont({
   src: "../../public/ChillRoundM.otf",
 });
 
+const locale = await getLocale();
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -22,10 +25,12 @@ export default async function RootLayout({
   return (
     <ViewTransitions>
       {/* 使用 ViewTransitions 包裹整个应用，实现页面切换动画效果 */}
-      <html>
+      <html lang={locale}>
         <body className={ChillRoundF.className}>
           {/* next-intl提供国际化支持，包裹应用程序提供多语言功能 */}
-          <NextIntlClientProvider>
+          <NextIntlClientProvider
+            messages={(await import(`../../messages/${locale}.json`)).default}
+          >
             <div className="root">
               {/* 背景 */}
               <div className="basics-background">

@@ -3,6 +3,7 @@ import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import "../../styles/navbar.scss";
+import LanguageSwitcher from "../i18n/language-switcher";
 
 interface NavbarProps {
   labels: {
@@ -92,6 +93,7 @@ export default function Navbar({ labels }: NavbarProps) {
           </div>
         </Link>
       </div>
+      <LanguageSwitcher />
     </header>
   );
 }
