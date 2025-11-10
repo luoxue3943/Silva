@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { ViewTransitions } from "next-view-transitions";
 import "@/styles/globals.css";
 import "@/styles/globals.scss";
-import Particles from "@/components/ReactBits/particles";
+import ParticlesBackground from "@/components/layout/particles-background";
 import NavbarWrapper from "@/components/layout/navbar-wrapper";
 
 /**
@@ -29,7 +29,7 @@ export default async function RootLayout({
             <div className="root">
               {/* 背景 */}
               <div className="basics-background">
-                <Particles
+                <ParticlesBackground
                   particleColors={["#ffffff", "#98F2B9"]}
                   particleCount={200}
                   particleSpread={10}
