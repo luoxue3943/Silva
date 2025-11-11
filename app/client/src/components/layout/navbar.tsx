@@ -2,7 +2,7 @@
 import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import "../../styles/navbar.scss";
+import Modules from "@/styles/navbar.module.scss";
 import LanguageSwitcher from "../i18n/language-switcher";
 
 interface NavbarProps {
@@ -13,12 +13,14 @@ interface NavbarProps {
     messages: string;
     more: string;
   };
+  locale: string;
 }
 
-export default function Navbar({ labels }: NavbarProps) {
+export default function Navbar({ labels, locale }: NavbarProps) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const isActive = (pName: string) => pathname === pName;
+  const isStartWith = (pName: string) => pathname.startsWith(pName);
 
   useEffect(() => {
     const scrollThreshold = window.innerHeight / 5;
@@ -32,68 +34,78 @@ export default function Navbar({ labels }: NavbarProps) {
 
   return (
     <header>
-      <div className="navbar">
+      <div className={Modules.navbar}>
         {/* 首页 */}
-        <Link href="/" className="link-button">
-          <div className={`title ${isActive("/") ? "active" : ""}`}>
+        <Link href="/" className={Modules["link-button"]}>
+          <div
+            className={`${Modules.title} ${isActive("/") ? Modules.active : ""}`}
+          >
             <span
-              className={`nav-icon icon-[mynaui--home] ${isActive("/") ? "" : "hidden"}`}
+              className={`${Modules["nav-icon"]} icon-[mynaui--home] ${isActive("/") ? "" : "hidden"}`}
             />
-            <span className="nav-text" data-page="home">
+            <span className={Modules["nav-text"]} data-page="home">
               {labels.home}
             </span>
           </div>
         </Link>
 
         {/* 文稿 */}
-        <Link href="/posts" className="link-button">
-          <div className={`title ${isActive("/posts") ? "active" : ""}`}>
+        <Link href="/posts" className={Modules["link-button"]}>
+          <div
+            className={`${Modules.title} ${isStartWith("/posts") ? Modules.active : ""}`}
+          >
             <span
-              className={`nav-icon icon-[mynaui--file-text] ${isActive("/posts") ? "" : "hidden"}`}
+              className={`${Modules["nav-icon"]} icon-[mynaui--file-text] ${isStartWith("/posts") ? "" : "hidden"}`}
             />
-            <span className="nav-text" data-page="posts">
+            <span className={Modules["nav-text"]} data-page="posts">
               {labels.posts}
             </span>
           </div>
         </Link>
 
         {/* 时间轴 */}
-        <Link href="/timeline" className="link-button">
-          <div className={`title ${isActive("/timeline") ? "active" : ""}`}>
+        <Link href="/timeline" className={Modules["link-button"]}>
+          <div
+            className={`${Modules.title} ${isStartWith("/timeline") ? Modules.active : ""}`}
+          >
             <span
-              className={`nav-icon icon-[meteor-icons--clock-rotate] ${isActive("/timeline") ? "" : "hidden"}`}
+              className={`${Modules["nav-icon"]} icon-[meteor-icons--clock-rotate] ${isStartWith("/timeline") ? "" : "hidden"}`}
             />
-            <span className="nav-text" data-page="timeline">
+            <span className={Modules["nav-text"]} data-page="timeline">
               {labels.timeline}
             </span>
           </div>
         </Link>
 
         {/* 留言 */}
-        <Link href="/messages" className="link-button">
-          <div className={`title ${isActive("/messages") ? "active" : ""}`}>
+        <Link href="/messages" className={Modules["link-button"]}>
+          <div
+            className={`${Modules.title} ${isActive("/messages") ? Modules.active : ""}`}
+          >
             <span
-              className={`nav-icon icon-[mynaui--message-dots] ${isActive("/messages") ? "" : "hidden"}`}
+              className={`${Modules["nav-icon"]} icon-[mynaui--message-dots] ${isActive("/messages") ? "" : "hidden"}`}
             />
-            <span className="nav-text" data-page="messages">
+            <span className={Modules["nav-text"]} data-page="messages">
               {labels.messages}
             </span>
           </div>
         </Link>
 
         {/* 更多 */}
-        <Link href="/more" className="link-button">
-          <div className={`title ${isActive("/more") ? "active" : ""}`}>
+        <Link href="/more" className={Modules["link-button"]}>
+          <div
+            className={`${Modules.title} ${isStartWith("/more") ? Modules.active : ""}`}
+          >
             <span
-              className={`nav-icon icon-[mynaui--dots-circle] ${isActive("/more") ? "" : "hidden"}`}
+              className={`${Modules["nav-icon"]} icon-[mynaui--dots-circle] ${isStartWith("/more") ? "" : "hidden"}`}
             />
-            <span className="nav-text" data-page="more">
+            <span className={Modules["nav-text"]} data-page="more">
               {labels.more}
             </span>
           </div>
         </Link>
       </div>
-      <LanguageSwitcher />
+      <LanguageSwitcher locale={locale} />
     </header>
   );
 }

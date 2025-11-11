@@ -7,7 +7,7 @@ export function loadSilvaConfig() {
     const content = readFileSync(configPath, "utf-8");
     const config = parse(content);
 
-    console.log(`✓ Loaded SilvaConfig from ${configPath}`);
+    console.debug(`✓ Loaded SilvaConfig from ${configPath}`);
     return config;
   } catch (error) {
     console.error("Failed to load SilvaConfig:", error);

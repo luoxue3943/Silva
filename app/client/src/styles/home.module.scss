@@ -20,7 +20,7 @@
   will-change: transform, opacity;
 }
 
-@for $i from 0 through 30 {
+@for $i from 0 through 40 {
   .delay-#{$i} {
     animation-delay: #{0.05 * $i}s;
   }

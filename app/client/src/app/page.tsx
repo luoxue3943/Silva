@@ -1,6 +1,6 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { SilvaConfig } from "@/lib/config-loader";
-import "../styles/home.scss";
+import Modules from "@/styles/home.module.scss";
 
 export default async function Home() {
   // 获取当前语言环境
@@ -24,7 +24,10 @@ export default async function Home() {
    */
   const splitToSpans = (text: string, className = "", delay = 0) =>
     Array.from(text).map((char, i) => (
-      <span key={i} className={`pop-up delay-${i + delay} ${className}`}>
+      <span
+        key={i}
+        className={`${Modules["pop-up"]} ${Modules["delay-" + (i + delay)]} ${className}`}
+      >
         {char}
       </span>
     ));
@@ -51,7 +54,10 @@ export default async function Home() {
 
               {/* 表情与句号 */}
               {["👋", "."].map((char, i) => (
-                <span key={char} className={`pop-up delay-${totalLength + i}`}>
+                <span
+                  key={char}
+                  className={`${Modules["pop-up"]} ${Modules["delay-" + (totalLength + i)]}`}
+                >
                   {char}
                 </span>
               ))}

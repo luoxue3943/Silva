@@ -15,22 +15,20 @@ const ChillRoundF = localFont({
   src: "../../public/ChillRoundM.otf",
 });
 
-const locale = await getLocale();
-
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = (await import(`../../messages/${locale}.json`)).default;
   return (
     <ViewTransitions>
       {/* 使用 ViewTransitions 包裹整个应用，实现页面切换动画效果 */}
       <html lang={locale}>
         <body className={ChillRoundF.className}>
           {/* next-intl提供国际化支持，包裹应用程序提供多语言功能 */}
-          <NextIntlClientProvider
-            messages={(await import(`../../messages/${locale}.json`)).default}
-          >
+          <NextIntlClientProvider messages={messages}>
             <div className="root">
               {/* 背景 */}
               <div className="basics-background">
