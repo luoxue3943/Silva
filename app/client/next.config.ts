@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Use this block for custom Next.js tuning ｜ 在此集中定义自定义 Next.js 配置 */
   reactCompiler: true,
 };
 

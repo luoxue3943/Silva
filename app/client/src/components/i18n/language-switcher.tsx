@@ -7,7 +7,12 @@ type LanguageSwitcherProps = {
   locale: string;
 };
 
+/**
+ * Dropdown selector that lets users switch the active locale.
+ * 允许用户切换当前语言环境的下拉选择器。
+ */
 export default function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
+  // Normalize the initial locale to a supported option ｜ 将初始语言归一化为受支持的选项
   const [currentLocale, setCurrentLocale] = useState<string>(
     (locale !== undefined && locale === "en") || locale === "zh"
       ? locale

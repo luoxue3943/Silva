@@ -1,10 +1,10 @@
-# After modifying the configuration file, rename it to `SilvaConfig.yaml`.
-# 请修改完配置文件后更名为 `SilvaConfig.yaml`
+# Customize this template, then rename it to `SilvaConfig.yaml` so the app picks it up.
+# 定制完成后务必将文件更名为 `SilvaConfig.yaml`，否则程序无法读取配置。
 site:
-  # You may enter your name in multiple languages below. If you have only one language, leave only “name”.
-  # 可以将您多种语言的名字写在下面，如果只有一种语言的话只保留"name"即可
-  # Names should not exceed three characters, as this may cause UI errors.
-  # 名字不建议超过三个字，可能会导致UI错误
+  # Enter the display name for each language as needed. Unnecessary language keys can be removed. If only one language is used, keep only the “name” key.
+  # 按需填写多语言展示名称，不需要的语言键可以删除，如果只有一种语言的话只保留"name"即可
+  # Keep each name within three characters to avoid layout glitches on the navbar.
+  # 单个名字请控制在中文五个字符以内，防止导航栏排版错乱。
   name: "示例"
   name_zh: "示例"
   name_en: "example"

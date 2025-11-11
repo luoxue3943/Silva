@@ -3,24 +3,26 @@ import { SilvaConfig } from "@/lib/config-loader";
 import Modules from "@/styles/home.module.scss";
 
 export default async function Home() {
-  // 获取当前语言环境
+  // Resolve the active locale for this request ｜ 获取当前请求的语言环境
   const locale = await getLocale();
 
   const t = await getTranslations("HomePage");
 
   /**
-   * 根据语言从配置文件中获取对应的网站所有者名称。
-   * 如果不存在对应语言，则回退到默认名称。
+   * Resolve the localized site owner name, falling back to the default key when missing.
+   * 根据当前语言返回站点所有者名称，若无对应字段则回退到默认 name。
    */
   const siteOwnerName =
     SilvaConfig.site[`name_${locale.split("-")[0]}`] ?? SilvaConfig.site.name;
 
   /**
-   * 将字符串拆分为单个字符的 <span> 元素
-   * @param text - 需要拆分的文本
-   * @param className - 可选的附加类名
-   * @param delay - 动画延迟起始偏移量
-   * @returns 包含每个字符的 React 节点数组
+   * Split text into animated span elements to create a staggered pop effect.
+   * 将文本拆分成带延迟动画的 <span>，以实现阶梯式弹出效果。
+   *
+   * @param text Text to split ｜ 需要拆分的原始文本
+   * @param className Extra class name for each span ｜ 额外附加的类名
+   * @param delay Base index offset for delay utilities ｜ 延迟动画的起始偏移量
+   * @returns React nodes for every character ｜ 每个字符对应的 React 节点数组
    */
   const splitToSpans = (text: string, className = "", delay = 0) =>
     Array.from(text).map((char, i) => (
@@ -34,25 +36,25 @@ export default async function Home() {
 
   return (
     <main>
-      {/* 首页介绍区块 */}
+      {/* Hero headline block ｜ 首页主标题区块 */}
       <h1 className="text-4xl">
         {(() => {
-          // 文本分离
-          const welcome = t("welcome"); // “欢迎”文本
-          const owner = siteOwnerName; // 站点所有者名
-          const totalLength = (welcome + owner).length; // 总字符长度
+          // Prepare localized tokens for the hero ｜ 拆解主标题所需的本地化片段
+          const welcome = t("welcome"); // Localized "welcome" copy ｜ “欢迎”文案
+          const owner = siteOwnerName; // Site owner display name ｜ 站点所有者名字
+          const totalLength = (welcome + owner).length; // Combined character length ｜ 字符数量(Welcome, + 站点所有者名称)
 
           return (
             <>
-              {/* “欢迎”文本 */}
+              {/* "Welcome" lettering ｜ “欢迎”文案 */}
               {splitToSpans(welcome)}
 
-              {/* 网站所有者名 */}
+              {/* Site owner text ｜ 网站所有者名字 */}
               <span className="inline px-3 font-bold">
                 {splitToSpans(owner, "", welcome.length)}
               </span>
 
-              {/* 表情与句号 */}
+              {/* Emoji and punctuation ｜ 表情与句号 */}
               {["👋", "."].map((char, i) => (
                 <span
                   key={char}

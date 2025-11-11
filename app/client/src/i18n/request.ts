@@ -1,6 +1,10 @@
 import { getRequestConfig } from "next-intl/server";
 import { getUserLocale } from "./service";
 
+/**
+ * Build the locale + messages bundle for each request.
+ * 为每次请求生成语言与文案配置。
+ */
 export default getRequestConfig(async () => {
   const locale = await getUserLocale();
 

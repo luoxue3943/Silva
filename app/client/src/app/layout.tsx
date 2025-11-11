@@ -8,8 +8,8 @@ import "@/styles/globals.css";
 import "@/styles/globals.scss";
 
 /**
- * Chill Round F 字体配置
- * 字体文件位于项目 public 目录
+ * Load the font ChillRoundM from the public directory.
+ * 从 public 目录加载字体 ChillRoundM
  */
 const ChillRoundF = localFont({
   src: "../../public/ChillRoundM.otf",
@@ -24,13 +24,13 @@ export default async function RootLayout({
   const messages = (await import(`../../messages/${locale}.json`)).default;
   return (
     <ViewTransitions>
-      {/* 使用 ViewTransitions 包裹整个应用，实现页面切换动画效果 */}
+      {/* ViewTransitions wraps the entire page to achieve routing transition animations. ｜ ViewTransitions 包裹整个页面以实现路由切换动画效果 */}
       <html lang={locale}>
         <body className={ChillRoundF.className}>
-          {/* next-intl提供国际化支持，包裹应用程序提供多语言功能 */}
+          {/* next-intl supplies localized messages for the entire app ｜ next-intl 为整站注入多语言文案 */}
           <NextIntlClientProvider messages={messages}>
             <div className="root">
-              {/* 背景 */}
+              {/* Background particle canvas ｜ 背景粒子画布 */}
               <div className="basics-background">
                 <ParticlesBackground
                   particleColors={["#ffffff", "#98F2B9"]}
@@ -44,7 +44,7 @@ export default async function RootLayout({
                   disableRotation={false}
                 />
               </div>
-              {/* 导航栏 */}
+              {/* Navbar ｜ 导航栏 */}
               <NavbarWrapper />
               {children}
             </div>

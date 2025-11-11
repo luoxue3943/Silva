@@ -16,13 +16,19 @@ interface NavbarProps {
   locale: string;
 }
 
+/**
+ * Primary navigation component that syncs active links and exposes a locale switcher.
+ * 主导航组件，同步路由激活状态并提供语言切换入口。
+ */
 export default function Navbar({ labels, locale }: NavbarProps) {
   const pathname = usePathname();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isScrolled, setIsScrolled] = useState(false);
   const isActive = (pName: string) => pathname === pName;
   const isStartWith = (pName: string) => pathname.startsWith(pName);
 
   useEffect(() => {
+    // Toggle the active styling once the user scrolls beyond 20% viewport height ｜ 当滚动超过视口 20% 时切换导航样式
     const scrollThreshold = window.innerHeight / 5;
     const handleScroll = () => setIsScrolled(window.scrollY > scrollThreshold);
 
@@ -35,7 +41,7 @@ export default function Navbar({ labels, locale }: NavbarProps) {
   return (
     <header>
       <div className={Modules.navbar}>
-        {/* 首页 */}
+        {/* Home entry ｜ 首页入口 */}
         <Link href="/" className={Modules["link-button"]}>
           <div
             className={`${Modules.title} ${isActive("/") ? Modules.active : ""}`}
@@ -49,7 +55,7 @@ export default function Navbar({ labels, locale }: NavbarProps) {
           </div>
         </Link>
 
-        {/* 文稿 */}
+        {/* Posts hub ｜ 文稿入口 */}
         <Link href="/posts" className={Modules["link-button"]}>
           <div
             className={`${Modules.title} ${isStartWith("/posts") ? Modules.active : ""}`}
@@ -63,7 +69,7 @@ export default function Navbar({ labels, locale }: NavbarProps) {
           </div>
         </Link>
 
-        {/* 时间轴 */}
+        {/* Timeline section ｜ 时间轴入口 */}
         <Link href="/timeline" className={Modules["link-button"]}>
           <div
             className={`${Modules.title} ${isStartWith("/timeline") ? Modules.active : ""}`}
@@ -77,7 +83,7 @@ export default function Navbar({ labels, locale }: NavbarProps) {
           </div>
         </Link>
 
-        {/* 留言 */}
+        {/* Guestbook section ｜ 留言入口 */}
         <Link href="/messages" className={Modules["link-button"]}>
           <div
             className={`${Modules.title} ${isActive("/messages") ? Modules.active : ""}`}
@@ -91,7 +97,7 @@ export default function Navbar({ labels, locale }: NavbarProps) {
           </div>
         </Link>
 
-        {/* 更多 */}
+        {/* More menu ｜ 更多入口 */}
         <Link href="/more" className={Modules["link-button"]}>
           <div
             className={`${Modules.title} ${isStartWith("/more") ? Modules.active : ""}`}
