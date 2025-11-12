@@ -3,7 +3,8 @@
  * 客户端样式共用的基础 Stylelint 规则集。
  */
 /** @type {import('stylelint').Config} */
-export default StylelintConfig = {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
   extends: ["stylelint-config-standard-scss"],
   plugins: ["stylelint-order"],
   rules: {
