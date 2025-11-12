@@ -25,3 +25,19 @@
     animation-delay: #{0.05 * $i}s;
   }
 }
+
+.profile {
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
+  margin-left: 10.875rem;
+  width: 50%;
+}
+
+.headline {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
+  margin-right: 10.875rem;
+  width: 50%;
+  max-height: 300px;
+}

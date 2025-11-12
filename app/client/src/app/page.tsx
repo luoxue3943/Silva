@@ -1,6 +1,7 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { SilvaConfig } from "@/lib/config-loader";
 import Modules from "@/styles/home.module.scss";
+import Image from "next/image";
 
 export default async function Home() {
   // Resolve the active locale for this request ｜ 获取当前请求的语言环境
@@ -36,37 +37,50 @@ export default async function Home() {
 
   return (
     <main>
-      {/* Hero headline block ｜ 首页主标题区块 */}
-      <h1 className="text-4xl">
-        {(() => {
-          // Prepare localized tokens for the hero ｜ 拆解主标题所需的本地化片段
-          const welcome = t("welcome"); // Localized "welcome" copy ｜ “欢迎”文案
-          const owner = siteOwnerName; // Site owner display name ｜ 站点所有者名字
-          const totalLength = (welcome + owner).length; // Combined character length ｜ 字符数量(Welcome, + 站点所有者名称)
+      <div className="flex">
+        <div className={`${Modules.profile}`}>
+          <Image
+            src="/profile.jpg"
+            alt="Profile Picture"
+            className="rounded-full"
+            width={300}
+            height={300}
+          ></Image>
+        </div>
+        {/* Hero headline block ｜ 首页主标题区块 */}
+        <div className={`${Modules.headline} h-fit text-4xl`}>
+          <div className="h-fit">
+            {(() => {
+              // Prepare localized tokens for the hero ｜ 拆解主标题所需的本地化片段
+              const welcome = t("welcome"); // Localized "welcome" copy ｜ “欢迎”文案
+              const owner = siteOwnerName; // Site owner display name ｜ 站点所有者名字
+              const totalLength = (welcome + owner).length; // Combined character length ｜ 字符数量(Welcome, + 站点所有者名称)
 
-          return (
-            <>
-              {/* "Welcome" lettering ｜ “欢迎”文案 */}
-              {splitToSpans(welcome)}
+              return (
+                <>
+                  {/* "Welcome" lettering ｜ “欢迎”文案 */}
+                  {splitToSpans(welcome)}
 
-              {/* Site owner text ｜ 网站所有者名字 */}
-              <span className="inline px-3 font-bold">
-                {splitToSpans(owner, "", welcome.length)}
-              </span>
+                  {/* Site owner text ｜ 网站所有者名字 */}
+                  <span className="inline px-3 font-bold">
+                    {splitToSpans(owner, "", welcome.length)}
+                  </span>
 
-              {/* Emoji and punctuation ｜ 表情与句号 */}
-              {["👋", "."].map((char, i) => (
-                <span
-                  key={char}
-                  className={`${Modules["pop-up"]} ${Modules["delay-" + (totalLength + i)]}`}
-                >
-                  {char}
-                </span>
-              ))}
-            </>
-          );
-        })()}
-      </h1>
+                  {/* Emoji and punctuation ｜ 表情与句号 */}
+                  {["👋", "."].map((char, i) => (
+                    <span
+                      key={char}
+                      className={`${Modules["pop-up"]} ${Modules["delay-" + (totalLength + i)]}`}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </>
+              );
+            })()}
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
