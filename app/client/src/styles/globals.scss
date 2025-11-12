@@ -1,12 +1,15 @@
+@use "./variables" as var;
+
 .root {
   min-height: 160vh;
   color: rgb(255 255 255);
-  background-color: rgb(33 33 33);
+  background-color: var.$background-color;
 }
 
 body {
   margin: 0;
   padding: 0;
+  background-color: var.$background-color;
 }
 
 header {
