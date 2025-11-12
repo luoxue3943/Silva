@@ -2,5 +2,5 @@
 # ⚙️ Configuration files
 # -------------------------------------
 
-# sensitive configuration file
-app/config/SilvaConfig.yaml
+# sensitive configuration file | 敏感配置文件
+config/SilvaConfig.yaml

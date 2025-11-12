@@ -7,7 +7,7 @@ import { parse } from "yaml";
  */
 export function loadSilvaConfig() {
   try {
-    const configPath = "../config/SilvaConfig.yaml";
+    const configPath = "../../config/SilvaConfig.yaml";
     const content = readFileSync(configPath, "utf-8");
     const config = parse(content);
 
