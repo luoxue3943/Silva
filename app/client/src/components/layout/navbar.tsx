@@ -1,117 +1,116 @@
-"use client";
-import { Link } from "next-view-transitions";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import Modules from "@/styles/navbar.module.scss";
-import LanguageSwitcher from "../i18n/language-switcher";
+import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { Link, useLocation } from "@builder.io/qwik-city";
+import Modules from "../../style/navbar.module.scss";
+import * as m from "~/paraglide/messages";
 
-interface NavbarProps {
-  labels: {
-    home: string;
-    posts: string;
-    timeline: string;
-    messages: string;
-    more: string;
-  };
-  locale: string;
-}
+export default component$(() => {
+  const loc = useLocation();
+  const isScrolled = useSignal(false);
 
-/**
- * Primary navigation component that syncs active links and exposes a locale switcher.
- * 主导航组件，同步路由激活状态并提供语言切换入口。
- */
-export default function Navbar({ labels, locale }: NavbarProps) {
-  const pathname = usePathname();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isScrolled, setIsScrolled] = useState(false);
-  const isActive = (pName: string) => pathname === pName;
-  const isStartWith = (pName: string) => pathname.startsWith(pName);
+  const isActive = (pName: string) => loc.url.pathname === pName;
+  const isStartWith = (pName: string) => loc.url.pathname.startsWith(pName);
 
-  useEffect(() => {
-    // Toggle the active styling once the user scrolls beyond 20% viewport height ｜ 当滚动超过视口 20% 时切换导航样式
+  useVisibleTask$(() => {
     const scrollThreshold = window.innerHeight / 5;
-    const handleScroll = () => setIsScrolled(window.scrollY > scrollThreshold);
+
+    const handleScroll = () => {
+      isScrolled.value = window.scrollY > scrollThreshold;
+    };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   return (
-    <header>
-      <div className={Modules.navbar}>
-        {/* Home entry ｜ 首页入口 */}
-        <Link href="/" className={Modules["link-button"]}>
+    <nav>
+      <div class={Modules.navbar}>
+        <Link href="/" class={Modules["link-button"]}>
           <div
-            className={`${Modules.title} ${isActive("/") ? Modules.active : ""}`}
+            class={`${Modules.title} ${isActive("/") ? Modules.active : ""}`}
           >
             <span
-              className={`${Modules["nav-icon"]} icon-[mynaui--home] ${isActive("/") ? "" : "hidden"}`}
+              class={`${Modules["nav-icon"]} icon-[mynaui--home] ${
+                isActive("/") ? "" : "hidden"
+              }`}
             />
-            <span className={Modules["nav-text"]} data-page="home">
-              {labels.home}
+            <span class={Modules["nav-text"]} data-page="home">
+              {m["Navbar.home"]()}
             </span>
           </div>
         </Link>
 
-        {/* Posts hub ｜ 文稿入口 */}
-        <Link href="/posts" className={Modules["link-button"]}>
+        <Link href="/posts" class={Modules["link-button"]}>
           <div
-            className={`${Modules.title} ${isStartWith("/posts") ? Modules.active : ""}`}
+            class={`${Modules.title} ${
+              isStartWith("/posts") ? Modules.active : ""
+            }`}
           >
             <span
-              className={`${Modules["nav-icon"]} icon-[mynaui--file-text] ${isStartWith("/posts") ? "" : "hidden"}`}
+              class={`${Modules["nav-icon"]} icon-[mynaui--file-text] ${
+                isStartWith("/posts") ? "" : "hidden"
+              }`}
             />
-            <span className={Modules["nav-text"]} data-page="posts">
-              {labels.posts}
+            <span class={Modules["nav-text"]} data-page="posts">
+              {m["Navbar.posts"]()}
             </span>
           </div>
         </Link>
 
-        {/* Timeline section ｜ 时间轴入口 */}
-        <Link href="/timeline" className={Modules["link-button"]}>
+        <Link href="/timeline" class={Modules["link-button"]}>
           <div
-            className={`${Modules.title} ${isStartWith("/timeline") ? Modules.active : ""}`}
+            class={`${Modules.title} ${
+              isStartWith("/timeline") ? Modules.active : ""
+            }`}
           >
             <span
-              className={`${Modules["nav-icon"]} icon-[meteor-icons--clock-rotate] ${isStartWith("/timeline") ? "" : "hidden"}`}
+              class={`${Modules["nav-icon"]} icon-[meteor-icons--clock-rotate] ${
+                isStartWith("/timeline") ? "" : "hidden"
+              }`}
             />
-            <span className={Modules["nav-text"]} data-page="timeline">
-              {labels.timeline}
+            <span class={Modules["nav-text"]} data-page="timeline">
+              {m["Navbar.timeline"]()}
             </span>
           </div>
         </Link>
 
-        {/* Guestbook section ｜ 留言入口 */}
-        <Link href="/messages" className={Modules["link-button"]}>
+        <Link href="/messages" class={Modules["link-button"]}>
           <div
-            className={`${Modules.title} ${isActive("/messages") ? Modules.active : ""}`}
+            class={`${Modules.title} ${
+              isActive("/messages") ? Modules.active : ""
+            }`}
           >
             <span
-              className={`${Modules["nav-icon"]} icon-[mynaui--message-dots] ${isActive("/messages") ? "" : "hidden"}`}
+              class={`${Modules["nav-icon"]} icon-[mynaui--message-dots] ${
+                isActive("/messages") ? "" : "hidden"
+              }`}
             />
-            <span className={Modules["nav-text"]} data-page="messages">
-              {labels.messages}
+            <span class={Modules["nav-text"]} data-page="messages">
+              {m["Navbar.messages"]()}
             </span>
           </div>
         </Link>
 
-        {/* More menu ｜ 更多入口 */}
-        <Link href="/more" className={Modules["link-button"]}>
+        <Link href="/more" class={Modules["link-button"]}>
           <div
-            className={`${Modules.title} ${isStartWith("/more") ? Modules.active : ""}`}
+            class={`${Modules.title} ${
+              isStartWith("/more") ? Modules.active : ""
+            }`}
           >
             <span
-              className={`${Modules["nav-icon"]} icon-[mynaui--dots-circle] ${isStartWith("/more") ? "" : "hidden"}`}
+              class={`${Modules["nav-icon"]} icon-[mynaui--dots-circle] ${
+                isStartWith("/more") ? "" : "hidden"
+              }`}
             />
-            <span className={Modules["nav-text"]} data-page="more">
-              {labels.more}
+            <span class={Modules["nav-text"]} data-page="more">
+              {m["Navbar.more"]()}
             </span>
           </div>
         </Link>
       </div>
-      <LanguageSwitcher locale={locale} />
-    </header>
+    </nav>
   );
-}
+});

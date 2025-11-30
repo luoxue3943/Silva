@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+html.transition {
+  view-transition-name: root;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}

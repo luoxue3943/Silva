@@ -1,9 +1,4 @@
-/**
- * Base Stylelint ruleset shared by the client styles.
- * 客户端样式共用的基础 Stylelint 规则集。
- */
-/** @type {import('stylelint').Config} */
-// eslint-disable-next-line import/no-anonymous-default-export
+/** @type {import("stylelint").Config} */
 export default {
   extends: ["stylelint-config-standard-scss"],
   plugins: ["stylelint-order"],

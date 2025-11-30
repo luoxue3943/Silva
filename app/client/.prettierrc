@@ -1,12 +1,7 @@
 {
   "plugins": ["prettier-plugin-tailwindcss"],
-  "overrides": [
-    {
-      "files": ".hintrc",
-      "options": { "trailingComma": "none" }
-    }
-  ],
-  "eslintIntegration": true,
+  "semi": true,
+  "tabWidth": 2,
   "bracketSpacing": true,
   "useTabs": false
 }

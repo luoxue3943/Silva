@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect, useRef } from "react";
+import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
 
 interface ParticlesProps {
@@ -100,25 +99,26 @@ const fragment = /* glsl */ `
   }
 `;
 
-const Particles: React.FC<ParticlesProps> = ({
-  particleCount = 200,
-  particleSpread = 10,
-  speed = 0.0375,
-  particleColors,
-  moveParticlesOnHover = false,
-  particleHoverFactor = 1,
-  alphaParticles = false,
-  particleBaseSize = 100,
-  sizeRandomness = 1,
-  cameraDistance = 20,
-  disableRotation = false,
-  className,
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+const Particles = component$<ParticlesProps>((props) => {
+  const {
+    particleCount = 200,
+    particleSpread = 10,
+    speed = 0.0375,
+    particleColors,
+    moveParticlesOnHover = false,
+    particleHoverFactor = 1,
+    alphaParticles = false,
+    particleBaseSize = 100,
+    sizeRandomness = 1,
+    cameraDistance = 20,
+    disableRotation = false,
+    className,
+  } = props;
 
-  useEffect(() => {
-    const container = containerRef.current;
+  const containerRef = useSignal<HTMLDivElement>();
+
+  useVisibleTask$(({ cleanup }) => {
+    const container = containerRef.value;
     if (!container) return;
 
     const renderer = new Renderer({ depth: false, alpha: true });
@@ -138,11 +138,13 @@ const Particles: React.FC<ParticlesProps> = ({
     window.addEventListener("resize", resize, false);
     resize();
 
+    let mouse = { x: 0, y: 0 };
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      mouseRef.current = { x, y };
+      mouse = { x, y };
     };
 
     if (moveParticlesOnHover) {
@@ -211,8 +213,8 @@ const Particles: React.FC<ParticlesProps> = ({
       program.uniforms.uTime.value = elapsed * 0.001;
 
       if (moveParticlesOnHover) {
-        particles.position.x = -mouseRef.current.x * particleHoverFactor;
-        particles.position.y = -mouseRef.current.y * particleHoverFactor;
+        particles.position.x = -mouse.x * particleHoverFactor;
+        particles.position.y = -mouse.y * particleHoverFactor;
       } else {
         particles.position.x = 0;
         particles.position.y = 0;
@@ -229,7 +231,7 @@ const Particles: React.FC<ParticlesProps> = ({
 
     animationFrameId = requestAnimationFrame(update);
 
-    return () => {
+    cleanup(() => {
       window.removeEventListener("resize", resize);
       if (moveParticlesOnHover) {
         container.removeEventListener("mousemove", handleMouseMove);
@@ -238,24 +240,15 @@ const Particles: React.FC<ParticlesProps> = ({
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    particleCount,
-    particleSpread,
-    speed,
-    moveParticlesOnHover,
-    particleHoverFactor,
-    alphaParticles,
-    particleBaseSize,
-    sizeRandomness,
-    cameraDistance,
-    disableRotation,
-  ]);
+    });
+  });
 
   return (
-    <div ref={containerRef} className={`relative h-full w-full ${className}`} />
+    <div
+      ref={containerRef}
+      class={`relative h-full w-full ${className ? className : ""}`}
+    />
   );
-};
+});
 
 export default Particles;
