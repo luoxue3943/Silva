@@ -1,3 +1,16 @@
+/**
+ * SCSS 主题变量
+ * SCSS Theme Variables
+ *
+ * 定义全局使用的颜色变量
+ * Defines globally used color variables
+ */
+
+/* 主题色（青绿色）/ Theme color (cyan-green) */
 $theme-color: rgb(122.77 241.32 167.54);
+
+/* 选中/悬停色（浅青绿色）/ Selection/hover color (light cyan-green) */
 $select-color: rgb(151.95 242.01 185.07);
+
+/* 背景色（深灰色）/ Background color (dark gray) */
 $background-color: rgb(33 33 33);

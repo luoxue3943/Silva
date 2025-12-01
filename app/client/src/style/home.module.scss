@@ -1,55 +1,81 @@
+/**
+ * 首页模块样式
+ * Home Page Module Styles
+ *
+ * 包含首页的弹出动画、布局和图标样式
+ * Contains home page pop-up animations, layout and icon styles
+ */
+
+/* 弹出动画类 / Pop-up animation class */
 .pop-up {
   display: inline-block;
-  pointer-events: none;
+  pointer-events: none; /* 动画期间禁用交互 / Disable interaction during animation */
   animation: pop-up-translate 0.6s ease forwards;
-  animation-fill-mode: both;
-  will-change: transform, opacity;
+  animation-fill-mode: both; /* 应用动画开始和结束状态 / Apply animation start and end states */
+  will-change: transform, opacity; /* 性能优化提示 / Performance optimization hint */
 }
 
+/* 个人头像区域 / Profile avatar section */
 .profile {
-  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem); /* 垂直居中 / Vertical centering */
   width: 50%;
 }
 
+/* 标题文本区域 / Headline text section */
 .headline {
   gap: 1rem;
   display: grid;
-  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem); /* 垂直居中 / Vertical centering */
   width: 50%;
   height: fit-content;
   max-height: 300px;
 }
 
+/* 社交链接图标样式 / Social link icon styles */
 .icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 99px;
+  border-radius: 99px; /* 圆形 / Circular */
   width: 2.25rem;
   height: 2.25rem;
   color: white;
 }
 
+/**
+ * 动画延迟类生成器
+ * Animation delay class generator
+ *
+ * 为每个字符生成不同的延迟时间，实现逐字弹出效果
+ * Generates different delay times for each character to achieve character-by-character pop-up effect
+ */
 @for $i from 0 through 20 {
   .delay-#{$i} {
     animation-delay: #{0.1 * $i}s;
   }
 }
 
+/**
+ * 弹出平移动画
+ * Pop-up translate animation
+ *
+ * 从下方弹出，先向上超过目标位置，然后回落到最终位置
+ * Pops up from below, overshoots the target position, then settles to final position
+ */
 @keyframes pop-up-translate {
   0% {
-    transform: translateY(1em);
-    opacity: 0;
-    pointer-events: none;
+    transform: translateY(1em); /* 起始位置：下方 / Start position: below */
+    opacity: 0; /* 完全透明 / Fully transparent */
+    pointer-events: none; /* 禁用交互 / Disable interaction */
   }
 
   60% {
-    transform: translateY(-0.2em);
-    opacity: 1;
+    transform: translateY(-0.2em); /* 超过目标位置 / Overshoot target position */
+    opacity: 1; /* 完全不透明 / Fully opaque */
   }
 
   100% {
-    transform: translateY(0);
-    pointer-events: auto;
+    transform: translateY(0); /* 最终位置 / Final position */
+    pointer-events: auto; /* 启用交互 / Enable interaction */
   }
 }

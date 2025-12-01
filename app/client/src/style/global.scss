@@ -1,57 +1,80 @@
+/**
+ * 全局 SCSS 样式
+ * Global SCSS Styles
+ *
+ * 定义全局布局、基础样式和滚动条样式
+ * Defines global layout, base styles and scrollbar styles
+ */
+
+/* 导入主题变量 / Import theme variables */
 @use "./variables" as var;
 
+/* 页面主体样式 / Page body styles */
 body {
   margin: 0;
   padding: 0;
-  min-height: 160vh;
-  color: rgb(255 255 255);
-  background-color: var.$background-color;
+  min-height: 160vh; /* 最小高度（用于测试滚动）/ Minimum height (for testing scroll) */
+  color: rgb(255 255 255); /* 白色文本 / White text */
+  background-color: var.$background-color; /* 深色背景 / Dark background */
 }
 
+/* 页面头部（导航栏容器）/ Page header (navbar container) */
 header {
-  position: fixed;
+  position: fixed; /* 固定定位 / Fixed positioning */
   right: 0;
   left: 0;
-  z-index: 99;
+  z-index: 99; /* 确保在其他元素之上 / Ensure above other elements */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* 水平居中 / Horizontal centering */
+  align-items: center; /* 垂直居中 / Vertical centering */
   padding: 1rem 0;
 }
 
+/* 主内容区域 / Main content area */
 main {
   position: relative;
-  top: 4.35rem;
+  top: 4.35rem; /* 为固定头部留出空间 / Leave space for fixed header */
   right: 0;
   left: 0;
   width: 100%;
-  min-height: calc(100vh - 4.35rem);
+  min-height: calc(100vh - 4.35rem); /* 至少占满视口高度 / At least fill viewport height */
 }
 
+/* 背景层容器（粒子效果）/ Background layer container (particle effect) */
 .basics-background {
-  position: fixed;
-  inset: 0;
+  position: fixed; /* 固定定位 / Fixed positioning */
+  inset: 0; /* 填满整个视口 / Fill entire viewport */
 }
 
+/* 页面底部 / Page footer */
 footer {
   position: absolute;
   right: 0;
   left: 0;
 }
 
+/**
+ * 自定义滚动条样式
+ * Custom scrollbar styles
+ */
+
+/* Firefox 滚动条宽度 / Firefox scrollbar width */
 * {
   scrollbar-width: thin;
 }
 
+/* Webkit 浏览器滚动条轨道 / Webkit browser scrollbar track */
 *::-webkit-scrollbar {
-  width: 8px;
+  width: 8px; /* 滚动条宽度 / Scrollbar width */
 }
 
+/* Webkit 浏览器滚动条滑块 / Webkit browser scrollbar thumb */
 *::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgb(136 136 136);
+  border-radius: 4px; /* 圆角 / Rounded corners */
+  background-color: rgb(136 136 136); /* 灰色 / Gray */
 }
 
+/* Webkit 浏览器滚动条滑块悬停状态 / Webkit browser scrollbar thumb hover state */
 *::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(85 85 85);
+  background-color: rgb(85 85 85); /* 深灰色 / Dark gray */
 }

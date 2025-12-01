@@ -1,10 +1,57 @@
-# Customize this template, then rename it to `SilvaConfig.yaml` so the app picks it up.
-# 定制完成后务必将文件更名为 `SilvaConfig.yaml`，否则程序无法读取配置。
+# ============================================================================
+# Silva 配置文件示例
+# Silva Configuration File Example
+# ============================================================================
+# 使用说明 / Usage Instructions:
+# 1. 复制此文件并重命名为 `SilvaConfig.yaml` / Copy this file and rename to `SilvaConfig.yaml`
+# 2. 根据需要修改配置项 / Modify configuration items as needed
+# 3. 应用会自动读取 SilvaConfig.yaml 文件 / App will automatically read SilvaConfig.yaml
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# 网站信息配置
+# Site Information Configuration
+# ----------------------------------------------------------------------------
 site:
-  # Enter the display name for each language as needed. Unnecessary language keys can be removed. If only one language is used, keep only the “name” key.
-  # 按需填写多语言展示名称，不需要的语言键可以删除，如果只有一种语言的话只保留"name"即可
-  # Keep each name within three characters to avoid layout glitches on the navbar.
-  # 单个名字请控制在中文五个字符以内，防止导航栏排版错乱。
+  # 网站所有者名称（默认）/ Site owner name (default)
+  # 当没有匹配的语言特定名称时使用 / Used when no language-specific name matches
   name: "示例"
+
+  # 中文名称 / Chinese name
+  # 当用户语言为中文时显示 / Displayed when user language is Chinese
   name_zh: "示例"
+
+  # 英文名称 / English name
+  # 当用户语言为英文时显示 / Displayed when user language is English
   name_en: "example"
+
+  # 注意事项 / Notes:
+  # - 建议名称长度：中文 5 字符以内，英文 10 字符以内
+  #   Recommended length: Chinese within 5 chars, English within 10 chars
+  # - 如果只使用一种语言，只保留 name 即可
+  #   If using only one language, keep only "name"
+
+# ----------------------------------------------------------------------------
+# 社交链接配置
+# Social Links Configuration
+# ----------------------------------------------------------------------------
+links:
+  # GitHub 链接 / GitHub link
+  - type: "github"
+    url: "https://github.com/yourusername"
+
+  # Twitter/X 链接 / Twitter/X link
+  - type: "twitter"
+    url: "https://twitter.com/yourusername"
+
+  # 电子邮件 / Email
+  - type: "email"
+    url: "mailto:your@email.com"
+
+  # Telegram 链接 / Telegram link
+  - type: "telegram"
+    url: "https://t.me/yourusername"
+
+  # 注意事项 / Notes:
+  # - 支持的类型 / Supported types: github, twitter, email, telegram
+  # - 可以删除不需要的链接 / Can remove unwanted links
