@@ -1,6 +1,8 @@
 .pop-up {
   display: inline-block;
+  pointer-events: none;
   animation: pop-up-translate 0.6s ease forwards;
+  animation-fill-mode: both;
   will-change: transform, opacity;
 }
 
@@ -10,15 +12,27 @@
 }
 
 .headline {
-  display: flex;
+  gap: 1rem;
+  display: grid;
   margin-top: calc((100vh - 300px) / 2 - 4.35rem);
   width: 50%;
+  height: fit-content;
   max-height: 300px;
 }
 
-@for $i from 0 through 40 {
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: white;
+}
+
+@for $i from 0 through 20 {
   .delay-#{$i} {
-    animation-delay: #{0.05 * $i}s;
+    animation-delay: #{0.1 * $i}s;
   }
 }
 
@@ -26,6 +40,7 @@
   0% {
     transform: translateY(1em);
     opacity: 0;
+    pointer-events: none;
   }
 
   60% {
@@ -35,5 +50,6 @@
 
   100% {
     transform: translateY(0);
+    pointer-events: auto;
   }
 }

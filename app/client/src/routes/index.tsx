@@ -40,8 +40,8 @@ export default component$(() => {
           />
         </div>
 
-        <div class={`${Modules.headline} h-fit text-4xl`}>
-          <div class="ml-14 h-fit">
+        <div class={`${Modules.headline} text-4xl`}>
+          <div class="mx-auto h-fit">
             {splitToSpans(welcome)}
 
             <span class="inline px-3 font-bold">
@@ -58,6 +58,28 @@ export default component$(() => {
                 {char}
               </span>
             ))}
+          </div>
+          <div class="mx-auto flex h-fit w-fit gap-3.5 text-xl">
+            <div
+              class={`${Modules.icon} bg-black ${Modules["pop-up"]} ${Modules["delay-16"]}`}
+            >
+              <span class={`icon-[line-md--twitter-x]`} />
+            </div>
+            <div
+              class={`${Modules.icon} bg-black ${Modules["pop-up"]} ${Modules["delay-17"]}`}
+            >
+              <span class={`icon-[line-md--github]`} />
+            </div>
+            <div
+              class={`${Modules.icon} bg-[#EA4335] ${Modules["pop-up"]} ${Modules["delay-18"]}`}
+            >
+              <span class={`icon-[line-md--email]`} />
+            </div>
+            <div
+              class={`${Modules.icon} bg-[#0088CC] ${Modules["pop-up"]} ${Modules["delay-19"]}`}
+            >
+              <span class="icon-[line-md--telegram]" />
+            </div>
           </div>
         </div>
       </div>
