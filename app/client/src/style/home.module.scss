@@ -17,21 +17,26 @@
 
 /* 个人头像区域 / Profile avatar section */
 .profile {
-  margin-top: calc(
-    (100vh - 300px) / 2 - 4.35rem
-  ); /* 垂直居中 / Vertical centering */
-
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
   width: 50%;
+}
+
+/**
+ * 欢迎信息
+ * Welcome message
+ */
+.welcome {
+  display: flex;
+  margin: 0 auto;
+  width: fit-content;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* 标题文本区域 / Headline text section */
 .headline {
-  gap: 1rem;
   display: grid;
-  margin-top: calc(
-    (100vh - 300px) / 2 - 4.35rem
-  ); /* 垂直居中 / Vertical centering */
-
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
   width: 50%;
   height: fit-content;
   max-height: 300px;
@@ -66,7 +71,7 @@
  * 为每个字符生成不同的延迟时间，实现逐字弹出效果
  * Generates different delay times for each character to achieve character-by-character pop-up effect
  */
-@for $i from 0 through 20 {
+@for $i from 0 through 70 {
   .delay-#{$i} {
     animation-delay: #{0.1 * $i}s;
   }

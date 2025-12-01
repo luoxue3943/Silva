@@ -16,7 +16,6 @@ import Modules from "../style/home.module.scss";
 export default component$(() => {
   // 获取当前语言环境 / Get current locale
   const locale = getLocale();
-
   // 提取语言代码/ Extract language code
   const langCode = locale.split("-")[0];
 
@@ -39,16 +38,14 @@ export default component$(() => {
         key={i}
         class={`${Modules["pop-up"]} ${Modules["delay-" + (i + delay)]} ${className}`}
       >
-        {char}
+        {/* 将空格替换为不间断空格以保持文本完整性 / Replace spaces with non-breaking spaces to maintain text integrity */}
+        {char === " " ? "\u00A0" : char}
       </span>
     ));
 
   // 欢迎文本和所有者名称 / Welcome text and owner name
   const welcome = m["HomePage.welcome"]();
   const owner = siteOwnerName;
-
-  // 计算总字符长度，用于后续图标的动画延迟 / Calculate total character length for icon animation delay
-  const totalLength = (welcome + owner).length;
 
   return (
     <>
@@ -67,70 +64,82 @@ export default component$(() => {
 
         {/* 右侧：欢迎信息和社交链接 / Right: Welcome message and social links */}
         <div class={`${Modules.headline} text-4xl`}>
-          {/* 欢迎文本区域 / Welcome text section */}
-          <div class="mx-auto h-fit">
-            {/* 欢迎语（带逐字动画）/ Welcome message (with character-by-character animation) */}
-            {splitToSpans(welcome)}
+          <div class={Modules.welcome}>
+            {/* 欢迎文本区域 / Welcome text section */}
+            <div class="h-fit">
+              {/* 欢迎语（带逐字动画）/ Welcome message (with character-by-character animation) */}
+              {splitToSpans(welcome)}
 
-            {/* 所有者名称/ Owner name */}
-            <span class="inline px-3 font-bold">
-              {splitToSpans(owner, "", welcome.length)}
-            </span>
-
-            {/* 结尾符号（挥手和句号）/ Ending symbols (wave and period) */}
-            {["👋", "."].map((char, i) => (
-              <span
-                key={char}
-                class={`${Modules["pop-up"]} ${
-                  Modules["delay-" + (totalLength + i)]
-                }`}
-              >
-                {char}
+              {/* 所有者名称/ Owner name */}
+              <span class="inline px-3 font-bold">
+                {splitToSpans(owner, "", welcome.length)}
               </span>
-            ))}
-          </div>
 
-          {/* 社交链接图标区域 / Social links icon section */}
-          <div class="mx-auto flex h-fit w-fit gap-3.5 text-xl">
-            {SilvaConfig.links?.map((link: any, i: number) => {
-              // 图标配置映射表 / Icon configuration mapping
-              const iconConfig: Record<string, { icon: string; bg: string }> = {
-                github: {
-                  icon: "icon-[line-md--github]",
-                  bg: "bg-black",
-                },
-                twitter: {
-                  icon: "icon-[line-md--twitter-x]",
-                  bg: "bg-black",
-                },
-                email: {
-                  icon: "icon-[line-md--email]",
-                  bg: "bg-[#EA4335]",
-                },
-                telegram: {
-                  icon: "icon-[line-md--telegram]",
-                  bg: "bg-[#0088CC]",
-                },
-              };
-
-              // 获取当前链接类型的配置 / Get configuration for current link type
-              const config = iconConfig[link.type];
-              if (!config) return null;
-
-              return (
-                <a
-                  key={i}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class={`${Modules["icon-link"]} ${config.bg} ${Modules["pop-up"]} ${
-                    Modules["delay-" + (totalLength + i)]
+              {/* 结尾符号（挥手和句号）/ Ending symbols (wave and period) */}
+              {["👋", "."].map((char, i) => (
+                <span
+                  key={char}
+                  class={`${Modules["pop-up"]} ${
+                    Modules["delay-" + ((welcome + owner).length + i)]
                   }`}
                 >
-                  <span class={`${config.icon} ${Modules.icon}`} />
-                </a>
-              );
-            })}
+                  {char}
+                </span>
+              ))}
+            </div>
+
+            {/* 社交链接图标区域 / Social links icon section */}
+            <div class="flex h-fit w-fit gap-3.5 text-xl">
+              {SilvaConfig.links?.map((link: any, i: number) => {
+                // 图标配置映射表 / Icon configuration mapping
+                const iconConfig: Record<string, { icon: string; bg: string }> =
+                  {
+                    github: {
+                      icon: "icon-[line-md--github]",
+                      bg: "bg-black",
+                    },
+                    twitter: {
+                      icon: "icon-[line-md--twitter-x]",
+                      bg: "bg-black",
+                    },
+                    email: {
+                      icon: "icon-[line-md--email]",
+                      bg: "bg-[#EA4335]",
+                    },
+                    telegram: {
+                      icon: "icon-[line-md--telegram]",
+                      bg: "bg-[#0088CC]",
+                    },
+                  };
+
+                // 获取当前链接类型的配置 / Get configuration for current link type
+                const config = iconConfig[link.type];
+                if (!config) return null;
+
+                return (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={`${Modules["icon-link"]} ${config.bg} ${Modules["pop-up"]} ${
+                      Modules["delay-" + ((welcome + owner).length + 2 + i)]
+                    }`}
+                  >
+                    <span class={`${config.icon} ${Modules.icon}`} />
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* 座右铭文本区域 / Motto text section */}
+            <div class="text-sm text-[#a7afbe]">
+              {splitToSpans(
+                SilvaConfig.site.motto,
+                "",
+                (welcome + owner).length + SilvaConfig.links.length + 2,
+              )}
+            </div>
           </div>
         </div>
       </div>
