@@ -123,11 +123,11 @@ export default component$(() => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class={`${Modules.icon} ${config.bg} ${Modules["pop-up"]} ${
+                  class={`${Modules["icon-link"]} ${config.bg} ${Modules["pop-up"]} ${
                     Modules["delay-" + (totalLength + i)]
                   }`}
                 >
-                  <span class={config.icon} />
+                  <span class={`${config.icon} ${Modules.icon}`} />
                 </a>
               );
             })}

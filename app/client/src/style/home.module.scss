@@ -9,15 +9,18 @@
 /* 弹出动画类 / Pop-up animation class */
 .pop-up {
   display: inline-block;
-  pointer-events: none; /* 动画期间禁用交互 / Disable interaction during animation */
+  pointer-events: none;
   animation: pop-up-translate 0.6s ease forwards;
-  animation-fill-mode: both; /* 应用动画开始和结束状态 / Apply animation start and end states */
-  will-change: transform, opacity; /* 性能优化提示 / Performance optimization hint */
+  animation-fill-mode: both;
+  will-change: transform, opacity;
 }
 
 /* 个人头像区域 / Profile avatar section */
 .profile {
-  margin-top: calc((100vh - 300px) / 2 - 4.35rem); /* 垂直居中 / Vertical centering */
+  margin-top: calc(
+    (100vh - 300px) / 2 - 4.35rem
+  ); /* 垂直居中 / Vertical centering */
+
   width: 50%;
 }
 
@@ -25,18 +28,32 @@
 .headline {
   gap: 1rem;
   display: grid;
-  margin-top: calc((100vh - 300px) / 2 - 4.35rem); /* 垂直居中 / Vertical centering */
+  margin-top: calc(
+    (100vh - 300px) / 2 - 4.35rem
+  ); /* 垂直居中 / Vertical centering */
+
   width: 50%;
   height: fit-content;
   max-height: 300px;
 }
 
-/* 社交链接图标样式 / Social link icon styles */
+/* 图标基础样式 / Icon base styles */
 .icon {
+  display: inline-block;
+  transition: transform 0.18s ease-out;
+}
+
+/* 图标悬停缩放效果 / Icon hover scale effect */
+.icon-link:hover .icon {
+  transform: scale(1.2);
+}
+
+/* 图标容器样式 / Social link icon styles */
+.icon-link {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 99px; /* 圆形 / Circular */
+  border-radius: 99px;
   width: 2.25rem;
   height: 2.25rem;
   color: white;
@@ -64,18 +81,18 @@
  */
 @keyframes pop-up-translate {
   0% {
-    transform: translateY(1em); /* 起始位置：下方 / Start position: below */
-    opacity: 0; /* 完全透明 / Fully transparent */
-    pointer-events: none; /* 禁用交互 / Disable interaction */
+    transform: translateY(1em);
+    opacity: 0;
+    pointer-events: none;
   }
 
   60% {
-    transform: translateY(-0.2em); /* 超过目标位置 / Overshoot target position */
-    opacity: 1; /* 完全不透明 / Fully opaque */
+    transform: translateY(-0.2em);
+    opacity: 1;
   }
 
   100% {
-    transform: translateY(0); /* 最终位置 / Final position */
-    pointer-events: auto; /* 启用交互 / Enable interaction */
+    transform: translateY(0);
+    pointer-events: auto;
   }
 }
