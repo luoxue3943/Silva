@@ -8,3 +8,20 @@ html.transition {
 ::view-transition-new(root) {
   animation-duration: 0.3s;
 }
+
+@font-face {
+  font-family: "ChillRoundM";
+  src: url("/fonts/ChillRoundM.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-family:
+    "ChillRoundM",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
