@@ -1,5 +1,5 @@
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
-import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
+import { Camera, Geometry, Mesh, Program, Renderer } from "ogl";
 
 interface ParticlesProps {
   particleCount?: number;
@@ -117,6 +117,7 @@ const Particles = component$<ParticlesProps>((props) => {
 
   const containerRef = useSignal<HTMLDivElement>();
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ cleanup }) => {
     const container = containerRef.value;
     if (!container) return;

@@ -1,9 +1,9 @@
 import { component$ } from "@builder.io/qwik";
-import { SilvaConfig } from "../lib/config-loader";
-import Modules from "../style/home.module.scss";
+import { DocumentHead } from "@builder.io/qwik-city";
 import * as m from "~/paraglide/messages";
 import { getLocale } from "~/paraglide/runtime";
-import { DocumentHead } from "@builder.io/qwik-city";
+import { SilvaConfig } from "../lib/config-loader";
+import Modules from "../style/home.module.scss";
 
 export default component$(() => {
   const locale = getLocale();

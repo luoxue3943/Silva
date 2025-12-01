@@ -1,11 +1,10 @@
 import js from "@eslint/js";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
+import { qwikEslint9Plugin } from "eslint-plugin-qwik";
+import reactHooks from "eslint-plugin-react-hooks";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
-import { globalIgnores } from "eslint/config";
-import { qwikEslint9Plugin } from "eslint-plugin-qwik";
-import { defineConfig } from "eslint/config";
-import reactHooks from "eslint-plugin-react-hooks";
 
 const ignores = [
   "**/*.log",

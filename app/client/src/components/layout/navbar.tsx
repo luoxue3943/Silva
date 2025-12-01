@@ -1,7 +1,14 @@
-import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  isBrowser,
+  useOnWindow,
+  useSignal,
+  useTask$,
+} from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
-import Modules from "../../style/navbar.module.scss";
 import * as m from "~/paraglide/messages";
+import Modules from "../../style/navbar.module.scss";
 
 export default component$(() => {
   const loc = useLocation();
@@ -10,19 +17,18 @@ export default component$(() => {
   const isActive = (pName: string) => loc.url.pathname === pName;
   const isStartWith = (pName: string) => loc.url.pathname.startsWith(pName);
 
-  useVisibleTask$(() => {
-    const scrollThreshold = window.innerHeight / 5;
-
-    const handleScroll = () => {
+  useOnWindow(
+    "scroll",
+    $(() => {
+      const scrollThreshold = window.innerHeight / 5;
       isScrolled.value = window.scrollY > scrollThreshold;
-    };
+    }),
+  );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+  useTask$(() => {
+    if (!isBrowser) return;
+    const scrollThreshold = window.innerHeight / 5;
+    isScrolled.value = window.scrollY > scrollThreshold;
   });
 
   return (
