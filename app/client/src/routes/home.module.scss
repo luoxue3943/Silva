@@ -15,10 +15,22 @@
   will-change: transform, opacity;
 }
 
+/* 页面容器布局 / Page container layout */
+.container {
+  display: flex;
+}
+
 /* 个人头像区域 / Profile avatar section */
 .profile {
   margin-top: calc((100vh - 300px) / 2 - 4.35rem);
   width: 50%;
+}
+
+/* 头像样式 / Avatar styles */
+.avatar {
+  display: block;
+  margin: 0 auto;
+  border-radius: 9999px;
 }
 
 /**
@@ -40,6 +52,8 @@
   width: 50%;
   height: fit-content;
   max-height: 300px;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 /* 图标基础样式 / Icon base styles */
@@ -62,6 +76,60 @@
   width: 2.25rem;
   height: 2.25rem;
   color: white;
+}
+
+/* 社交链接容器 / Social links container */
+.social-links {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  font-size: 1.25rem;
+  gap: 0.875rem;
+  line-height: 1.75rem;
+}
+
+/* 社交图标背景 / Social icon backgrounds */
+.bg-github {
+  background-color: #000000;
+}
+
+.bg-twitter {
+  background-color: #000000;
+}
+
+.bg-email {
+  background-color: #ea4335;
+}
+
+.bg-telegram {
+  background-color: #0088cc;
+}
+
+/* 所有者名称样式 / Owner name styles */
+.owner-name {
+  display: inline-block;
+  padding-inline: 0.75rem;
+}
+
+/* 座右铭样式 / Motto styles */
+.motto {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #a7afbe;
+}
+
+/* 滚动提示图标 / Scroll indicator icon */
+.scroll-indicator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: inline-block;
+  margin: 0 auto;
+  width: fit-content;
+  font-size: 1.25rem;
+  animation: indicator-bounce 1s infinite;
 }
 
 /**
@@ -99,5 +167,22 @@
   100% {
     transform: translateY(0);
     pointer-events: auto;
+  }
+}
+
+/**
+ * 向下提示弹跳动画
+ * Downward hint bounce animation
+ */
+@keyframes indicator-bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }

@@ -1,4 +1,4 @@
-import { paraglideVitePlugin } from '@inlang/paraglide-js'
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 /**
  * This is the base config for vite.
  * When building, the adapter config is used which loads this file and extends it.
@@ -9,6 +9,7 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 import tailwindcss from "@tailwindcss/vite";
+import path from "node:path";
 type PkgDep = Record<string, string>;
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: PkgDep;
@@ -28,6 +29,12 @@ export default defineConfig(({ command, mode }): UserConfig => {
       tsconfigPaths({ root: "." }),
       tailwindcss(),
     ],
+    resolve: {
+      alias: {
+        // 统一使用 @ 指向 src 目录 / Use @ to point to src directory
+        "@": path.resolve(__dirname, "src"),
+      },
+    },
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.

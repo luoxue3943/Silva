@@ -15,7 +15,7 @@ import {
   useTask$,
 } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
-import * as m from "~/paraglide/messages";
+import * as m from "@/paraglide/messages";
 import Modules from "./navbar.module.scss";
 
 export default component$(() => {

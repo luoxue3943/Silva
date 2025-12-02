@@ -6,8 +6,7 @@
  * Contains navbar container, link buttons and view transition animation styles
  */
 
-/* 导入主题变量 / Import theme variables */
-@use "../../../variables" as var;
+@use "@/variables" as var;
 
 /* 导航栏容器 / Navigation bar container */
 .navbar {

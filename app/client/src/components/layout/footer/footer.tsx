@@ -4,7 +4,7 @@
  * 展示站点统计信息、版权与备案信息
  */
 import { component$ } from "@builder.io/qwik";
-import { SilvaConfig } from "~/lib/config-loader";
+import { SilvaConfig } from "@/lib/config-loader";
 import Modules from "./footer.module.scss";
 
 export default component$(() => {

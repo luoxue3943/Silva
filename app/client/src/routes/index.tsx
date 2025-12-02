@@ -8,8 +8,8 @@
 
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead } from "@builder.io/qwik-city";
-import * as m from "~/paraglide/messages";
-import { getLocale } from "~/paraglide/runtime";
+import * as m from "@/paraglide/messages";
+import { getLocale } from "@/paraglide/runtime";
 import { SilvaConfig } from "../lib/config-loader";
 import Modules from "./home.module.scss";
 
@@ -49,13 +49,13 @@ export default component$(() => {
 
   return (
     <>
-      <div class="flex">
+      <div class={Modules.container}>
         {/* 左侧：个人头像区域 / Left: Profile avatar section */}
         <div class={Modules.profile}>
           <img
             src="profile.jpg"
             alt="Profile Picture"
-            class="m-auto rounded-full"
+            class={Modules.avatar}
             width={300}
             height={300}
             loading="lazy"
@@ -63,7 +63,7 @@ export default component$(() => {
         </div>
 
         {/* 右侧：欢迎信息和社交链接 / Right: Welcome message and social links */}
-        <div class={`${Modules.headline} text-4xl`}>
+        <div class={Modules.headline}>
           <div class={Modules.welcome}>
             {/* 欢迎文本区域 / Welcome text section */}
             <div class="h-fit">
@@ -71,7 +71,7 @@ export default component$(() => {
               {splitToSpans(welcome)}
 
               {/* 所有者名称/ Owner name */}
-              <span class="inline px-3 font-bold">
+              <span class={`${Modules["owner-name"]} font-bold`}>
                 {splitToSpans(owner, "", welcome.length)}
               </span>
 
@@ -89,28 +89,30 @@ export default component$(() => {
             </div>
 
             {/* 社交链接图标区域 / Social links icon section */}
-            <div class="flex h-fit w-fit gap-3.5 text-xl">
+            <div class={Modules["social-links"]}>
               {SilvaConfig.links?.map((link: any, i: number) => {
                 // 图标配置映射表 / Icon configuration mapping
-                const iconConfig: Record<string, { icon: string; bg: string }> =
-                  {
-                    github: {
-                      icon: "icon-[line-md--github]",
-                      bg: "bg-black",
-                    },
-                    twitter: {
-                      icon: "icon-[line-md--twitter-x]",
-                      bg: "bg-black",
-                    },
-                    email: {
-                      icon: "icon-[line-md--email]",
-                      bg: "bg-[#EA4335]",
-                    },
-                    telegram: {
-                      icon: "icon-[line-md--telegram]",
-                      bg: "bg-[#0088CC]",
-                    },
-                  };
+                const iconConfig: Record<
+                  string,
+                  { icon: string; bgClass: string }
+                > = {
+                  github: {
+                    icon: "icon-[line-md--github]",
+                    bgClass: Modules["bg-github"],
+                  },
+                  twitter: {
+                    icon: "icon-[line-md--twitter-x]",
+                    bgClass: Modules["bg-twitter"],
+                  },
+                  email: {
+                    icon: "icon-[line-md--email]",
+                    bgClass: Modules["bg-email"],
+                  },
+                  telegram: {
+                    icon: "icon-[line-md--telegram]",
+                    bgClass: Modules["bg-telegram"],
+                  },
+                };
 
                 // 获取当前链接类型的配置 / Get configuration for current link type
                 const config = iconConfig[link.type];
@@ -122,7 +124,7 @@ export default component$(() => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class={`${Modules["icon-link"]} ${config.bg} ${Modules["pop-up"]} ${
+                    class={`${Modules["icon-link"]} ${config.bgClass} ${Modules["pop-up"]} ${
                       Modules["delay-" + ((welcome + owner).length + 2 + i)]
                     }`}
                   >
@@ -133,7 +135,7 @@ export default component$(() => {
             </div>
 
             {/* 座右铭文本区域 / Motto text section */}
-            <div class="text-sm text-[#a7afbe]">
+            <div class={Modules.motto}>
               {splitToSpans(
                 SilvaConfig.site.motto,
                 "",
@@ -146,7 +148,7 @@ export default component$(() => {
 
       {/* 向下箭头图标 / Downward arrow icon */}
       <span
-        class={`icon-[line-md--chevron-small-down] absolute right-0 bottom-0 left-0 mx-auto animate-bounce text-xl`}
+        class={`icon-[line-md--chevron-small-down] ${Modules["scroll-indicator"]}`}
       />
     </>
   );
