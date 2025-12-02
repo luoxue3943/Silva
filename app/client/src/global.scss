@@ -11,6 +11,7 @@
 
 /* 页面主体样式 / Page body styles */
 body {
+  position: relative;
   margin: 0;
   padding: 0;
   min-height: 160vh;
@@ -49,8 +50,8 @@ main {
 /* 页面底部 / Page footer */
 footer {
   position: absolute;
-  right: 0;
-  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 /**

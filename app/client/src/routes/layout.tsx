@@ -7,8 +7,9 @@
  */
 
 import { component$, Slot } from "@builder.io/qwik";
-import ParticlesBackground from "../components/ReactBits/particles";
-import Navbar from "../components/layout/navbar/navbar";
+import ParticlesBackground from "~/components/ReactBits/particles";
+import Footer from "~/components/layout/footer/footer";
+import Navbar from "~/components/layout/navbar/navbar";
 
 export default component$(() => {
   return (
@@ -37,6 +38,11 @@ export default component$(() => {
       <main>
         <Slot />
       </main>
+
+      {/* 页面底部：页脚信息 / Page footer: footer information */}
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 });

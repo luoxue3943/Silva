@@ -1,0 +1,71 @@
+/**
+ * 页脚模块样式 / Footer module styles
+ */
+
+@use "../../../variables" as var;
+
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 2.25rem 1rem 2.75rem;
+  color: #c4c7d0;
+  background: transparent;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  color: #b9becb;
+}
+
+.highlight {
+  font-weight: 600;
+  color: var.$theme-color;
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: #d9dce2;
+}
+
+.filings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+
+  a {
+    text-decoration: none;
+    color: #b9becb;
+    transition: color 0.25s ease;
+
+    @media (width >= 1024px) {
+      &:hover {
+        color: var.$select-color;
+      }
+    }
+  }
+}
+
+@media (width <= 640px) {
+  .footer {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .container {
+    font-size: 0.9rem;
+  }
+}
