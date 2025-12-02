@@ -4,10 +4,10 @@
  * 为所有页面提供统一的背景、导航栏与内容区块结构
  * Provides unified background, navbar, and content structure for every page
  */
-import { component$, Slot } from "@builder.io/qwik";
 import ParticlesBackground from "@/components/ReactBits/particles";
 import Footer from "@/components/layout/footer/footer";
 import Navbar from "@/components/layout/navbar/navbar";
+import { component$, Slot } from "@builder.io/qwik";
 
 export default component$(() => {
   return (

@@ -4,10 +4,10 @@
  * 展示网站主页，包括欢迎信息、头像和社交链接
  * Displays the homepage with a welcome message, avatar, and social links
  */
-import { component$ } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
 import * as m from "@/paraglide/messages";
 import { getLocale } from "@/paraglide/runtime";
+import { component$ } from "@builder.io/qwik";
+import { DocumentHead } from "@builder.io/qwik-city";
 import { SilvaConfig } from "../lib/config-loader";
 import Modules from "./home.module.scss";
 
@@ -146,7 +146,7 @@ export default component$(() => {
 
       {/* 向下箭头图标 / Downward arrow icon */}
       <span
-        class={`icon-[line-md--chevron-small-down] ${Modules["scroll-indicator"]}`}
+        class={`icon-[line-md--chevron-small-down] animate-bounce text-xl ${Modules["scroll-indicator"]}`}
       />
     </>
   );

@@ -123,13 +123,9 @@
 .scroll-indicator {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 5px;
   left: 0;
-  display: inline-block;
   margin: 0 auto;
-  width: fit-content;
-  font-size: 1.25rem;
-  animation: indicator-bounce 1s infinite;
 }
 
 /**
