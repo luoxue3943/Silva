@@ -9,10 +9,7 @@
 
 /* 导航容器与滚动毛玻璃效果 / Nav wrapper with scroll glassmorphism */
 .nav {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
+  padding: 1rem 0;
   width: 100%;
   transition:
     background-color 0.3s ease,
@@ -22,6 +19,14 @@
     background-color: rgb(26 26 26 / 60%);
     backdrop-filter: blur(1rem);
   }
+}
+
+/* 导航外层容器（定位语言切换）/ Nav outer container (positions locale switcher) */
+.nav-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 /* 导航栏容器（保持描边与阴影）/ Navbar container (keeps stroke and shadow before scroll) */
