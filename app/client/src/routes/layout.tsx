@@ -8,7 +8,7 @@
 
 import { component$, Slot } from "@builder.io/qwik";
 import ParticlesBackground from "../components/ReactBits/particles";
-import Navbar from "../components/layout/navbar";
+import Navbar from "../components/layout/navbar/navbar";
 
 export default component$(() => {
   return (

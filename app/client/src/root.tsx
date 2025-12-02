@@ -11,8 +11,8 @@ import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
 
 // 导入全局样式 / Import global styles
-import "./style/global.css";
-import "./style/global.scss";
+import "./global.css";
+import "./global.scss";
 
 export default component$(() => {
   return (

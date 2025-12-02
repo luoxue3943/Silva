@@ -11,7 +11,7 @@ import { DocumentHead } from "@builder.io/qwik-city";
 import * as m from "~/paraglide/messages";
 import { getLocale } from "~/paraglide/runtime";
 import { SilvaConfig } from "../lib/config-loader";
-import Modules from "../style/home.module.scss";
+import Modules from "./home.module.scss";
 
 export default component$(() => {
   // 获取当前语言环境 / Get current locale

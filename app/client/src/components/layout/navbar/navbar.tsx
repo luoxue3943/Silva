@@ -16,7 +16,7 @@ import {
 } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
 import * as m from "~/paraglide/messages";
-import Modules from "../../style/navbar.module.scss";
+import Modules from "./navbar.module.scss";
 
 export default component$(() => {
   // 获取当前路由位置 / Get current route location
