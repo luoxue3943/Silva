@@ -1,7 +1,10 @@
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 /**
- * This is the base config for vite.
- * When building, the adapter config is used which loads this file and extends it.
+ * Vite 基础配置
+ * Base config for Vite.
+ *
+ * 构建时会由适配器配置加载并扩展本文件
+ * Adapter configs load and extend this file during builds
  */
 import { defineConfig, type UserConfig } from "vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
@@ -18,7 +21,8 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
 };
 errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 /**
- * Note that Vite normally starts from `index.html` but the qwikCity plugin makes start at `src/entry.ssr.tsx` instead.
+ * 默认入口是 `index.html`，但 qwikCity 插件会改为 `src/entry.ssr.tsx`
+ * Vite would normally start from `index.html`, but qwikCity switches it to `src/entry.ssr.tsx`
  */
 
 export default defineConfig(({ command, mode }): UserConfig => {
@@ -35,14 +39,15 @@ export default defineConfig(({ command, mode }): UserConfig => {
         "@": path.resolve(__dirname, "src"),
       },
     },
-    // This tells Vite which dependencies to pre-build in dev mode.
+    // 指定开发模式下需要预构建的依赖 / Tell Vite which deps to pre-bundle in dev
     optimizeDeps: {
-      // Put problematic deps that break bundling here, mostly those with binaries.
-      // For example ['better-sqlite3'] if you use that in server functions.
+      // 将可能影响打包的依赖放这里，通常是带原生二进制的库
+      // Place problematic/binary-heavy deps here, e.g., ['better-sqlite3']
       exclude: [],
     },
     /**
-     * This is an advanced setting. It improves the bundling of your server code. To use it, make sure you understand when your consumed packages are dependencies or dev dependencies. (otherwise things will break in production)
+     * 高级设置：优化服务端代码的打包
+     * Advanced: improves server bundling—only use if deps/devDeps 分界清晰 (avoid prod breakage)
      */
     // ssr:
     //   command === "build" && mode === "production"
@@ -59,13 +64,13 @@ export default defineConfig(({ command, mode }): UserConfig => {
     //     : undefined,
     server: {
       headers: {
-        // Don't cache the server response in dev mode
+        // 开发模式不缓存响应 / Avoid caching responses in dev
         "Cache-Control": "public, max-age=0",
       },
     },
     preview: {
       headers: {
-        // Do cache the server response in preview (non-adapter production build)
+        // 预览环境适度缓存响应 / Cache responses moderately in preview
         "Cache-Control": "public, max-age=600",
       },
     },
@@ -73,37 +78,36 @@ export default defineConfig(({ command, mode }): UserConfig => {
 });
 // *** utils ***
 /**
- * Function to identify duplicate dependencies and throw an error
- * @param {Object} devDependencies - List of development dependencies
- * @param {Object} dependencies - List of production dependencies
+ * 检测重复依赖并抛出错误
+ * Identify duplicated dependencies and throw an error
+ *
+ * @param {Object} devDependencies 开发依赖列表 / Development dependencies
+ * @param {Object} dependencies 生产依赖列表 / Production dependencies
  */
 function errorOnDuplicatesPkgDeps(
   devDependencies: PkgDep,
   dependencies: PkgDep,
 ) {
   let msg = "";
-  // Create an array 'duplicateDeps' by filtering devDependencies.
-  // If a dependency also exists in dependencies, it is considered a duplicate.
+  // 找出同时存在于 devDependencies 与 dependencies 的包 / Find deps present in both sections
   const duplicateDeps = Object.keys(devDependencies).filter(
     (dep) => dependencies[dep],
   );
-  // include any known qwik packages
+  // 捕获需移动到 devDependencies 的 Qwik 相关包 / Capture Qwik packages that belong in devDependencies
   const qwikPkg = Object.keys(dependencies).filter((value) =>
     /qwik/i.test(value),
   );
-  // any errors for missing "qwik-city-plan"
-  // [PLUGIN_ERROR]: Invalid module "@qwik-city-plan" is not a valid package
+  // 捕获缺少 "qwik-city-plan" 时的错误信息 / Guard against missing "qwik-city-plan" resolution errors
   msg = `Move qwik packages ${qwikPkg.join(", ")} to devDependencies`;
   if (qwikPkg.length > 0) {
     throw new Error(msg);
   }
-  // Format the error message with the duplicates list.
-  // The `join` function is used to represent the elements of the 'duplicateDeps' array as a comma-separated string.
+  // 拼接重复依赖的错误提示 / Compose error message for duplicated deps
   msg = `
     Warning: The dependency "${duplicateDeps.join(", ")}" is listed in both "devDependencies" and "dependencies".
     Please move the duplicated dependencies to "devDependencies" only and remove it from "dependencies"
   `;
-  // Throw an error with the constructed message.
+  // 如存在重复则抛错 / Throw when duplicates are present
   if (duplicateDeps.length > 0) {
     throw new Error(msg);
   }

@@ -1,11 +1,9 @@
 /**
- * 应用根组件
- * Application Root Component
+ * 应用根组件 / Application Root Component
  *
- * 应用的最顶层组件，提供 Qwik City 上下文和基础 HTML 结构
- * Top-level component of the application, provides Qwik City context and basic HTML structure
+ * 提供 Qwik City 上下文和基础 HTML 结构，作为所有页面的宿主
+ * Provides Qwik City context and the base HTML scaffold as the host for every page
  */
-
 import { component$, isDev } from "@builder.io/qwik";
 import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
@@ -33,7 +31,7 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body>
-        {/* 路由出口（渲染当前路由的页面）/ Router outlet (renders current route's page) */}
+        {/* 路由出口（渲染当前路由的页面）/ Router outlet (renders the current route page) */}
         <RouterOutlet />
       </body>
     </QwikCityProvider>

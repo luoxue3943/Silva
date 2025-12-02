@@ -1,11 +1,10 @@
 /**
  * Silva 配置加载器
- * Silva Configuration Loader
+ * Silva configuration loader
  *
- * 负责从 YAML 文件加载网站配置信息
- * Responsible for loading website configuration from YAML file
+ * 负责从 YAML 文件加载网站配置信息，供全局引用
+ * Loads website configuration from YAML for global consumption
  */
-
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
 
@@ -14,7 +13,7 @@ import { parse } from "yaml";
  * Load Silva configuration file
  *
  * @returns 解析后的配置对象 / Parsed configuration object
- * @throws 如果配置文件不存在或解析失败 / If config file doesn't exist or parsing fails
+ * @throws 如果配置文件不存在或解析失败 / If the config file is missing or fails to parse
  */
 export function loadSilvaConfig() {
   try {
@@ -27,7 +26,7 @@ export function loadSilvaConfig() {
     // 解析 YAML 格式 / Parse YAML format
     const config = parse(content);
 
-    console.debug(`✓ Loaded SilvaConfig from ${configPath}`);
+    console.debug(`Loaded SilvaConfig from ${configPath}`);
     return config;
   } catch (error) {
     console.error("Failed to load SilvaConfig:", error);
@@ -39,7 +38,7 @@ export function loadSilvaConfig() {
  * 全局配置实例
  * Global configuration instance
  *
- * 在应用启动时加载一次，供全局使用
- * Loaded once at application startup for global use
+ * 在应用启动时加载一次并复用，以避免重复
+ * Loaded once at app start to avoid repeated
  */
 export const SilvaConfig = loadSilvaConfig();

@@ -1,11 +1,10 @@
 /**
- * 导航栏组件
- * Navigation Bar Component
+ * 导航栏组件 / Navigation Bar Component
  *
  * 提供网站主导航功能，包括页面链接、活跃状态指示和滚动检测
- * Provides main navigation functionality including page links, active state indication and scroll detection
+ * Provides primary site navigation with link highlighting and scroll detection
  */
-
+import * as m from "@/paraglide/messages";
 import {
   $,
   component$,
@@ -15,7 +14,6 @@ import {
   useTask$,
 } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
-import * as m from "@/paraglide/messages";
 import Modules from "./navbar.module.scss";
 
 export default component$(() => {
@@ -35,7 +33,7 @@ export default component$(() => {
   const isActive = (pName: string) => loc.url.pathname === pName;
 
   /**
-   * 检查路径是否以指定前缀开始
+   * 检查路径是否以指定前缀开头
    * Check if path starts with specified prefix
    *
    * @param pName 路径前缀 / Path prefix
@@ -48,7 +46,7 @@ export default component$(() => {
    * Listen to window scroll event
    *
    * 当滚动超过屏幕高度的 1/5 时更新状态
-   * Update state when scroll exceeds 1/5 of screen height
+   * Update state when scroll exceeds 1/5 of the viewport height
    */
   useOnWindow(
     "scroll",

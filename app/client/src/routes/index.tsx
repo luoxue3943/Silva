@@ -1,11 +1,9 @@
 /**
- * 首页组件
- * Home Page Component
+ * 首页组件 / Home Page Component
  *
  * 展示网站主页，包括欢迎信息、头像和社交链接
- * Displays the website homepage with welcome message, avatar and social links
+ * Displays the homepage with a welcome message, avatar, and social links
  */
-
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead } from "@builder.io/qwik-city";
 import * as m from "@/paraglide/messages";
@@ -16,10 +14,10 @@ import Modules from "./home.module.scss";
 export default component$(() => {
   // 获取当前语言环境 / Get current locale
   const locale = getLocale();
-  // 提取语言代码/ Extract language code
+  // 提取语言代码 / Extract language code
   const langCode = locale.split("-")[0];
 
-  // 根据语言获取网站所有者名称 / Get site owner name based on language
+  // 根据语言获取网站所有者名称 / Get site owner name based on locale
   const siteOwnerName =
     SilvaConfig.site[`name_${langCode}`] ?? SilvaConfig.site.name;
 
@@ -38,7 +36,7 @@ export default component$(() => {
         key={i}
         class={`${Modules["pop-up"]} ${Modules["delay-" + (i + delay)]} ${className}`}
       >
-        {/* 将空格替换为不间断空格以保持文本完整性 / Replace spaces with non-breaking spaces to maintain text integrity */}
+        {/* 将空格替换为不间断空格以保持文本完整性 / Replace spaces with non-breaking spaces to keep text intact */}
         {char === " " ? "\u00A0" : char}
       </span>
     ));
@@ -67,10 +65,10 @@ export default component$(() => {
           <div class={Modules.welcome}>
             {/* 欢迎文本区域 / Welcome text section */}
             <div class="h-fit">
-              {/* 欢迎语（带逐字动画）/ Welcome message (with character-by-character animation) */}
+              {/* 欢迎语（带逐字动画）/ Welcome message (character-by-character animation) */}
               {splitToSpans(welcome)}
 
-              {/* 所有者名称/ Owner name */}
+              {/* 所有者名称 / Owner name */}
               <span class={`${Modules["owner-name"]} font-bold`}>
                 {splitToSpans(owner, "", welcome.length)}
               </span>
@@ -91,7 +89,7 @@ export default component$(() => {
             {/* 社交链接图标区域 / Social links icon section */}
             <div class={Modules["social-links"]}>
               {SilvaConfig.links?.map((link: any, i: number) => {
-                // 图标配置映射表 / Icon configuration mapping
+                // 图标配置映射 / Icon configuration mapping
                 const iconConfig: Record<
                   string,
                   { icon: string; bgClass: string }
@@ -155,10 +153,9 @@ export default component$(() => {
 });
 
 /**
- * 页面头部元数据
- * Page head metadata
+ * 页面头部元数据 / Page head metadata
  *
- * 定义页面标题和 SEO 相关的 meta 标签
+ * 定义页面标题及 SEO 相关 meta 标签
  * Defines page title and SEO-related meta tags
  */
 export const head: DocumentHead = {

@@ -2,13 +2,14 @@
  * 页脚组件 / Footer Component
  *
  * 展示站点统计信息、版权与备案信息
+ * Displays site stats, copyright, and filing info
  */
-import { component$ } from "@builder.io/qwik";
 import { SilvaConfig } from "@/lib/config-loader";
+import { component$ } from "@builder.io/qwik";
 import Modules from "./footer.module.scss";
 
 export default component$(() => {
-  // 统计数据可从配置扩展，当前使用占位数据 / Stats can be extended via config, currently using placeholders
+  // 统计数据可从配置扩展，当前使用占位数据 / Stats can be extended via config; placeholders for now
   const stats =
     SilvaConfig.analytics ??
     ({
@@ -40,7 +41,8 @@ export default component$(() => {
             人，
           </span>
           <span>
-            总在线 <span class={Modules.highlight}>{stats.onlineUsers}</span> 人
+            总在线人数
+            <span class={Modules.highlight}>{stats.onlineUsers}</span> 人
           </span>
         </div>
 
