@@ -26,6 +26,8 @@
     "@builder.io/qwik": "^1.17.2",
     "@builder.io/qwik-city": "^1.17.2",
     "@eslint/js": "latest",
+    "@iconify/json": "^2.2.413",
+    "@iconify/tailwind4": "^1.2.0",
     "@inlang/paraglide-js": "2.5.0",
     "@tailwindcss/vite": "^4.1.4",
     "@types/node": "20.19.0",
