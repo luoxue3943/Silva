@@ -170,6 +170,12 @@ export default component$(() => {
           </div>
         </Link>
       </div>
+      {/* 语言切换入口 / Locale switch entry */}
+      <div class={Modules["locale-switcher"]}>
+        <div class={Modules["locale-icon-wrapper"]}>
+          <span class={`icon-[mynaui--globe] ${Modules["locale-icon"]}`} />
+        </div>
+      </div>
     </nav>
   );
 });

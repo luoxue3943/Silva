@@ -1,9 +1,7 @@
 /**
- * SCSS 主题变量
- * SCSS Theme Variables
+ * SCSS 主题变量 / SCSS Theme Variables
  *
- * 定义全局使用的颜色变量
- * Defines globally used color variables
+ * 定义全局使用的颜色变量 / Defines globally used color variables.
  */
 
 /* 主题色（青绿色）/ Theme color (cyan-green) */
@@ -14,3 +12,12 @@ $select-color: rgb(151.95 242.01 185.07);
 
 /* 背景色（深灰色）/ Background color (dark gray) */
 $background-color: rgb(33 33 33);
+
+/* 玻璃描边色（浅灰透明）/ Glass stroke color (light gray with alpha) */
+$glass-stroke-color: rgb(92 92 92 / 36.1%);
+
+/* 玻璃背景色（深灰高不透明）/ Glass surface color (dark gray high opacity) */
+$glass-surface-color: rgb(26 26 26 / 94.1%);
+
+/* 玻璃内阴影色（浅灰透明）/ Glass inset shadow color (light gray with alpha) */
+$glass-inset-shadow: rgb(214 214 214 / 11.9%);
