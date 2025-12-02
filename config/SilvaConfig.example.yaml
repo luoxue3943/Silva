@@ -25,6 +25,10 @@ site:
   # 当用户语言为英文时显示 / Displayed when user language is English
   name_en: "example"
 
+  # 座右铭 / Motto
+  # 网站首页显示的简短描述 / A brief description displayed on the homepage
+  motto: "example motto goes here."
+
   # 注意事项 / Notes:
   # - 建议名称长度：中文 5 字符以内，英文 10 字符以内
   #   Recommended length: Chinese within 5 chars, English within 10 chars

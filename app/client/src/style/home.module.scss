@@ -73,7 +73,7 @@
  */
 @for $i from 0 through 70 {
   .delay-#{$i} {
-    animation-delay: #{0.1 * $i}s;
+    animation-delay: #{0.075 * $i}s;
   }
 }
 

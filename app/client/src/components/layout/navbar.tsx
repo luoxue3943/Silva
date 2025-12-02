@@ -84,7 +84,6 @@ export default component$(() => {
                 isActive("/") ? "" : "hidden"
               }`}
             />
-            {/* 导航文本 / Navigation text */}
             <span class={Modules["nav-text"]} data-page="home">
               {m["Navbar.home"]()}
             </span>
@@ -103,7 +102,6 @@ export default component$(() => {
                 isStartWith("/posts") ? "" : "hidden"
               }`}
             />
-            {/* 导航文本 / Navigation text */}
             <span class={Modules["nav-text"]} data-page="posts">
               {m["Navbar.posts"]()}
             </span>
@@ -122,7 +120,6 @@ export default component$(() => {
                 isStartWith("/timeline") ? "" : "hidden"
               }`}
             />
-            {/* 导航文本 / Navigation text */}
             <span class={Modules["nav-text"]} data-page="timeline">
               {m["Navbar.timeline"]()}
             </span>
@@ -141,7 +138,6 @@ export default component$(() => {
                 isActive("/messages") ? "" : "hidden"
               }`}
             />
-            {/* 导航文本 / Navigation text */}
             <span class={Modules["nav-text"]} data-page="messages">
               {m["Navbar.messages"]()}
             </span>
@@ -160,7 +156,6 @@ export default component$(() => {
                 isStartWith("/more") ? "" : "hidden"
               }`}
             />
-            {/* 导航文本 / Navigation text */}
             <span class={Modules["nav-text"]} data-page="more">
               {m["Navbar.more"]()}
             </span>

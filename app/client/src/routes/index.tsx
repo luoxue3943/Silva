@@ -143,6 +143,11 @@ export default component$(() => {
           </div>
         </div>
       </div>
+
+      {/* 向下箭头图标 / Downward arrow icon */}
+      <span
+        class={`icon-[line-md--chevron-small-down] absolute right-0 bottom-0 left-0 mx-auto animate-bounce text-xl`}
+      />
     </>
   );
 });
