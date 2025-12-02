@@ -22,6 +22,14 @@ export default component$(() => {
 
   // 滚动状态信号 / Scroll state signal
   const isScrolled = useSignal(false);
+  // 缓存导航文案，避免重新渲染时语言回退 / Cache nav labels to avoid locale fallback on rerender
+  const labels = useSignal({
+    home: m["Navbar.home"](),
+    posts: m["Navbar.posts"](),
+    timeline: m["Navbar.timeline"](),
+    messages: m["Navbar.messages"](),
+    more: m["Navbar.more"](),
+  });
 
   /**
    * 检查路径是否完全匹配
@@ -70,7 +78,9 @@ export default component$(() => {
   });
 
   return (
-    <nav>
+    <nav
+      class={`${Modules.nav} ${isScrolled.value ? Modules.scrolled : ""}`.trim()}
+    >
       <div class={Modules.navbar}>
         {/* 首页链接 / Home link */}
         <Link href="/" class={Modules["link-button"]}>
@@ -83,7 +93,7 @@ export default component$(() => {
               }`}
             />
             <span class={Modules["nav-text"]} data-page="home">
-              {m["Navbar.home"]()}
+              {labels.value.home}
             </span>
           </div>
         </Link>
@@ -101,7 +111,7 @@ export default component$(() => {
               }`}
             />
             <span class={Modules["nav-text"]} data-page="posts">
-              {m["Navbar.posts"]()}
+              {labels.value.posts}
             </span>
           </div>
         </Link>
@@ -119,7 +129,7 @@ export default component$(() => {
               }`}
             />
             <span class={Modules["nav-text"]} data-page="timeline">
-              {m["Navbar.timeline"]()}
+              {labels.value.timeline}
             </span>
           </div>
         </Link>
@@ -137,7 +147,7 @@ export default component$(() => {
               }`}
             />
             <span class={Modules["nav-text"]} data-page="messages">
-              {m["Navbar.messages"]()}
+              {labels.value.messages}
             </span>
           </div>
         </Link>
@@ -155,7 +165,7 @@ export default component$(() => {
               }`}
             />
             <span class={Modules["nav-text"]} data-page="more">
-              {m["Navbar.more"]()}
+              {labels.value.more}
             </span>
           </div>
         </Link>

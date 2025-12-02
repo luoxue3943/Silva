@@ -1,6 +1,5 @@
 /**
- * 导航栏模块样式
- * Navigation Bar Module Styles
+ * 导航栏模块样式 * Navigation Bar Module Styles
  *
  * 包含导航栏容器、链接按钮和视图过渡动画样式
  * Contains navbar container, link buttons and view transition animation styles
@@ -8,7 +7,23 @@
 
 @use "@/variables" as var;
 
-/* 导航栏容器 / Navigation bar container */
+/* 导航容器与滚动毛玻璃效果 / Nav wrapper with scroll glassmorphism */
+.nav {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  width: 100%;
+  transition:
+    background-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+
+  &.scrolled {
+    background-color: rgb(26 26 26 / 60%);
+    backdrop-filter: blur(1rem);
+  }
+}
+
+/* 导航栏容器（未滚动时保留描边与阴影）/ Navbar container (keeps stroke and shadow before scroll) */
 .navbar {
   display: flex;
   align-items: center;
@@ -20,6 +35,18 @@
   width: fit-content;
   background-color: rgb(26 26 26 / 94.1%);
   box-shadow: 0 -36px 33px -35px rgb(214 214 214 / 11.9%) inset;
+
+  /* 避免双层背景叠加的闪烁，背景即时切换，仅保留描边与阴影动画 / Avoid flicker from double backgrounds: snap bg, animate stroke/shadow */
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.nav.scrolled .navbar {
+  /* 滚动时隐藏描边与背景只保留毛玻璃 / Hide stroke/background on scroll, keep glass blur */
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 /* 导航链接按钮 / Navigation link button */
