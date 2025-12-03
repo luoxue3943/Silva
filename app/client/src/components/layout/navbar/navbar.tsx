@@ -1,8 +1,7 @@
 /**
  * 导航栏组件 / Navigation Bar Component
  *
- * 提供网站主导航功能，包括页面链接、高亮与滚动检测。
- * Provides primary site navigation with link highlighting and scroll detection.
+ * 提供网站主导航功能，包括页面链接、高亮与滚动检测。 / Provides primary site navigation with link highlighting and scroll detection.
  */
 import * as m from "@/paraglide/messages";
 import {
@@ -30,6 +29,11 @@ export default component$(() => {
     messages: m["Navbar.messages"](),
     more: m["Navbar.more"](),
   });
+  // 语言菜单状态信号 / Signals for locale menu state
+  const showLocaleMenu = useSignal(false);
+  const localeMenuClosing = useSignal(false);
+  const localeMenuTimer = useSignal<ReturnType<typeof setTimeout>>();
+  const localeSwitcherRef = useSignal<HTMLElement>();
 
   /**
    * 检查路径是否完全匹配 / Check if path matches exactly
@@ -70,6 +74,51 @@ export default component$(() => {
     const scrollThreshold = window.innerHeight / 5;
     isScrolled.value = window.scrollY > scrollThreshold;
   });
+
+  /**
+   * 设置语言菜单为全关并清理状态 / Fully close locale menu and reset flags
+   */
+  const finishLocaleClose = $(() => {
+    showLocaleMenu.value = false;
+    localeMenuClosing.value = false;
+    localeMenuTimer.value = undefined;
+  });
+
+  /**
+   * 控制语言菜单开启与关闭延时 / Toggle locale menu with delayed close
+   *
+   * @param nextOpen 是否打开菜单 / Whether to open the menu
+   */
+  const setLocaleMenu = $((nextOpen: boolean) => {
+    if (localeMenuTimer.value) clearTimeout(localeMenuTimer.value);
+    localeMenuTimer.value = undefined;
+
+    if (nextOpen) {
+      localeMenuClosing.value = false;
+      showLocaleMenu.value = true;
+      return;
+    }
+
+    if (!showLocaleMenu.value) return;
+    localeMenuClosing.value = true;
+    localeMenuTimer.value = setTimeout(() => finishLocaleClose(), 180);
+  });
+
+  // 点击窗口空白区域关闭菜单 / Close menu when clicking outside
+  useOnWindow(
+    "click",
+    $((event) => {
+      const target = event.target as HTMLElement | null;
+      if (
+        showLocaleMenu.value &&
+        localeSwitcherRef.value &&
+        target &&
+        !localeSwitcherRef.value.contains(target)
+      ) {
+        setLocaleMenu(false);
+      }
+    }),
+  );
 
   return (
     <nav
@@ -166,10 +215,26 @@ export default component$(() => {
           </Link>
         </div>
         {/* 语言切换入口 / Locale switch entry */}
-        <div class={Modules["locale-switcher"]}>
+        <div
+          class={Modules["locale-switcher"]}
+          onClick$={$(() => setLocaleMenu(!showLocaleMenu.value))}
+          ref={localeSwitcherRef}
+        >
           <div class={Modules["locale-icon-wrapper"]}>
             <span class={`icon-[mynaui--globe] ${Modules["locale-icon"]}`} />
           </div>
+          {showLocaleMenu.value && (
+            <div
+              class={`${Modules["locale-menu"]} ${localeMenuClosing.value ? Modules.closing : ""}`.trim()}
+            >
+              <button class={Modules["locale-option"]} type="button">
+                English
+              </button>
+              <button class={Modules["locale-option"]} type="button">
+                简体中文
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>
