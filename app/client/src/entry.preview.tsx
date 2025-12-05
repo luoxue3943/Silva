@@ -10,4 +10,4 @@ import qwikCityPlan from "@qwik-city-plan";
 import render from "./entry.ssr";
 
 // 创建 Qwik City 中间件实例 / Create Qwik City middleware instance
-export default createQwikCity({ render, qwikCityPlan });
+export default createQwikCity({ render: render, qwikCityPlan });

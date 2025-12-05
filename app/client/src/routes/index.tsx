@@ -7,7 +7,6 @@
 import * as m from "@/paraglide/messages";
 import { getLocale } from "@/paraglide/runtime";
 import { component$ } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
 import { SilvaConfig } from "../lib/config-loader";
 import Modules from "./home.module.scss";
 
@@ -151,19 +150,3 @@ export default component$(() => {
     </>
   );
 });
-
-/**
- * 页面头部元数据 / Page head metadata
- *
- * 定义页面标题及 SEO 相关 meta 标签
- * Defines page title and SEO-related meta tags
- */
-export const head: DocumentHead = {
-  title: "Welcome to Qwik",
-  meta: [
-    {
-      name: "description",
-      content: "Qwik site description",
-    },
-  ],
-};

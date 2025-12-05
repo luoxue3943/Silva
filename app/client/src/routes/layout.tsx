@@ -7,7 +7,9 @@
 import ParticlesBackground from "@/components/ReactBits/particles";
 import Footer from "@/components/layout/footer/footer";
 import Navbar from "@/components/layout/navbar/navbar";
+import { SilvaConfig } from "@/lib/config-loader";
 import { component$, Slot } from "@builder.io/qwik";
+import { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   return (
@@ -44,3 +46,86 @@ export default component$(() => {
     </>
   );
 });
+
+/**
+ * 全局默认 head / Global default head
+ */
+export const head: DocumentHead = {
+  title: SilvaConfig.seo.title,
+  meta: [
+    {
+      name: "description",
+      content: SilvaConfig.seo.description,
+    },
+    {
+      name: "author",
+      content: SilvaConfig.seo.author,
+    },
+    {
+      name: "theme-color",
+      content: SilvaConfig.seo.theme_color,
+    },
+    {
+      name: "application-name",
+      content: SilvaConfig.seo.site_name,
+    },
+
+    // Open Graph
+    {
+      property: "og:title",
+      content: SilvaConfig.seo.title,
+    },
+    {
+      property: "og:description",
+      content: SilvaConfig.seo.description,
+    },
+    {
+      property: "og:type",
+      content: SilvaConfig.seo.og.type,
+    },
+    {
+      property: "og:image",
+      content: SilvaConfig.seo.og.image,
+    },
+    {
+      property: "og:site_name",
+      content: SilvaConfig.seo.site_name,
+    },
+    {
+      property: "og:locale",
+      content: SilvaConfig.seo.locale,
+    },
+    {
+      property: "og:url",
+      content: SilvaConfig.seo.canonical,
+    },
+
+    // Twitter Card
+    {
+      name: "twitter:card",
+      content: SilvaConfig.seo.twitter.card,
+    },
+    {
+      name: "twitter:site",
+      content: SilvaConfig.seo.twitter.site,
+    },
+    {
+      name: "twitter:creator",
+      content: SilvaConfig.seo.twitter.creator,
+    },
+    {
+      name: "twitter:image",
+      content: SilvaConfig.seo.og.image,
+    },
+
+    //robots
+    {
+      name: "robots",
+      content: "index, follow",
+    },
+    {
+      name: "googlebot",
+      content: "index, follow",
+    },
+  ],
+};

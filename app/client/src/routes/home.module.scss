@@ -135,7 +135,7 @@
  * 为每个字符生成不同的延迟时间，实现逐字弹出效果
  * Generates different delay times for each character to achieve character-by-character pop-up effect
  */
-@for $i from 0 through 70 {
+@for $i from 0 through 100 {
   .delay-#{$i} {
     animation-delay: #{0.075 * $i}s;
   }

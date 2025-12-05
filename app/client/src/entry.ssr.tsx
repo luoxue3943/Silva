@@ -9,6 +9,7 @@ import { paraglideMiddleware } from "@/paraglide/server";
 import {
   renderToStream,
   type RenderToStreamOptions,
+  type RenderToStreamResult,
 } from "@builder.io/qwik/server";
 import Root from "./root";
 
@@ -20,12 +21,30 @@ import Root from "./root";
  * @returns 流式渲染结果 / Stream rendering result
  */
 export default function (opts: RenderToStreamOptions) {
-  // Qwik 将 Request 对象放在 qwikcity.ev.request 中
-  const request = opts.serverData?.qwikcity?.ev?.request;
+  // 从 serverData 中取出 Request / Retrieve Request from serverData
+  const request = opts.serverData?.qwikcity?.ev?.request as Request | undefined;
 
-  if (request) {
-    return paraglideMiddleware(request, ({ locale }) => {
-      return renderToStream(<Root />, {
+  // 如果没有 request（极少数环境 / 测试场景），退化为普通 Qwik SSR / Fallback to standard Qwik SSR when request is missing
+  if (!request) {
+    return renderToStream(<Root />, {
+      ...opts,
+      containerAttributes: {
+        lang: "en-us",
+        class: "transition",
+        ...opts.containerAttributes,
+      },
+      serverData: { ...opts.serverData },
+    });
+  }
+
+  // 用来接收 renderToStream 的结果，最终真正返回给 QwikCity / Stores render result to hand back to QwikCity
+  let result: RenderToStreamResult | undefined;
+
+  return paraglideMiddleware<RenderToStreamResult>(
+    request,
+    async ({ locale }) => {
+      // 在 Paraglide 的请求上下文里执行 Qwik 的 SSR / Run Qwik SSR within Paraglide request context
+      result = await renderToStream(<Root />, {
         ...opts,
         containerAttributes: {
           lang: locale === "zh" ? "zh-cn" : "en-us",
@@ -34,9 +53,17 @@ export default function (opts: RenderToStreamOptions) {
         },
         serverData: { ...opts.serverData },
       });
-    });
-  }
 
-  // 回退：没有请求对象时使用默认配置
-  return renderToStream(<Root />, opts);
+      // 返回值只用来满足 paraglideMiddleware<T> 的泛型 / Return value only satisfies paraglideMiddleware<T> type
+      return result;
+    },
+  ).then(() => {
+    if (!result) {
+      // 理论上只会在发生 redirect 等、resolve 没被调用时出现 / Should only occur on redirect-like flows where resolve is skipped
+      throw new Error("paraglideMiddleware did not produce a render result");
+    }
+
+    // 注意：传给 QwikCity 的是 RenderToStreamResult，而不是 Response / Return RenderToStreamResult (not a Response) to QwikCity
+    return result;
+  });
 }
