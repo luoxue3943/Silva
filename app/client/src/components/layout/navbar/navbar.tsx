@@ -4,6 +4,7 @@
  * 提供网站主导航功能，包括页面链接、高亮与滚动检测。 / Provides primary site navigation with link highlighting and scroll detection.
  */
 import * as m from "@/paraglide/messages";
+import { setLocale } from "@/paraglide/runtime";
 import {
   $,
   component$,
@@ -21,19 +22,16 @@ export default component$(() => {
 
   // 滚动状态信号 / Scroll state signal
   const isScrolled = useSignal(false);
-  // 缓存导航文案，避免重渲染时语言回退 / Cache nav labels to avoid locale fallback on rerender
-  const labels = useSignal({
-    home: m["Navbar.home"](),
-    posts: m["Navbar.posts"](),
-    timeline: m["Navbar.timeline"](),
-    messages: m["Navbar.messages"](),
-    more: m["Navbar.more"](),
-  });
+
   // 语言菜单状态信号 / Signals for locale menu state
   const showLocaleMenu = useSignal(false);
   const localeMenuClosing = useSignal(false);
   const localeMenuTimer = useSignal<ReturnType<typeof setTimeout>>();
   const localeSwitcherRef = useSignal<HTMLElement>();
+
+  const changeLocale = $((locale: "en" | "zh") => {
+    setLocale(locale);
+  });
 
   /**
    * 检查路径是否完全匹配 / Check if path matches exactly
@@ -137,7 +135,7 @@ export default component$(() => {
                 }`}
               />
               <span class={Modules["nav-text"]} data-page="home">
-                {labels.value.home}
+                {m["Navbar.home"]()}
               </span>
             </div>
           </Link>
@@ -155,7 +153,7 @@ export default component$(() => {
                 }`}
               />
               <span class={Modules["nav-text"]} data-page="posts">
-                {labels.value.posts}
+                {m["Navbar.posts"]()}
               </span>
             </div>
           </Link>
@@ -173,7 +171,7 @@ export default component$(() => {
                 }`}
               />
               <span class={Modules["nav-text"]} data-page="timeline">
-                {labels.value.timeline}
+                {m["Navbar.timeline"]()}
               </span>
             </div>
           </Link>
@@ -191,7 +189,7 @@ export default component$(() => {
                 }`}
               />
               <span class={Modules["nav-text"]} data-page="messages">
-                {labels.value.messages}
+                {m["Navbar.messages"]()}
               </span>
             </div>
           </Link>
@@ -209,7 +207,7 @@ export default component$(() => {
                 }`}
               />
               <span class={Modules["nav-text"]} data-page="more">
-                {labels.value.more}
+                {m["Navbar.more"]()}
               </span>
             </div>
           </Link>
@@ -227,10 +225,24 @@ export default component$(() => {
             <div
               class={`${Modules["locale-menu"]} ${localeMenuClosing.value ? Modules.closing : ""}`.trim()}
             >
-              <button class={Modules["locale-option"]} type="button">
+              <button
+                class={Modules["locale-option"]}
+                type="button"
+                onClick$={$((event) => {
+                  event.stopPropagation();
+                  changeLocale("en");
+                })}
+              >
                 English
               </button>
-              <button class={Modules["locale-option"]} type="button">
+              <button
+                class={Modules["locale-option"]}
+                type="button"
+                onClick$={$((event) => {
+                  event.stopPropagation();
+                  changeLocale("zh");
+                })}
+              >
                 简体中文
               </button>
             </div>

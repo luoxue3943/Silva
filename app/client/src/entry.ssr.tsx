@@ -5,6 +5,7 @@
  * 将应用渲染为可流式传输的 HTML，便于首屏性能优化
  * Renders the app as a streamable HTML response for better initial load performance
  */
+import { paraglideMiddleware } from "@/paraglide/server";
 import {
   renderToStream,
   type RenderToStreamOptions,
@@ -19,17 +20,23 @@ import Root from "./root";
  * @returns 流式渲染结果 / Stream rendering result
  */
 export default function (opts: RenderToStreamOptions) {
-  return renderToStream(<Root />, {
-    ...opts,
-    // 使用容器属性为 html 标签设置语言与类名 / Use container attributes to set html lang and classes
-    containerAttributes: {
-      lang: "zh-cn",
-      class: "transition",
-      ...opts.containerAttributes,
-    },
-    // 透传服务器数据，支持上层自定义扩展 / Pass through server data for upstream extensions
-    serverData: {
-      ...opts.serverData,
-    },
-  });
+  // Qwik 将 Request 对象放在 qwikcity.ev.request 中
+  const request = opts.serverData?.qwikcity?.ev?.request;
+
+  if (request) {
+    return paraglideMiddleware(request, ({ locale }) => {
+      return renderToStream(<Root />, {
+        ...opts,
+        containerAttributes: {
+          lang: locale === "zh" ? "zh-cn" : "en-us",
+          class: "transition",
+          ...opts.containerAttributes,
+        },
+        serverData: { ...opts.serverData },
+      });
+    });
+  }
+
+  // 回退：没有请求对象时使用默认配置
+  return renderToStream(<Root />, opts);
 }

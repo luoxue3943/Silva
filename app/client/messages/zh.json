@@ -1,7 +1,7 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "HomePage": {
-    "welcome": "Welcome,\u00A0这里是"
+    "welcome": "Welcome, 这里是"
   },
   "Navbar": {
     "home": "首页",
