@@ -59,3 +59,93 @@ links:
   # 注意事项 / Notes:
   # - 支持的类型 / Supported types: github, twitter, email, telegram
   # - 可以删除不需要的链接 / Can remove unwanted links
+
+# ----------------------------------------------------------------------------
+# 备案信息配置
+# Filing Information Configuration
+# ----------------------------------------------------------------------------
+filings:
+  # ICP 备案 / ICP Filing
+  - name: "京ICP备xxxxxxxx号"
+    url: "https://beian.miit.gov.cn/"
+
+  # 公安备案 / Public Security Filing
+  - name: "京公网安备xxxxxxxx号"
+    url: "http://www.beian.gov.cn/portal/registerSystemInfo"
+
+  # 注意事项 / Notes:
+  # - 如果不需要备案信息，可以删除整个 filings 部分
+  #   If filing info is not needed, remove the entire filings section
+  # - 可以添加多个备案信息 / Can add multiple filing entries
+  # - 将 xxxxxxxx 替换为实际的备案号 / Replace xxxxxxxx with actual filing number
+
+# ----------------------------------------------------------------------------
+# SEO 元数据配置
+# SEO Metadata Configuration
+# ----------------------------------------------------------------------------
+seo:
+  # 网站标题 / Site title
+  # 显示在浏览器标签页和搜索结果中 / Displayed in browser tab and search results
+  title: "示例网站标题"
+
+  # 网站名称 / Site name
+  # 用于 Open Graph 和其他社交媒体分享 / Used for Open Graph and social media sharing
+  site_name: "示例网站"
+
+  # 网站描述 / Site description
+  # 显示在搜索结果和社交媒体分享中 / Displayed in search results and social sharing
+  description: "这是一个示例网站描述，介绍网站的主要内容和特色。"
+
+  # 默认语言 / Default Language
+  # 网站的默认显示语言 / Default display language for the site
+  # 可选值 / Available values: zh-CN (简体中文), en-US (美式英语)
+  locale: "zh-CN"
+
+  # 规范链接 / Canonical URL
+  # 网站的主域名，用于 SEO / Main domain for SEO purposes
+  canonical: "https://example.com"
+
+  # 作者 / Author
+  # 网站内容的作者或所有者 / Content author or site owner
+  author: "示例作者"
+
+  # 主题色 / Theme color
+  # 浏览器地址栏和任务切换器中显示的颜色 / Color shown in browser address bar
+  # 格式：十六进制颜色代码 / Format: hex color code
+  theme_color: "#7bf1a8"
+
+  # Open Graph 配置 / Open Graph Configuration
+  # 用于社交媒体分享时的展示效果 / Used for social media sharing display
+  og:
+    # OG 标题 / OG title
+    # 社交媒体分享时显示的标题 / Title shown when shared on social media
+    title: "示例网站 - 副标题"
+
+    # OG 描述 / OG description
+    # 社交媒体分享时显示的描述 / Description shown when shared on social media
+    description: "这是社交媒体分享时显示的描述文本。"
+
+    # OG 类型 / OG type
+    # 常用值 / Common values: website, article, profile
+    type: "website"
+
+    # OG 分享图片 / OG share image
+    # ⚠️ 需要自行修改为实际图片 URL / Need to manually modify to actual image URL
+    # 图片建议尺寸：1200x630 像素 / Recommended image size: 1200x630 pixels
+    image: "https://example.com/og-image.jpg"
+
+  # Twitter Card 配置 / Twitter Card Configuration
+  # 用于 Twitter/X 平台的分享展示 / Used for Twitter/X sharing display
+  twitter:
+    # Twitter 网站账号 / Twitter site account
+    # 格式：@username / Format: @username
+    site: "@yourusername"
+
+    # Twitter 内容创作者账号 / Twitter creator account
+    # 格式：@username / Format: @username
+    creator: "@yourusername"
+
+    # Twitter 卡片类型 / Twitter card type
+    # ⚠️ 需要自行修改 / Need to manually modify
+    # 常用值 / Common values: summary, summary_large_image
+    card: "summary_large_image"
