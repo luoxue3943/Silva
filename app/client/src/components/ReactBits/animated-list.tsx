@@ -33,21 +33,24 @@ export const AnimatedItem = component$<AnimatedItemProps>(
     const ref = useSignal<HTMLDivElement>();
     const inView = useSignal(false);
 
-    useTask$(({ track, cleanup }) => {
-      const element = track(() => ref.value);
-      if (!element) return;
+    useTask$(
+      ({ track, cleanup }) => {
+        const element = track(() => ref.value);
+        if (!element) return;
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          inView.value = entry.isIntersecting;
-        },
-        { threshold: 0.5 },
-      );
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            inView.value = entry.isIntersecting;
+          },
+          { threshold: 0.5 },
+        );
 
-      observer.observe(element);
+        observer.observe(element);
 
-      cleanup(() => observer.disconnect());
-    }, { eagerness: "visible" });
+        cleanup(() => observer.disconnect());
+      },
+      { eagerness: "visible" },
+    );
 
     return (
       <div
@@ -203,7 +206,7 @@ export const AnimatedList = component$<AnimatedListProps<any>>(
           ref={listRef}
           class={`max-h-[400px] overflow-y-auto p-10 ${
             displayScrollbar
-              ? "[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-thumb]:rounded-[4px] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-track]:bg-[#060010]"
+              ? "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-track]:bg-[#060010]"
               : "scrollbar-hide"
           }`}
           onScroll$={handleScroll$}
@@ -235,11 +238,11 @@ export const AnimatedList = component$<AnimatedListProps<any>>(
         {showGradients && (
           <>
             <div
-              class="ease pointer-events-none absolute top-0 right-0 left-0 h-[50px] bg-gradient-to-b from-[#060010] to-transparent transition-opacity duration-300"
+              class="ease pointer-events-none absolute top-0 right-0 left-0 h-[50px] bg-linear-to-b from-[#060010] to-transparent transition-opacity duration-300"
               style={{ opacity: topGradientOpacity.value }}
             />
             <div
-              class="ease pointer-events-none absolute right-0 bottom-0 left-0 h-[100px] bg-gradient-to-t from-[#060010] to-transparent transition-opacity duration-300"
+              class="ease pointer-events-none absolute right-0 bottom-0 left-0 h-[100px] bg-linear-to-t from-[#060010] to-transparent transition-opacity duration-300"
               style={{ opacity: bottomGradientOpacity.value }}
             />
           </>
