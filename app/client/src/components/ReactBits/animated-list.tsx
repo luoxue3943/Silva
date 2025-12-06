@@ -4,7 +4,7 @@ import {
   Slot,
   useOnDocument,
   useSignal,
-  useVisibleTask$,
+  useTask$,
   type QRL,
 } from "@builder.io/qwik";
 
@@ -33,9 +33,9 @@ export const AnimatedItem = component$<AnimatedItemProps>(
     const ref = useSignal<HTMLDivElement>();
     const inView = useSignal(false);
 
-    useVisibleTask$(({ track, cleanup }) => {
-      track(() => ref.value);
-      if (!ref.value) return;
+    useTask$(({ track, cleanup }) => {
+      const element = track(() => ref.value);
+      if (!element) return;
 
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -44,10 +44,10 @@ export const AnimatedItem = component$<AnimatedItemProps>(
         { threshold: 0.5 },
       );
 
-      observer.observe(ref.value);
+      observer.observe(element);
 
       cleanup(() => observer.disconnect());
-    });
+    }, { eagerness: "visible" });
 
     return (
       <div
@@ -63,7 +63,7 @@ export const AnimatedItem = component$<AnimatedItemProps>(
         }}
       >
         <div
-          class={`rounded-lg bg-[#111] px-6 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#3d3d3d] flex items-center ${itemClassName}`}
+          class={`flex items-center rounded-lg bg-[#111] px-6 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#3d3d3d] ${itemClassName}`}
           style={{
             height: itemHeight,
           }}
@@ -160,16 +160,15 @@ export const AnimatedList = component$<AnimatedListProps<any>>(
     );
 
     // Auto-scroll to selected item
-    useVisibleTask$(({ track }) => {
-      track(() => selectedIndex.value);
-      track(() => keyboardNav.value);
+    useTask$(({ track }) => {
+      const currentIndex = track(() => selectedIndex.value);
+      const navActive = track(() => keyboardNav.value);
+      const container = track(() => listRef.value);
 
-      if (!keyboardNav.value || selectedIndex.value < 0 || !listRef.value)
-        return;
+      if (!navActive || currentIndex < 0 || !container) return;
 
-      const container = listRef.value;
       const selectedItem = container.querySelector(
-        `[data-index="${selectedIndex.value}"]`,
+        `[data-index="${currentIndex}"]`,
       ) as HTMLElement | null;
 
       if (selectedItem) {

@@ -11,12 +11,12 @@
 
 /* 页面主体样式 / Page body styles */
 body {
+  display: flex;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   color: rgb(255 255 255);
   background-color: var.$background-color;
-  display: flex;
   flex-direction: column;
 }
 
