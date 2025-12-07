@@ -66,7 +66,7 @@ export const AnimatedItem = component$<AnimatedItemProps>(
         }}
       >
         <div
-          class={`flex items-center rounded-lg bg-[#111] px-6 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#3d3d3d] ${itemClassName}`}
+          class={`flex items-center rounded-lg bg-[#111] px-6 transition-all duration-200 group-hover:scale-105 group-hover:bg-[#3d3d3d] ${itemClassName}`}
           style={{
             height: itemHeight,
           }}
