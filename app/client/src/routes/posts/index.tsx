@@ -1,4 +1,4 @@
-import { AnimatedList } from "@/components/ReactBits/animated-list";
+import { AnimatedList } from "@/components/ReactBits/animated-list/animated-list";
 import { $, component$ } from "@builder.io/qwik";
 import { routeLoader$, useNavigate } from "@builder.io/qwik-city";
 import Modules from "./posts.module.scss";

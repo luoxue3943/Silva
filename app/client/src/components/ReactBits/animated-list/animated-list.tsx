@@ -7,6 +7,7 @@ import {
   useTask$,
   type QRL,
 } from "@builder.io/qwik";
+import styles from "./animated-list.module.scss";
 
 interface AnimatedItemProps {
   index: number;
@@ -31,26 +32,6 @@ export const AnimatedItem = component$<AnimatedItemProps>(
     itemHeight,
   }) => {
     const ref = useSignal<HTMLDivElement>();
-    const inView = useSignal(false);
-
-    useTask$(
-      ({ track, cleanup }) => {
-        const element = track(() => ref.value);
-        if (!element) return;
-
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            inView.value = entry.isIntersecting;
-          },
-          { threshold: 0.5 },
-        );
-
-        observer.observe(element);
-
-        cleanup(() => observer.disconnect());
-      },
-      { eagerness: "visible" },
-    );
 
     return (
       <div
@@ -58,15 +39,13 @@ export const AnimatedItem = component$<AnimatedItemProps>(
         data-index={index}
         onMouseEnter$={() => onMouseEnter$ && onMouseEnter$(index)}
         onClick$={() => onClick$ && onClick$(index)}
-        class={`group my-2 cursor-pointer py-2 transition-all duration-200 ${className}`}
+        class={`${styles["animated-item"]} group my-2 cursor-pointer py-2 ${className}`}
         style={{
-          transform: inView.value ? "scale(1)" : "scale(0.7)",
-          opacity: inView.value ? 1 : 0,
-          transitionDelay: `${delay}s`,
+          animationDelay: `${delay}s`,
         }}
       >
         <div
-          class={`flex items-center rounded-lg bg-[#111] px-6 transition-all duration-200 group-hover:scale-105 group-hover:bg-[#3d3d3d] ${itemClassName}`}
+          class={`flex items-center rounded-lg bg-[#111] px-6 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#3d3d3d] ${itemClassName}`}
           style={{
             height: itemHeight,
           }}
