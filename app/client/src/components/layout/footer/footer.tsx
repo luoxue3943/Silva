@@ -5,6 +5,7 @@
  * Displays site stats, copyright, and filing info
  */
 import { SilvaConfig } from "@/lib/config-loader";
+import * as m from "@/paraglide/messages";
 import { component$ } from "@builder.io/qwik";
 import Modules from "./footer.module.scss";
 
@@ -33,16 +34,13 @@ export default component$(() => {
       <div class={Modules.container}>
         <div class={Modules.stats}>
           <span>
-            总访问量 <span class={Modules.highlight}>{stats.totalVisits}</span>{" "}
-            次，
+            {m["Stats.totalViews"]()} <span class={Modules.highlight}>{stats.totalVisits}</span>，
           </span>
           <span>
-            总访客数 <span class={Modules.highlight}>{stats.totalGuests}</span>{" "}
-            人，
+            {m["Stats.totalVisitors"]()} <span class={Modules.highlight}>{stats.totalGuests}</span>，
           </span>
           <span>
-            总在线人数
-            <span class={Modules.highlight}>{stats.onlineUsers}</span> 人
+            {m["Stats.onlineUsers"]()} <span class={Modules.highlight}>{stats.onlineUsers}</span>
           </span>
         </div>
 

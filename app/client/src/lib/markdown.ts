@@ -6,8 +6,14 @@ import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import rehypePrismPlus from "rehype-prism-plus";
 import rehypeStringify from "rehype-stringify";
 import { visit } from "unist-util-visit";
-import type { Root, HTML } from "mdast";
-import type { Element } from "hast";
+import type { Root } from "mdast";
+
+type Element = {
+  type: "element";
+  tagName: string;
+  properties?: Record<string, any>;
+  children?: any[];
+};
 
 /**
  * 自定义 remark 插件：将所有 HTML 节点转换为纯文本节点
@@ -34,7 +40,7 @@ function remarkHtmlToText() {
 function rehypeCodeBlock() {
   return (tree: any) => {
     visit(tree, "element", (node: Element, index, parent) => {
-      if (node.tagName === "pre" && node.children[0]?.type === "element") {
+      if (node.tagName === "pre" && node.children?.[0]?.type === "element") {
         const codeNode = node.children[0] as Element;
         if (codeNode.tagName === "code") {
           // 提取语言
@@ -85,7 +91,7 @@ function rehypeCodeBlock() {
                       {
                         type: "element",
                         tagName: "span",
-                        properties: { className: ["icon-[mynaui--copy]"] },
+                        properties: { className: ["icon-[mynaui--copy-solid]"] },
                         children: [],
                       },
                     ],

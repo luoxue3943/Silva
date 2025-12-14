@@ -1,7 +1,7 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "HomePage": {
-    "welcome": "Welcome, 这里是"
+    "welcome": "Welcome, 这里是"
   },
   "Navbar": {
     "home": "首页",
@@ -9,5 +9,19 @@
     "timeline": "时间线",
     "messages": "留言",
     "more": "更多"
+  },
+  "PostDetail": {
+    "notFound": "文章不存在",
+    "backToList": "返回列表",
+    "author": "文章作者",
+    "link": "文章链接",
+    "commercialLicense": "商业转载请联系站长获得授权；非商业转载请注明本文出处及原文链接。您可以在任何媒体、以任何形式自由复制、分发、修改与再创作本文内容；但在分发衍生作品时，必须以相同的许可协议发布",
+    "licenseText": "本文采用",
+    "licenseName": "非商业性使用 - 相同方式共享 4.0 国际进行许可。"
+  },
+  "Stats": {
+    "totalViews": "总访问量",
+    "totalVisitors": "总访客数",
+    "onlineUsers": "在线人数"
   }
 }

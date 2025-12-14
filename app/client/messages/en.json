@@ -1,7 +1,7 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "HomePage": {
-    "welcome": "Welcome, Here is"
+    "welcome": "Welcome, Here is"
   },
   "Navbar": {
     "home": "Home",
@@ -9,5 +9,19 @@
     "timeline": "Timeline",
     "messages": "Messages",
     "more": "More"
+  },
+  "PostDetail": {
+    "notFound": "Post Not Found",
+    "backToList": "Back to List",
+    "author": "Author",
+    "link": "Article Link",
+    "commercialLicense": "For commercial reprints, please contact the site owner for authorization; for non-commercial reprints, please indicate the source and original link of this article. You may freely copy, distribute, modify and recreate the content of this article in any media and in any form; however, when distributing derivative works, you must publish them under the same license agreement",
+    "licenseText": "This article is licensed under",
+    "licenseName": "Non-Commercial Use - Share Alike 4.0 International."
+  },
+  "Stats": {
+    "totalViews": "Total Views",
+    "totalVisitors": "Total Visitors",
+    "onlineUsers": "Online Users"
   }
 }

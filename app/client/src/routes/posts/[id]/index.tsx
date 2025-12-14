@@ -1,6 +1,7 @@
 import { MOCK_POSTS } from "@/data/mock-posts";
 import { SilvaConfig } from "@/lib/config-loader";
 import { markdownToHtml } from "@/lib/markdown";
+import * as m from "@/paraglide/messages";
 import { getLocale } from "@/paraglide/runtime";
 import {
   $,
@@ -123,14 +124,14 @@ export default component$(() => {
           // 获取图标元素并切换为对勾
           const icon = button.querySelector("span");
           if (icon) {
-            icon.className = "icon-[mynaui--check]";
+            icon.className = "icon-[mynaui--check-solid]";
           }
           button.classList.add("copied");
 
           // 2秒后恢复为复制图标
           setTimeout(() => {
             if (icon) {
-              icon.className = "icon-[mynaui--copy]";
+              icon.className = "icon-[mynaui--copy-solid]";
             }
             button.classList.remove("copied");
           }, 2000);
@@ -203,9 +204,9 @@ export default component$(() => {
   if (!post.value) {
     return (
       <div class="mx-auto max-w-3xl px-4 py-10 text-center">
-        <h1 class="mb-4 text-3xl font-bold">404 - 文章不存在</h1>
+        <h1 class="mb-4 text-3xl font-bold">404 - {m["PostDetail.notFound"]()}</h1>
         <Link href="/posts" class="text-blue-500 hover:underline">
-          ← 返回列表
+          ← {m["PostDetail.backToList"]()}
         </Link>
       </div>
     );
@@ -278,9 +279,9 @@ export default component$(() => {
       {/* 文章元数据信息 */}
       <div class="mt-12 w-full border-t border-gray-800 pt-8 text-center">
         <div class="mb-4 text-sm text-gray-400">
-          <p>文章作者：{siteOwnerName}</p>
+          <p>{m["PostDetail.author"]()}：{siteOwnerName}</p>
           <p>
-            文章链接：
+            {m["PostDetail.link"]()}：
             <a
               href={post.value.fullUrl}
               style="color: rgb(122.77 241.32 167.54)"
@@ -293,10 +294,10 @@ export default component$(() => {
 
         <div class="text-xs leading-relaxed text-gray-500">
           <p>
-            商业转载请联系站长获得授权，非商业转载请注明本文出处及文章链接，您可以自由地在任何媒体以任何形式复制和分发作品，也可以修改和创作，但是分发衍生作品时必须采用相同的许可协议。
+            {m["PostDetail.commercialLicense"]()}
           </p>
           <p class="mt-2">
-            本文采用{" "}
+            {m["PostDetail.licenseText"]()}{" "}
             <a
               href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
               target="_blank"
@@ -306,7 +307,7 @@ export default component$(() => {
             >
               CC BY-NC-SA 4.0
             </a>{" "}
-            - 非商业性使用 - 相同方式共享 4.0 国际进行许可。
+            - {m["PostDetail.licenseName"]()}
           </p>
         </div>
       </div>
