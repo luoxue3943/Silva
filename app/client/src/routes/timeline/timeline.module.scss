@@ -1,0 +1,194 @@
+@use "../../variables" as var;
+
+.timeline {
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  max-width: 800px;
+  min-height: 100vh;
+}
+
+/* 顶部标题区域 / Header section */
+.header {
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #9ca3af;
+}
+
+/* 时间线列表 / Timeline list */
+.list {
+  position: relative;
+}
+
+/* 年份分组 / Year group */
+.year-group {
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* 年份标题 / Year header */
+.year-header {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+}
+
+.year-title {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.year-count {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* 文章列表 / Posts list */
+.posts-list {
+  position: relative;
+  padding-left: 2rem;
+}
+
+/* 只有多篇文章时显示竖线 / Show line only when multiple posts */
+.posts-list.has-line::before {
+  position: absolute;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  left: 0.4375rem;
+  width: 2px;
+  background: rgb(122.77 241.32 167.54 / 20%);
+  content: "";
+}
+
+/* 文章项 / Post item */
+.post-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+
+  &:hover {
+    .post-title {
+      color: var.$theme-color;
+    }
+
+    .post-dot {
+      background: var.$theme-color;
+      box-shadow: 0 0 0 4px rgb(122.77 241.32 167.54 / 20%);
+    }
+  }
+}
+
+/* 圆点标记 / Dot marker */
+.post-dot {
+  position: absolute;
+  left: -1.75rem;
+  border-radius: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var.$theme-color;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* 文章内容 / Post content */
+.post-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.post-date {
+  min-width: 3.5rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.post-title {
+  overflow: hidden;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #e5e7eb;
+  transition: color 0.2s ease;
+  flex: 1;
+}
+
+.post-category {
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+  background: rgb(255 255 255 / 5%);
+  flex-shrink: 0;
+}
+
+/* 响应式设计 / Responsive design */
+@media (width <= 768px) {
+  .timeline {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .year-title {
+    font-size: 1.5rem;
+  }
+
+  .year-header {
+    padding-left: 2rem;
+  }
+
+  .posts-list {
+    padding-left: 2rem;
+  }
+
+  .post-dot {
+    left: -1.5rem;
+  }
+
+  .post-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .post-date {
+    min-width: auto;
+  }
+
+  .post-title {
+    white-space: normal;
+  }
+}

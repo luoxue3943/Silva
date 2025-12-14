@@ -29,5 +29,13 @@
     "advanced": "Advanced",
     "i18n": "i18n",
     "allCategories": "All Categories"
+  },
+  "Timeline": {
+    "title": "Timeline",
+    "totalPosts": "{count} posts in total, keep going",
+    "yearProgress": "Today is day {day} of {year}",
+    "yearPercentage": "{percentage}% of the year has passed",
+    "dayPercentage": "{percentage}% of today has passed",
+    "postsCount": "{count} posts"
   }
 }

@@ -29,5 +29,14 @@
     "advanced": "进阶",
     "i18n": "国际化",
     "allCategories": "全部分类"
+  },
+  "Timeline": {
+    "title": "时间线",
+    "totalPosts": "共有 {count} 篇文章，再接再厉",
+    "yearProgress": "今天是 {year} 年的第 {day} 天",
+    "yearPercentage": "今年已过 {percentage}%",
+    "dayPercentage": "今天已过 {percentage}%",
+    "motto": "活在当下，珍惜眼下",
+    "postsCount": "{count} 篇"
   }
 }
