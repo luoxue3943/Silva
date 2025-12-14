@@ -23,5 +23,11 @@
     "totalViews": "总访问量",
     "totalVisitors": "总访客数",
     "onlineUsers": "在线人数"
+  },
+  "Categories": {
+    "tech": "技术",
+    "advanced": "进阶",
+    "i18n": "国际化",
+    "allCategories": "全部分类"
   }
 }

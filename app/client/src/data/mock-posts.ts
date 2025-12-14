@@ -90,7 +90,7 @@ async function checkTenantAccess(userId: string, tenantId: string) {
 Better Auth 为多租户鉴权提供了坚实的基础，通过合理的架构设计，我们可以构建出安全、高效的多租户系统。
 `,
     date: "2025/12/14",
-    category: "技术",
+    category: "tech",
     views: 0,
   },
   {
@@ -154,7 +154,7 @@ export default component$(() => {
 - [ ] 测试性能影响
 `,
     date: "2024/02/20",
-    category: "进阶",
+    category: "advanced",
     views: 856,
   },
   {
@@ -214,7 +214,7 @@ export default component$(() => {
 如果你能看到上面的尖括号，说明 XSS 防护成功！
 `,
     date: "2024/03/10",
-    category: "国际化",
+    category: "i18n",
     views: 567,
   },
 ];

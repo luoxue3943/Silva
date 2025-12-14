@@ -3,6 +3,7 @@
  *
  * 提供网站主导航功能，包括页面链接、高亮与滚动检测。 / Provides primary site navigation with link highlighting and scroll detection.
  */
+import { SilvaConfig } from "@/lib/config-loader";
 import * as m from "@/paraglide/messages";
 import { setLocale } from "@/paraglide/runtime";
 import {
@@ -16,6 +17,13 @@ import {
 import { Link, useLocation } from "@builder.io/qwik-city";
 import Modules from "./navbar.module.scss";
 
+interface CategoryOptions {
+  name: string;
+  name_zh: string;
+  name_en: string;
+  slug: string;
+}
+
 export default component$(() => {
   // 获取当前路由位置 / Get current route location
   const loc = useLocation();
@@ -28,6 +36,12 @@ export default component$(() => {
   const localeMenuClosing = useSignal(false);
   const localeMenuTimer = useSignal<ReturnType<typeof setTimeout>>();
   const localeSwitcherRef = useSignal<HTMLElement>();
+
+  // 分类菜单状态信号 / Signals for category menu state
+  const showCategoryMenu = useSignal(false);
+  const categoryMenuClosing = useSignal(false);
+  const categoryMenuTimer = useSignal<ReturnType<typeof setTimeout>>();
+  const categoryMenuRef = useSignal<HTMLElement>();
 
   const changeLocale = $((locale: "en" | "zh") => {
     setLocale(locale);
@@ -102,6 +116,35 @@ export default component$(() => {
     localeMenuTimer.value = setTimeout(() => finishLocaleClose(), 180);
   });
 
+  /**
+   * 设置分类菜单为全关并清理状态 / Fully close category menu and reset flags
+   */
+  const finishCategoryClose = $(() => {
+    showCategoryMenu.value = false;
+    categoryMenuClosing.value = false;
+    categoryMenuTimer.value = undefined;
+  });
+
+  /**
+   * 控制分类菜单开启与关闭延时 / Toggle category menu with delayed close
+   *
+   * @param nextOpen 是否打开菜单 / Whether to open the menu
+   */
+  const setCategoryMenu = $((nextOpen: boolean) => {
+    if (categoryMenuTimer.value) clearTimeout(categoryMenuTimer.value);
+    categoryMenuTimer.value = undefined;
+
+    if (nextOpen) {
+      categoryMenuClosing.value = false;
+      showCategoryMenu.value = true;
+      return;
+    }
+
+    if (!showCategoryMenu.value) return;
+    categoryMenuClosing.value = true;
+    categoryMenuTimer.value = setTimeout(() => finishCategoryClose(), 180);
+  });
+
   // 点击窗口空白区域关闭菜单 / Close menu when clicking outside
   useOnWindow(
     "click",
@@ -114,6 +157,14 @@ export default component$(() => {
         !localeSwitcherRef.value.contains(target)
       ) {
         setLocaleMenu(false);
+      }
+      if (
+        showCategoryMenu.value &&
+        categoryMenuRef.value &&
+        target &&
+        !categoryMenuRef.value.contains(target)
+      ) {
+        setCategoryMenu(false);
       }
     }),
   );
@@ -141,22 +192,54 @@ export default component$(() => {
           </Link>
 
           {/* 文章链接 / Posts link */}
-          <Link href="/posts" class={Modules["link-button"]}>
-            <div
-              class={`${Modules.title} ${
-                isStartWith("/posts") ? Modules.active : ""
-              }`}
-            >
-              <span
-                class={`${Modules["nav-icon"]} icon-[mynaui--file-text] ${
-                  isStartWith("/posts") ? "" : "hidden"
+          <div
+            class={Modules["category-wrapper"]}
+            onMouseEnter$={$(() => setCategoryMenu(true))}
+            onMouseLeave$={$(() => setCategoryMenu(false))}
+            ref={categoryMenuRef}
+          >
+            <Link href="/posts" class={Modules["link-button"]}>
+              <div
+                class={`${Modules.title} ${
+                  isStartWith("/posts") ? Modules.active : ""
                 }`}
-              />
-              <span class={Modules["nav-text"]} data-page="posts">
-                {m["Navbar.posts"]()}
-              </span>
-            </div>
-          </Link>
+              >
+                <span
+                  class={`${Modules["nav-icon"]} icon-[mynaui--file-text] ${
+                    isStartWith("/posts") ? "" : "hidden"
+                  }`}
+                />
+                <span class={Modules["nav-text"]} data-page="posts">
+                  {m["Navbar.posts"]()}
+                </span>
+              </div>
+            </Link>
+            {showCategoryMenu.value && (
+              <div
+                class={`${Modules["category-menu"]} ${categoryMenuClosing.value ? Modules.closing : ""}`.trim()}
+                onMouseEnter$={$(() => setCategoryMenu(true))}
+                onMouseLeave$={$(() => setCategoryMenu(false))}
+              >
+                {SilvaConfig.categories.map((category: CategoryOptions) => {
+                  const messageKey =
+                    `Categories.${category.slug}` as keyof typeof m;
+                  const messageFn = m[messageKey];
+                  return (
+                    <Link
+                      key={category.slug}
+                      href={`/posts?category=${category.slug}`}
+                      class={Modules["category-option"]}
+                      onClick$={$(() => setCategoryMenu(false))}
+                    >
+                      {typeof messageFn === "function"
+                        ? messageFn()
+                        : category.slug}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           {/* 时间线链接 / Timeline link */}
           <Link href="/timeline" class={Modules["link-button"]}>

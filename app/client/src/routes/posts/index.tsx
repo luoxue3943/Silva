@@ -7,7 +7,14 @@ import Modules from "./posts.module.scss";
 /**
  * 服务器端 loader：预取文章数据 / Server-side loader: Prefetch post data
  */
-export const usePosts = routeLoader$(() => {
+export const usePosts = routeLoader$(({ query }) => {
+  const category = query.get("category");
+
+  // 如果有分类参数，筛选对应分类的文章 / Filter posts by category if parameter exists
+  if (category) {
+    return MOCK_POSTS.filter((post) => post.category === category);
+  }
+
   return MOCK_POSTS;
 });
 

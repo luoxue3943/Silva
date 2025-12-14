@@ -23,5 +23,11 @@
     "totalViews": "Total Views",
     "totalVisitors": "Total Visitors",
     "onlineUsers": "Online Users"
+  },
+  "Categories": {
+    "tech": "Tech",
+    "advanced": "Advanced",
+    "i18n": "i18n",
+    "allCategories": "All Categories"
   }
 }
