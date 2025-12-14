@@ -34,13 +34,16 @@ export default component$(() => {
       <div class={Modules.container}>
         <div class={Modules.stats}>
           <span>
-            {m["Stats.totalViews"]()} <span class={Modules.highlight}>{stats.totalVisits}</span>，
+            {m["Stats.totalViews"]()}{" "}
+            <span class={Modules.highlight}>{stats.totalVisits}</span>，
           </span>
           <span>
-            {m["Stats.totalVisitors"]()} <span class={Modules.highlight}>{stats.totalGuests}</span>，
+            {m["Stats.totalVisitors"]()}{" "}
+            <span class={Modules.highlight}>{stats.totalGuests}</span>，
           </span>
           <span>
-            {m["Stats.onlineUsers"]()} <span class={Modules.highlight}>{stats.onlineUsers}</span>
+            {m["Stats.onlineUsers"]()}{" "}
+            <span class={Modules.highlight}>{stats.onlineUsers}</span>
           </span>
         </div>
 

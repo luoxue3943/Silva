@@ -206,7 +206,9 @@ export default component$(() => {
   if (!post.value) {
     return (
       <div class="mx-auto max-w-3xl px-4 py-10 text-center">
-        <h1 class="mb-4 text-3xl font-bold">404 - {m["PostDetail.notFound"]()}</h1>
+        <h1 class="mb-4 text-3xl font-bold">
+          404 - {m["PostDetail.notFound"]()}
+        </h1>
         <Link href="/posts" class="text-blue-500 hover:underline">
           ← {m["PostDetail.backToList"]()}
         </Link>
@@ -281,7 +283,9 @@ export default component$(() => {
       {/* 文章元数据信息 */}
       <div class="mt-12 w-full border-t border-gray-800 pt-8 text-center">
         <div class="mb-4 text-sm text-gray-400">
-          <p>{m["PostDetail.author"]()}：{siteOwnerName}</p>
+          <p>
+            {m["PostDetail.author"]()}：{siteOwnerName}
+          </p>
           <p>
             {m["PostDetail.link"]()}：
             <a
@@ -295,9 +299,7 @@ export default component$(() => {
         </div>
 
         <div class="text-xs leading-relaxed text-gray-500">
-          <p>
-            {m["PostDetail.commercialLicense"]()}
-          </p>
+          <p>{m["PostDetail.commercialLicense"]()}</p>
           <p class="mt-2">
             {m["PostDetail.licenseText"]()}{" "}
             <a
