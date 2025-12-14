@@ -1,3 +1,6 @@
+/**
+ * 文章类型定义 / Post type definition
+ */
 export type Post = {
   id: string;
   title: string;
@@ -11,7 +14,9 @@ export type Post = {
   lastModified?: string;
 };
 
-// 模拟一些文章数据 / Fake posts data
+/**
+ * 模拟文章数据 / Mock posts data
+ */
 export const MOCK_POSTS: Post[] = [
   {
     id: "1",

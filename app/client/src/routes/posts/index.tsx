@@ -4,7 +4,9 @@ import { $, component$ } from "@builder.io/qwik";
 import { routeLoader$, useNavigate } from "@builder.io/qwik-city";
 import Modules from "./posts.module.scss";
 
-// 服务器端 loader：预取文章数据 / Server-side loader to prefetch post data
+/**
+ * 服务器端 loader：预取文章数据 / Server-side loader: Prefetch post data
+ */
 export const usePosts = routeLoader$(() => {
   return MOCK_POSTS;
 });
@@ -15,7 +17,7 @@ export default component$(() => {
 
   const handleItemSelect$ = $(async (post: Post) => {
     console.log("Selected:", post.title);
-    // 导航到文章详情页
+    // 导航到文章详情页 / Navigate to post detail page
     await nav(`/posts/${post.id}`);
   });
 

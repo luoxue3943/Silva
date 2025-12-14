@@ -1,3 +1,9 @@
+/**
+ * 动画列表组件 / Animated List Component
+ *
+ * 支持键盘导航、滚动渐变和自定义渲染的交互式列表
+ * Interactive list with keyboard navigation, scroll gradients, and custom rendering
+ */
 import {
   $,
   component$,
@@ -9,6 +15,9 @@ import {
 } from "@builder.io/qwik";
 import styles from "./animated-list.module.scss";
 
+/**
+ * 动画列表项属性 / Animated item props
+ */
 interface AnimatedItemProps {
   index: number;
   delay?: number;
@@ -57,6 +66,9 @@ export const AnimatedItem = component$<AnimatedItemProps>(
   },
 );
 
+/**
+ * 动画列表属性 / Animated list props
+ */
 interface AnimatedListProps<T = string> {
   items: T[];
   onItemSelect$?: QRL<(item: T, index: number) => void>;
@@ -111,7 +123,7 @@ export const AnimatedList = component$<AnimatedListProps<any>>(
         scrollHeight <= clientHeight ? 0 : Math.min(bottomDistance / 50, 1);
     });
 
-    // Keyboard navigation
+    // 键盘导航 / Keyboard navigation
     useOnDocument(
       "keydown",
       $((event) => {
@@ -141,7 +153,7 @@ export const AnimatedList = component$<AnimatedListProps<any>>(
       }),
     );
 
-    // Auto-scroll to selected item
+    // 自动滚动到选中项 / Auto-scroll to selected item
     useTask$(({ track }) => {
       const currentIndex = track(() => selectedIndex.value);
       const navActive = track(() => keyboardNav.value);

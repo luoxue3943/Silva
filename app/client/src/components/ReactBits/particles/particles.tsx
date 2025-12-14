@@ -1,6 +1,15 @@
+/**
+ * 粒子背景组件 / Particles Background Component
+ *
+ * 使用 WebGL 渲染的 3D 粒子动画背景
+ * 3D particle animation background rendered with WebGL
+ */
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { Camera, Geometry, Mesh, Program, Renderer } from "ogl";
 
+/**
+ * 粒子组件属性 / Particles component props
+ */
 interface ParticlesProps {
   particleCount?: number;
   particleSpread?: number;
@@ -18,6 +27,9 @@ interface ParticlesProps {
 
 const defaultColors: string[] = ["#ffffff", "#ffffff", "#ffffff"];
 
+/**
+ * 将十六进制颜色转换为 RGB / Convert hex color to RGB
+ */
 const hexToRgb = (hex: string): [number, number, number] => {
   hex = hex.replace(/^#/, "");
   if (hex.length === 3) {

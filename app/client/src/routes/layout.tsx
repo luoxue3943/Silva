@@ -70,7 +70,7 @@ export const head: DocumentHead = {
       content: SilvaConfig.seo.site_name,
     },
 
-    // Open Graph
+    // Open Graph 元数据 / Open Graph metadata
     {
       property: "og:title",
       content: SilvaConfig.seo.title,
@@ -100,7 +100,7 @@ export const head: DocumentHead = {
       content: SilvaConfig.seo.canonical,
     },
 
-    // Twitter Card
+    // Twitter Card 元数据 / Twitter Card metadata
     {
       name: "twitter:card",
       content: SilvaConfig.seo.twitter.card,
@@ -118,7 +118,7 @@ export const head: DocumentHead = {
       content: SilvaConfig.seo.og.image,
     },
 
-    //robots
+    // 搜索引擎爬虫配置 / Search engine crawler configuration
     {
       name: "robots",
       content: "index, follow",
