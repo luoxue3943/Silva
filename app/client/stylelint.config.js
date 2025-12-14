@@ -17,6 +17,12 @@ export default {
         ignorePseudoElements: ["v-deep"],
       },
     ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        ignorePseudoClasses: ["global", "local"],
+      },
+    ],
     "no-descending-specificity": null,
     "at-rule-no-unknown": null,
     "comment-no-empty": true,

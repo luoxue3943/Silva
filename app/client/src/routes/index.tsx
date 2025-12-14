@@ -42,7 +42,6 @@ export default component$(() => {
 
   // 欢迎文本和所有者名称 / Welcome text and owner name
   const welcome = m["HomePage.welcome"]();
-  const owner = siteOwnerName;
 
   return (
     <>
@@ -69,7 +68,7 @@ export default component$(() => {
 
               {/* 所有者名称 / Owner name */}
               <span class={`${Modules["owner-name"]} font-bold`}>
-                {splitToSpans(owner, "", welcome.length)}
+                {splitToSpans(siteOwnerName, "", welcome.length)}
               </span>
 
               {/* 结尾符号（挥手和句号）/ Ending symbols (wave and period) */}
@@ -77,7 +76,7 @@ export default component$(() => {
                 <span
                   key={char}
                   class={`${Modules["pop-up"]} ${
-                    Modules["delay-" + ((welcome + owner).length + i)]
+                    Modules["delay-" + ((welcome + siteOwnerName).length + i)]
                   }`}
                 >
                   {char}
@@ -122,7 +121,9 @@ export default component$(() => {
                     target="_blank"
                     rel="noopener noreferrer"
                     class={`${Modules["icon-link"]} ${config.bgClass} ${Modules["pop-up"]} ${
-                      Modules["delay-" + ((welcome + owner).length + 2 + i)]
+                      Modules[
+                        "delay-" + ((welcome + siteOwnerName).length + 2 + i)
+                      ]
                     }`}
                   >
                     <span class={`${config.icon} ${Modules.icon}`} />
@@ -136,7 +137,7 @@ export default component$(() => {
               {splitToSpans(
                 SilvaConfig.site.motto,
                 "",
-                (welcome + owner).length + SilvaConfig.links.length + 2,
+                (welcome + siteOwnerName).length + SilvaConfig.links.length + 2,
               )}
             </div>
           </div>

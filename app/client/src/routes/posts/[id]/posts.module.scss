@@ -1,0 +1,499 @@
+// ============================================
+// Markdown 文章排版样式
+// ============================================
+
+.markdown {
+  font-size: 1rem;
+  color: #e5e7eb;
+  line-height: 1.75;
+
+  // 标题样式
+  :global(h1),
+  :global(h2),
+  :global(h3),
+  :global(h4),
+  :global(h5),
+  :global(h6) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #f9fafb;
+  }
+
+  :global(h1) {
+    border-bottom: 2px solid #374151;
+    padding-bottom: 0.5rem;
+    font-size: 2rem;
+  }
+
+  :global(h2) {
+    border-bottom: 1px solid #374151;
+    padding-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  :global(h3) {
+    font-size: 1.25rem;
+  }
+
+  :global(h4) {
+    font-size: 1.125rem;
+  }
+
+  :global(h5) {
+    font-size: 1rem;
+  }
+
+  // 段落和文本
+  :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  :global(strong) {
+    font-weight: 700;
+    color: #f9fafb;
+  }
+
+  :global(em) {
+    font-style: italic;
+  }
+
+  :global(del) {
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  // 链接
+  :global(a) {
+    text-decoration: underline;
+    color: #60a5fa;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #93c5fd;
+    }
+  }
+
+  // 列表
+  :global(ul),
+  :global(ol) {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+  }
+
+  :global(ul) {
+    list-style-type: disc;
+  }
+
+  :global(ol) {
+    list-style-type: decimal;
+  }
+
+  :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  // 任务列表（GFM）
+  :global(input[type="checkbox"]) {
+    margin-right: 0.5rem;
+  }
+
+  // 引用块
+  :global(blockquote) {
+    margin: 1.5rem 0;
+    border-left: 4px solid #60a5fa;
+    padding: 1rem 1.5rem;
+    color: #d1d5db;
+    background-color: rgb(96 165 250 / 10%);
+    font-style: italic;
+
+    :global(p) {
+      margin-bottom: 0;
+    }
+  }
+
+  // 水平分割线
+  :global(hr) {
+    margin: 2rem 0;
+    border: none;
+    border-top: 1px solid #374151;
+  }
+
+  // 表格（GFM）
+  :global(table) {
+    display: block;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  :global(thead) {
+    background-color: #1f2937;
+  }
+
+  :global(th),
+  :global(td) {
+    border: 1px solid #374151;
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+
+  :global(th) {
+    font-weight: 700;
+    color: #f9fafb;
+  }
+
+  :global(tbody tr:nth-child(even)) {
+    background-color: rgb(31 41 55 / 50%);
+  }
+
+  // 行内代码
+  :global(code:not([class*="language-"])) {
+    border: 1px solid #374151;
+    border-radius: 0.25rem;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.875em;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    color: #fbbf24;
+    background-color: #1f2937;
+  }
+
+  // ============================================
+  // 代码块包装器样式
+  // ============================================
+
+  :global(.code-block-wrapper) {
+    position: relative;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    border: 1px solid #334155;
+    border-radius: 0.5rem;
+    background-color: #1e293b;
+  }
+
+  :global(.code-block-header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    padding: 0.5rem 1rem;
+    background-color: #0f172a;
+  }
+
+  :global(.code-block-language) {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgb(122.77 241.32 167.54);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  :global(.code-block-copy) {
+    display: flex;
+    align-items: center;
+    border: 1px solid #334155;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    background: transparent;
+    transition: all 0.2s;
+    gap: 0.25rem;
+    cursor: pointer;
+
+    &:hover {
+      border-color: rgb(122.77 241.32 167.54);
+      color: rgb(122.77 241.32 167.54);
+      background-color: rgb(122.77 241.32 167.54 / 10%);
+    }
+
+    &.copied {
+      border-color: #10b981;
+      color: #10b981;
+    }
+
+    span {
+      font-size: 1rem;
+    }
+  }
+
+  // ============================================
+  // Prism 代码块基础样式
+  // ============================================
+
+  :global(pre[class*="language-"]) {
+    overflow-x: auto;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    padding: 1.25rem;
+    font-size: 0.875rem;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    background-color: transparent;
+    line-height: 1.6;
+    tab-size: 2;
+
+    // 代码块内的 code 标签
+    :global(code[class*="language-"]) {
+      border: none;
+      padding: 0;
+      font-size: inherit;
+      font-family: inherit;
+      color: #e2e8f0;
+      background: none;
+      line-height: inherit;
+    }
+  }
+
+  // ============================================
+  // Prism Token 高亮样式（必须使用 :global）
+  // ============================================
+
+  // 注释
+  :global(.token.comment),
+  :global(.token.prolog),
+  :global(.token.doctype),
+  :global(.token.cdata) {
+    color: #64748b;
+    font-style: italic;
+  }
+
+  // 标点符号
+  :global(.token.punctuation) {
+    color: #94a3b8;
+  }
+
+  // 命名空间
+  :global(.token.namespace) {
+    opacity: 0.7;
+  }
+
+  // 属性、标签、布尔值、常量、符号、删除
+  :global(.token.property),
+  :global(.token.tag),
+  :global(.token.boolean),
+  :global(.token.number),
+  :global(.token.constant),
+  :global(.token.symbol),
+  :global(.token.deleted) {
+    color: #f472b6;
+  }
+
+  // 选择器、属性名、字符串、字符、内置、插入
+  :global(.token.selector),
+  :global(.token.attr-name),
+  :global(.token.string),
+  :global(.token.char),
+  :global(.token.builtin),
+  :global(.token.inserted) {
+    color: #a3e635;
+  }
+
+  // 操作符、实体、URL
+  :global(.token.operator),
+  :global(.token.entity),
+  :global(.token.url) {
+    color: #38bdf8;
+  }
+
+  // 关键字、控制流、指令
+  :global(.token.keyword),
+  :global(.token.control),
+  :global(.token.directive) {
+    font-weight: 600;
+    color: #c084fc;
+  }
+
+  // 函数、类名
+  :global(.token.function),
+  :global(.token.class-name) {
+    color: #fbbf24;
+  }
+
+  // 正则表达式、重要
+  :global(.token.regex),
+  :global(.token.important) {
+    font-weight: 600;
+    color: #fb923c;
+  }
+
+  // 变量
+  :global(.token.variable) {
+    color: #60a5fa;
+  }
+
+  // Bash 特定
+  :global(.token.shebang) {
+    color: #64748b;
+    font-style: italic;
+  }
+
+  // 粗体和斜体
+  :global(.token.important),
+  :global(.token.bold) {
+    font-weight: 700;
+  }
+
+  :global(.token.italic) {
+    font-style: italic;
+  }
+
+  // 实体
+  :global(.token.entity) {
+    cursor: help;
+  }
+
+  // ============================================
+  // 可选：行号样式（如果启用 showLineNumbers）
+  // ============================================
+
+  :global(.line-numbers) {
+    position: relative;
+    padding-left: 3.5rem;
+    counter-reset: linenumber;
+
+    :global(.line-numbers-rows) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-right: 1px solid #334155;
+      width: 3rem;
+      font-size: 100%;
+      pointer-events: none;
+      letter-spacing: -1px;
+      user-select: none;
+
+      :global(span) {
+        display: block;
+        counter-increment: linenumber;
+
+        &::before {
+          display: block;
+          padding-right: 0.8rem;
+          text-align: right;
+          color: #64748b;
+          content: counter(linenumber);
+        }
+      }
+    }
+  }
+
+  // ============================================
+  // 可选：行高亮样式（如果使用 data-line 属性）
+  // ============================================
+
+  :global(pre[data-line]) {
+    position: relative;
+    padding-left: 3.5rem;
+
+    :global(.line-highlight) {
+      position: absolute;
+      right: 0;
+      left: 0;
+      border-left: 3px solid #60a5fa;
+      white-space: pre;
+      background: rgb(96 165 250 / 10%);
+      pointer-events: none;
+      line-height: inherit;
+    }
+  }
+}
+
+// ============================================
+// 目录样式
+// ============================================
+
+.toc {
+  position: sticky;
+  top: 8rem;
+  overflow-y: auto;
+  padding-left: 1rem;
+  width: 240px;
+  height: fit-content;
+  max-height: calc(100vh - 12rem);
+  flex-shrink: 0;
+
+  @media (width <= 1280px) {
+    display: none;
+  }
+
+  // 自定义滚动条
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: rgb(255 255 255 / 20%);
+
+    &:hover {
+      background-color: rgb(255 255 255 / 30%);
+    }
+  }
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background-color: rgb(255 255 255 / 10%);
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: rgb(122.77 241.32 167.54);
+  transition: height 0.1s ease-out;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item {
+  display: block;
+  border: none;
+  padding: 0.25rem 0;
+  width: 100%;
+  font-size: 0.875rem;
+  text-align: left;
+  text-decoration: none;
+  color: rgb(255 255 255 / 50%);
+  background: none;
+  transition: color 0.2s;
+  cursor: pointer;
+  line-height: 1.4;
+
+  &:hover {
+    color: rgb(122.77 241.32 167.54);
+  }
+
+  &.active {
+    font-weight: 500;
+    color: rgb(122.77 241.32 167.54);
+  }
+}
+
+.level-1 {
+  padding-left: 0;
+  font-weight: 600;
+}
+
+.level-2 {
+  padding-left: 1rem;
+}
+
+.level-3 {
+  padding-left: 2rem;
+  font-size: 0.8125rem;
+}
+
+.level-4 {
+  padding-left: 3rem;
+  font-size: 0.8125rem;
+}
