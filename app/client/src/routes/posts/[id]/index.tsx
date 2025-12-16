@@ -77,6 +77,7 @@ export default component$(() => {
   const activeId = useSignal<string>("");
   const scrollProgress = useSignal<number>(0);
   const isProgrammaticScroll = useSignal<boolean>(false);
+  const articleEndPosition = useSignal<number>(0); // 文章结束位置 / Article end position
 
   // 为标题添加 id 和设置复制按钮事件 / Add IDs to headings and setup copy button handlers
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -85,6 +86,10 @@ export default component$(() => {
 
     const article = document.querySelector("article");
     if (!article) return;
+
+    // 计算文章结束位置（文章底部相对于文档顶部的距离）/ Calculate article end position
+    const articleRect = article.getBoundingClientRect();
+    articleEndPosition.value = articleRect.bottom + window.scrollY;
 
     // 为标题添加 id（只处理 markdown 内容中的标题）/ Add IDs to headings (only in markdown content)
     const markdownSection = article.querySelector(`.${styles.markdown}`);
@@ -152,12 +157,21 @@ export default component$(() => {
     $(() => {
       if (!post.value?.tocItems || isProgrammaticScroll.value) return;
 
-      // 计算滚动进度 / Calculate scroll progress
+      // 计算滚动进度（仅基于文章内容，不包括评论区）/ Calculate scroll progress (article content only, excluding comments)
       const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
-      const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
-      scrollProgress.value = Math.min(100, Math.max(0, progress));
+      const scrollBottom = scrollTop + windowHeight;
+
+      // 如果文章结束位置已计算，使用它来计算进度 / Use article end position if calculated
+      if (articleEndPosition.value > 0) {
+        const progress = (scrollBottom / articleEndPosition.value) * 100;
+        scrollProgress.value = Math.min(100, Math.max(0, progress));
+      } else {
+        // 降级方案：使用整个文档高度 / Fallback: use full document height
+        const documentHeight = document.documentElement.scrollHeight;
+        const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+        scrollProgress.value = Math.min(100, Math.max(0, progress));
+      }
 
       // 找到当前可见的标题 / Find currently visible heading
       const headings = post.value.tocItems.map((item) => ({
