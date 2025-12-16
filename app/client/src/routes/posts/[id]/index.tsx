@@ -1,3 +1,5 @@
+import Comments from "@/components/comments/comments";
+import { MOCK_COMMENTS } from "@/data/mock-comments";
 import { MOCK_POSTS } from "@/data/mock-posts";
 import { SilvaConfig } from "@/lib/config-loader";
 import { markdownToHtml } from "@/lib/markdown";
@@ -314,6 +316,11 @@ export default component$(() => {
             - {m["PostDetail.licenseName"]()}
           </p>
         </div>
+      </div>
+
+      {/* 评论区 / Comments section */}
+      <div class="mt-12">
+        <Comments comments={MOCK_COMMENTS} postId={post.value.id} />
       </div>
     </div>
   );

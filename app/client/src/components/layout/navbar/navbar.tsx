@@ -232,7 +232,7 @@ export default component$(() => {
                       onClick$={$(() => setCategoryMenu(false))}
                     >
                       {typeof messageFn === "function"
-                        ? messageFn()
+                        ? (messageFn as () => string)()
                         : category.slug}
                     </Link>
                   );
@@ -259,20 +259,20 @@ export default component$(() => {
             </div>
           </Link>
 
-          {/* 留言链接 / Messages link */}
-          <Link href="/messages" class={Modules["link-button"]}>
+          {/* 留言链接 / Message link */}
+          <Link href="/message" class={Modules["link-button"]}>
             <div
               class={`${Modules.title} ${
-                isActive("/messages") ? Modules.active : ""
+                isStartWith("/message") ? Modules.active : ""
               }`}
             >
               <span
                 class={`${Modules["nav-icon"]} icon-[mynaui--message-dots] ${
-                  isActive("/messages") ? "" : "hidden"
+                  isStartWith("/message") ? "" : "hidden"
                 }`}
               />
-              <span class={Modules["nav-text"]} data-page="messages">
-                {m["Navbar.messages"]()}
+              <span class={Modules["nav-text"]} data-page="message">
+                {m["Navbar.message"]()}
               </span>
             </div>
           </Link>
