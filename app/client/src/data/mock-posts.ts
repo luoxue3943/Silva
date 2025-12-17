@@ -2,14 +2,14 @@
  * 文章类型定义 / Post type definition
  */
 export type Post = {
-  id: string; // 文章主键（唯一标识） / Post primary key (unique identifier)
+  id: number; // 文章主键（唯一标识） / Post primary key (unique identifier)
   title: string; // 文章标题 / Post title
   category: string | null; // 分类（可选） / Category (optional)
   storage_path: string; // 文章存储位置（相对路径） / Storage path (relative path)
   views: number; // 浏览量计数 / View count
-  created_at: string; // 创建时间 / Creation time
-  updated_at: string | null; // 更新时间 / Update time
-  deleted_at: string | null; // 软删除时间 / Soft delete time
+  created_at: number; // 创建时间戳（毫秒） / Creation timestamp (milliseconds)
+  updated_at: number | null; // 更新时间戳 / Update timestamp
+  deleted_at: number | null; // 软删除时间戳 / Soft delete timestamp
 };
 
 /**
@@ -17,32 +17,32 @@ export type Post = {
  */
 export const MOCK_POSTS: Post[] = [
   {
-    id: "1",
+    id: 1,
     title: "Better Auth 的多租户用户鉴权的构想",
     category: "tech",
     storage_path: "posts/2025/better-auth-multi-tenant.md",
     views: 0,
-    created_at: "2025-12-14T00:47:00+08:00",
-    updated_at: "2025-12-14T00:47:00+08:00",
+    created_at: 1734105620000, // 2025-12-14T00:47:00+08:00
+    updated_at: 1734105620000, // 2025-12-14T00:47:00+08:00
     deleted_at: null,
   },
   {
-    id: "2",
+    id: 2,
     title: "View Transitions in Qwik",
     category: "advanced",
     storage_path: "posts/2024/view-transitions-qwik.md",
     views: 856,
-    created_at: "2024-02-20T00:00:00+08:00",
+    created_at: 1708358400000, // 2024-02-20T00:00:00+08:00
     updated_at: null,
     deleted_at: null,
   },
   {
-    id: "3",
+    id: 3,
     title: "Paraglide JS + Qwik",
     category: "i18n",
     storage_path: "posts/2024/paraglide-js-qwik.md",
     views: 567,
-    created_at: "2024-03-10T00:00:00+08:00",
+    created_at: 1710028800000, // 2024-03-10T00:00:00+08:00
     updated_at: null,
     deleted_at: null,
   },

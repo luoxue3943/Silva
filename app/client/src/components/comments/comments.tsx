@@ -13,6 +13,7 @@ import {
 } from "@builder.io/qwik";
 import Modules from "./comments.module.scss";
 
+/** 评论组件属性 / Comments component props */
 interface CommentsProps {
   comments: Comment[];
   postId?: string;
@@ -95,7 +96,7 @@ const CommentForm = component$<{
 /**
  * 格式化时间戳为显示格式 / Format timestamp for display
  */
-const formatTime = (timestamp: string): string => {
+const formatTime = (timestamp: number): string => {
   const date = new Date(timestamp);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -138,7 +139,7 @@ const getColorFromString = (str: string): string => {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    hash = hash & hash; // Convert to 32bit integer
+    hash = hash & hash; // 转换为32位整数 / Convert to 32bit integer
   }
 
   // 使用哈希值选择颜色 / Use hash to select color
@@ -181,12 +182,12 @@ const CommentItem = component$<{
    */
   const handleReplySubmit = $(() => {
     const replyData = {
-      parentCommentId: comment.id,
+      parent_id: comment.id,
       parentFloor: comment.floor,
       content: replyContent.value,
       author: replyAuthorName.value || "匿名用户",
       email: replyAuthorEmail.value,
-      timestamp: new Date().toISOString(),
+      created_at: Date.now(),
     };
 
     console.log("回复表单数据:", replyData);
@@ -276,11 +277,11 @@ export default component$<CommentsProps>(({ comments, postId }) => {
    */
   const handleSubmit = $(() => {
     const formData = {
-      postId: postId || "message",
+      post_id: postId ? Number(postId) : 1,
       content: commentContent.value,
       author: authorName.value || "匿名用户",
       email: authorEmail.value,
-      timestamp: new Date().toISOString(),
+      created_at: Date.now(),
     };
 
     console.log("评论表单数据:", formData);

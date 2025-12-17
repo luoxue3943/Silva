@@ -32,7 +32,7 @@ export const usePost = routeLoader$(async ({ params, status, url }) => {
   const { id } = params;
 
   // 从 MOCK_POSTS 中查找文章 / Find post from MOCK_POSTS
-  const post = MOCK_POSTS.find((p) => p.id === id);
+  const post = MOCK_POSTS.find((p) => p.id === Number(id));
 
   if (!post) {
     status(404);
@@ -88,7 +88,7 @@ export default component$(() => {
     const article = document.querySelector("article");
     if (!article) return;
 
-    // 计算文章结束位置（文章底部相对于文档顶部的距离）/ Calculate article end position
+    // 计算文章结束位置 / Calculate article end position
     const articleRect = article.getBoundingClientRect();
     articleEndPosition.value = articleRect.bottom + window.scrollY;
 
@@ -186,7 +186,7 @@ export default component$(() => {
         const heading = headings[i];
         if (heading.element) {
           const rect = heading.element.getBoundingClientRect();
-          // 标题在视口顶部 150px 以上（已经滚过）/ Heading is 150px above viewport top (scrolled past)
+          // 标题在视口顶部 150px 以上 / Heading is 150px above viewport top
           if (rect.top <= 150) {
             currentId = heading.id;
             break;
@@ -194,7 +194,7 @@ export default component$(() => {
         }
       }
 
-      // 如果没有找到任何标题（还没滚动到第一个标题），默认高亮第一个 / Default to first heading if none found
+      // 如果没有找到任何标题，默认高亮第一个 / Default to first heading if none found
       if (!currentId && headings.length > 0) {
         currentId = headings[0].id;
       }
@@ -267,16 +267,14 @@ export default component$(() => {
 
           <hr class="border-gray-800" />
 
-          {/*
-          使用 dangerouslySetInnerHTML 渲染编译后的 HTML
-        */}
+          {/* 使用 dangerouslySetInnerHTML 渲染编译后的 HTML / Render compiled HTML using dangerouslySetInnerHTML */}
           <section
             class={styles.markdown}
             dangerouslySetInnerHTML={post.value.htmlContent}
           />
         </article>
 
-        {/* 目录组件 */}
+        {/* 目录组件 / Table of contents */}
         <aside class={styles.toc}>
           <div class={styles.progress}>
             <div
@@ -305,7 +303,7 @@ export default component$(() => {
         </aside>
       </div>
 
-      {/* 文章元数据信息 */}
+      {/* 文章元数据信息 / Article metadata */}
       <div class="mt-12 w-full border-t border-gray-800 pt-8 text-center">
         <div class="mb-4 text-sm text-gray-400">
           <p>
@@ -343,7 +341,7 @@ export default component$(() => {
 
       {/* 评论区 / Comments section */}
       <div class="mt-12">
-        <Comments comments={MOCK_COMMENTS} postId={post.value.id} />
+        <Comments comments={MOCK_COMMENTS} postId={String(post.value.id)} />
       </div>
     </div>
   );

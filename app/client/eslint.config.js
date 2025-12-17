@@ -1,3 +1,9 @@
+/**
+ * ESLint 配置文件 / ESLint Configuration
+ *
+ * 使用扁平化配置格式，集成 Qwik、TypeScript、React Hooks 等规则
+ * Uses flat config format with Qwik, TypeScript, and React Hooks rules
+ */
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import { qwikEslint9Plugin } from "eslint-plugin-qwik";
@@ -6,6 +12,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
+/** 忽略的文件和目录列表 / List of ignored files and directories */
 const ignores = [
   "**/*.log",
   "**/.DS_Store",

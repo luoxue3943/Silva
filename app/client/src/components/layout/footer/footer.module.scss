@@ -4,6 +4,7 @@
 
 @use "@/variables" as var;
 
+/* 页脚容器样式 / Footer container styles */
 .footer {
   position: relative;
   display: flex;
@@ -13,6 +14,7 @@
   background: transparent;
 }
 
+/* 内容容器样式 / Content container styles */
 .container {
   display: flex;
   flex-direction: column;
@@ -23,6 +25,7 @@
   line-height: 1.8;
 }
 
+/* 统计信息样式 / Statistics styles */
 .stats {
   display: flex;
   flex-wrap: wrap;
@@ -31,16 +34,19 @@
   color: #b9becb;
 }
 
+/* 高亮文本样式 / Highlight text styles */
 .highlight {
   font-weight: 600;
   color: var.$theme-color;
 }
 
+/* 版权信息样式 / Copyright styles */
 .copyright {
   font-size: 0.9rem;
   color: #d9dce2;
 }
 
+/* 备案信息样式 / Filing information styles */
 .filings {
   display: flex;
   flex-wrap: wrap;

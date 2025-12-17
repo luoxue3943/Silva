@@ -1,13 +1,21 @@
+/**
+ * 文章详情页样式 / Post Detail Page Styles
+ *
+ * Markdown 文章排版、代码高亮和目录样式
+ * Markdown article typography, code highlighting, and table of contents styles
+ */
+
 // ============================================
-// Markdown 文章排版样式
+// Markdown 文章排版样式 / Markdown article typography styles
 // ============================================
 
+/* Markdown 内容容器样式 / Markdown content container styles */
 .markdown {
   font-size: 1rem;
   color: #e5e7eb;
   line-height: 1.75;
 
-  // 标题样式
+  // 标题样式 / Heading styles
   :global(h1),
   :global(h2),
   :global(h3),
@@ -45,7 +53,7 @@
     font-size: 1rem;
   }
 
-  // 段落和文本
+  // 段落和文本 / Paragraphs and text
   :global(p) {
     margin-bottom: 1rem;
   }
@@ -64,7 +72,7 @@
     opacity: 0.7;
   }
 
-  // 链接
+  // 链接 / Links
   :global(a) {
     text-decoration: underline;
     color: #60a5fa;
@@ -75,7 +83,7 @@
     }
   }
 
-  // 列表
+  // 列表 / Lists
   :global(ul),
   :global(ol) {
     margin-bottom: 1rem;
@@ -94,12 +102,12 @@
     margin-bottom: 0.5rem;
   }
 
-  // 任务列表（GFM）
+  // 任务列表（GFM）/ Task lists (GFM)
   :global(input[type="checkbox"]) {
     margin-right: 0.5rem;
   }
 
-  // 引用块
+  // 引用块 / Blockquotes
   :global(blockquote) {
     margin: 1.5rem 0;
     border-left: 4px solid #60a5fa;
@@ -113,14 +121,14 @@
     }
   }
 
-  // 水平分割线
+  // 水平分割线 / Horizontal rules
   :global(hr) {
     margin: 2rem 0;
     border: none;
     border-top: 1px solid #374151;
   }
 
-  // 表格（GFM）
+  // 表格（GFM）/ Tables (GFM)
   :global(table) {
     display: block;
     overflow-x: auto;
@@ -149,7 +157,7 @@
     background-color: rgb(31 41 55 / 50%);
   }
 
-  // 行内代码
+  // 行内代码 / Inline code
   :global(code:not([class*="language-"])) {
     border: 1px solid #374151;
     border-radius: 0.25rem;
@@ -161,7 +169,7 @@
   }
 
   // ============================================
-  // 代码块包装器样式
+  // 代码块包装器样式 / Code block wrapper styles
   // ============================================
 
   :global(.code-block-wrapper) {
@@ -220,7 +228,7 @@
   }
 
   // ============================================
-  // Prism 代码块基础样式
+  // Prism 代码块基础样式 / Prism code block base styles
   // ============================================
 
   :global(pre[class*="language-"]) {
@@ -235,7 +243,7 @@
     line-height: 1.6;
     tab-size: 2;
 
-    // 代码块内的 code 标签
+    // 代码块内的 code 标签 / Code tag inside code block
     :global(code[class*="language-"]) {
       border: none;
       padding: 0;
@@ -248,10 +256,10 @@
   }
 
   // ============================================
-  // Prism Token 高亮样式（必须使用 :global）
+  // Prism Token 高亮样式（必须使用 :global）/ Prism token highlighting styles (must use :global)
   // ============================================
 
-  // 注释
+  // 注释 / Comments
   :global(.token.comment),
   :global(.token.prolog),
   :global(.token.doctype),
@@ -260,17 +268,17 @@
     font-style: italic;
   }
 
-  // 标点符号
+  // 标点符号 / Punctuation
   :global(.token.punctuation) {
     color: #94a3b8;
   }
 
-  // 命名空间
+  // 命名空间 / Namespace
   :global(.token.namespace) {
     opacity: 0.7;
   }
 
-  // 属性、标签、布尔值、常量、符号、删除
+  // 属性、标签、布尔值、常量、符号、删除 / Property, tag, boolean, constant, symbol, deleted
   :global(.token.property),
   :global(.token.tag),
   :global(.token.boolean),
@@ -281,7 +289,7 @@
     color: #f472b6;
   }
 
-  // 选择器、属性名、字符串、字符、内置、插入
+  // 选择器、属性名、字符串、字符、内置、插入 / Selector, attr-name, string, char, builtin, inserted
   :global(.token.selector),
   :global(.token.attr-name),
   :global(.token.string),
@@ -291,14 +299,14 @@
     color: #a3e635;
   }
 
-  // 操作符、实体、URL
+  // 操作符、实体、URL / Operator, entity, URL
   :global(.token.operator),
   :global(.token.entity),
   :global(.token.url) {
     color: #38bdf8;
   }
 
-  // 关键字、控制流、指令
+  // 关键字、控制流、指令 / Keyword, control, directive
   :global(.token.keyword),
   :global(.token.control),
   :global(.token.directive) {
@@ -306,31 +314,31 @@
     color: #c084fc;
   }
 
-  // 函数、类名
+  // 函数、类名 / Function, class name
   :global(.token.function),
   :global(.token.class-name) {
     color: #fbbf24;
   }
 
-  // 正则表达式、重要
+  // 正则表达式、重要 / Regex, important
   :global(.token.regex),
   :global(.token.important) {
     font-weight: 600;
     color: #fb923c;
   }
 
-  // 变量
+  // 变量 / Variable
   :global(.token.variable) {
     color: #60a5fa;
   }
 
-  // Bash 特定
+  // Bash 特定 / Bash specific
   :global(.token.shebang) {
     color: #64748b;
     font-style: italic;
   }
 
-  // 粗体和斜体
+  // 粗体和斜体 / Bold and italic
   :global(.token.important),
   :global(.token.bold) {
     font-weight: 700;
@@ -340,13 +348,13 @@
     font-style: italic;
   }
 
-  // 实体
+  // 实体 / Entity
   :global(.token.entity) {
     cursor: help;
   }
 
   // ============================================
-  // 可选：行号样式（如果启用 showLineNumbers）
+  // 可选：行号样式（如果启用 showLineNumbers）/ Optional: Line numbers styles (if showLineNumbers enabled)
   // ============================================
 
   :global(.line-numbers) {
@@ -381,7 +389,7 @@
   }
 
   // ============================================
-  // 可选：行高亮样式（如果使用 data-line 属性）
+  // 可选：行高亮样式（如果使用 data-line 属性）/ Optional: Line highlight styles (if using data-line attribute)
   // ============================================
 
   :global(pre[data-line]) {
@@ -402,9 +410,10 @@
 }
 
 // ============================================
-// 目录样式
+// 目录样式 / Table of contents styles
 // ============================================
 
+/* 目录容器样式 / Table of contents container styles */
 .toc {
   position: sticky;
   top: 8rem;
@@ -419,7 +428,7 @@
     display: none;
   }
 
-  // 自定义滚动条
+  // 自定义滚动条 / Custom scrollbar
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -434,6 +443,7 @@
   }
 }
 
+/* 进度条背景样式 / Progress bar background styles */
 .progress {
   position: absolute;
   top: 0;
@@ -443,18 +453,21 @@
   background-color: rgb(255 255 255 / 10%);
 }
 
+/* 进度条填充样式 / Progress bar fill styles */
 .progress-bar {
   width: 100%;
   background-color: rgb(122.77 241.32 167.54);
   transition: height 0.1s ease-out;
 }
 
+/* 目录导航容器样式 / TOC navigation container styles */
 .nav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+/* 目录项样式 / TOC item styles */
 .item {
   display: block;
   border: none;
@@ -479,20 +492,24 @@
   }
 }
 
+/* 一级标题样式 / Level 1 heading styles */
 .level-1 {
   padding-left: 0;
   font-weight: 600;
 }
 
+/* 二级标题样式 / Level 2 heading styles */
 .level-2 {
   padding-left: 1rem;
 }
 
+/* 三级标题样式 / Level 3 heading styles */
 .level-3 {
   padding-left: 2rem;
   font-size: 0.8125rem;
 }
 
+/* 四级标题样式 / Level 4 heading styles */
 .level-4 {
   padding-left: 3rem;
   font-size: 0.8125rem;

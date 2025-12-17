@@ -17,6 +17,7 @@ import {
 import { Link, useLocation } from "@builder.io/qwik-city";
 import Modules from "./navbar.module.scss";
 
+/** 分类选项类型 / Category options type */
 interface CategoryOptions {
   name: string;
   name_zh: string;

@@ -1,5 +1,11 @@
+/**
+ * 时间线页面样式 / Timeline Page Styles
+ *
+ * 按年份分组展示文章的时间线视图样式 / Styles for timeline view displaying posts grouped by year
+ */
 @use "../../variables" as var;
 
+/* 时间线页面容器 / Timeline page container */
 .timeline {
   margin: 0 auto;
   padding: 2rem 1rem;
@@ -13,6 +19,7 @@
   text-align: left;
 }
 
+/* 主标题样式 / Main title styles */
 .title {
   margin-bottom: 0.5rem;
   font-size: 2.5rem;
@@ -20,6 +27,7 @@
   color: #ffffff;
 }
 
+/* 副标题样式 / Subtitle styles */
 .subtitle {
   font-size: 1.125rem;
   color: #9ca3af;
@@ -34,6 +42,7 @@
 .year-group {
   margin-bottom: 1rem;
 
+  /* 最后一个分组不需要底部间距 / Last group needs no bottom margin */
   &:last-child {
     margin-bottom: 0;
   }
@@ -48,6 +57,7 @@
   gap: 0.75rem;
 }
 
+/* 年份文本样式 / Year text styles */
 .year-title {
   margin: 0;
   font-size: 1.875rem;
@@ -55,6 +65,7 @@
   color: #ffffff;
 }
 
+/* 年份文章数量样式 / Year post count styles */
 .year-count {
   font-size: 0.875rem;
   color: #6b7280;
@@ -88,11 +99,14 @@
   color: inherit;
   transition: all 0.2s ease;
 
+  /* 悬停效果 / Hover effects */
   &:hover {
+    /* 标题变为主题色 / Title changes to theme color */
     .post-title {
       color: var.$theme-color;
     }
 
+    /* 圆点高亮并添加光晕 / Dot highlights with glow effect */
     .post-dot {
       background: var.$theme-color;
       box-shadow: 0 0 0 4px rgb(122.77 241.32 167.54 / 20%);
@@ -121,6 +135,7 @@
   min-width: 0;
 }
 
+/* 文章日期样式 / Post date styles */
 .post-date {
   min-width: 3.5rem;
   font-size: 0.875rem;
@@ -129,6 +144,7 @@
   flex-shrink: 0;
 }
 
+/* 文章标题样式 / Post title styles */
 .post-title {
   overflow: hidden;
   font-size: 1rem;
@@ -139,6 +155,7 @@
   flex: 1;
 }
 
+/* 文章分类标签样式 / Post category tag styles */
 .post-category {
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;

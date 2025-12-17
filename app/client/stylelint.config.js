@@ -1,7 +1,17 @@
-/** @type {import("stylelint").Config} */
+/**
+ * Stylelint 配置文件 / Stylelint Configuration
+ *
+ * CSS/SCSS 代码检查和格式化规则配置
+ * CSS/SCSS linting and formatting rules configuration
+ *
+ * @type {import("stylelint").Config}
+ */
 export default {
+  /** 继承的配置 / Extended configurations */
   extends: ["stylelint-config-standard-scss"],
+  /** 使用的插件 / Plugins used */
   plugins: ["stylelint-order"],
+  /** 规则配置 / Rules configuration */
   rules: {
     "block-no-empty": true,
     "color-hex-length": "long",

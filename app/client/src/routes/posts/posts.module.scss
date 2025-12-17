@@ -1,3 +1,11 @@
+/**
+ * 文章列表页样式 / Posts List Page Styles
+ *
+ * 文章列表页面的布局和动画列表样式
+ * Layout and animated list styles for posts list page
+ */
+
+/* 文章区域容器 / Posts section container */
 .posts-section {
   display: flex;
   justify-content: center;
@@ -7,6 +15,7 @@
   height: 100%;
 }
 
+/* 动画列表容器 / Animated list container */
 .animated-list {
   width: 100%;
   max-width: 100%;
@@ -18,6 +27,7 @@
   }
 }
 
+/* 标签样式 / Label styles */
 .label {
   display: flex;
   align-items: center;

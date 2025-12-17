@@ -29,13 +29,17 @@ export default component$(() => {
   });
 
   const renderPost$ = $((post: Post) => {
+    // 格式化日期 / Format date
+    const date = new Date(post.created_at);
+    const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")}`;
+
     return (
       <div class="flex w-full flex-col gap-3">
         <h3 class="m-0 text-xl font-bold text-white">{post.title}</h3>
         <div class="flex items-center gap-2 text-sm text-gray-400">
           <span class={Modules.label}>
             <span class="icon-[mynaui--clock-four]" />
-            <span>{post.date}</span>
+            <span>{formattedDate}</span>
           </span>
           <span class={Modules.label}>
             <span class="icon-[mynaui--hash-circle] h-4 w-3" />

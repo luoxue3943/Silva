@@ -1,15 +1,27 @@
+/**
+ * 全局 CSS 样式 / Global CSS Styles
+ *
+ * 配置 Tailwind CSS、图标插件、视图过渡和自定义字体
+ * Configures Tailwind CSS, icon plugin, view transitions, and custom fonts
+ */
+
+/* 导入 Tailwind CSS / Import Tailwind CSS */
 @import "tailwindcss";
+/* 导入 Iconify 图标插件 / Import Iconify icon plugin */
 @plugin "@iconify/tailwind4";
 
+/* 视图过渡根元素 / View transition root element */
 html.transition {
   view-transition-name: root;
 }
 
+/* 视图过渡动画时长 / View transition animation duration */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.3s;
 }
 
+/* 自定义字体定义 / Custom font definition */
 @font-face {
   font-family: "ChillRoundM";
   src: url("/fonts/ChillRoundM.otf") format("opentype");
@@ -18,6 +30,7 @@ html.transition {
   font-display: swap;
 }
 
+/* 根元素字体配置 / Root element font configuration */
 :root {
   font-family:
     "ChillRoundM",

@@ -10,10 +10,10 @@ import styles from "./timeline.module.scss";
 interface PostsByYear {
   year: string;
   posts: Array<{
-    id: string;
+    id: number;
     title: string;
     date: string;
-    category: string;
+    category: string | null;
     monthDay: string;
   }>;
 }
@@ -26,12 +26,13 @@ export const useTimelinePosts = routeLoader$(() => {
   const postsByYear: Record<string, PostsByYear["posts"]> = {};
 
   MOCK_POSTS.forEach((post) => {
-    // 解析日期格式 (2025/12/14 或 2024/02/20) / Parse date format
-    const dateParts = post.date.split("/");
-    const year = dateParts[0];
-    const month = dateParts[1];
-    const day = dateParts[2];
+    // 从时间戳创建日期对象 / Create date object from timestamp
+    const date = new Date(post.created_at);
+    const year = date.getFullYear().toString();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     const monthDay = `${month}-${day}`;
+    const dateString = `${year}/${month}/${day}`;
 
     if (!postsByYear[year]) {
       postsByYear[year] = [];
@@ -40,7 +41,7 @@ export const useTimelinePosts = routeLoader$(() => {
     postsByYear[year].push({
       id: post.id,
       title: post.title,
-      date: post.date,
+      date: dateString,
       category: post.category,
       monthDay,
     });
