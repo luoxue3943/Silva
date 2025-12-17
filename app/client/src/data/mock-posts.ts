@@ -2,16 +2,14 @@
  * 文章类型定义 / Post type definition
  */
 export type Post = {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  category: string;
-  views: number;
-  author?: string;
-  link?: string;
-  lastModified?: string;
+  id: string; // 文章主键（唯一标识） / Post primary key (unique identifier)
+  title: string; // 文章标题 / Post title
+  category: string | null; // 分类（可选） / Category (optional)
+  storage_path: string; // 文章存储位置（相对路径） / Storage path (relative path)
+  views: number; // 浏览量计数 / View count
+  created_at: string; // 创建时间 / Creation time
+  updated_at: string | null; // 更新时间 / Update time
+  deleted_at: string | null; // 软删除时间 / Soft delete time
 };
 
 /**
@@ -21,10 +19,41 @@ export const MOCK_POSTS: Post[] = [
   {
     id: "1",
     title: "Better Auth 的多租户用户鉴权的构想",
-    excerpt: "探讨 Better Auth 在多租户场景下的用户鉴权实现方案。",
-    lastModified: "2025 年 12 月 14 日 0:47",
-    content: `
+    category: "tech",
+    storage_path: "posts/2025/better-auth-multi-tenant.md",
+    views: 0,
+    created_at: "2025-12-14T00:47:00+08:00",
+    updated_at: "2025-12-14T00:47:00+08:00",
+    deleted_at: null,
+  },
+  {
+    id: "2",
+    title: "View Transitions in Qwik",
+    category: "advanced",
+    storage_path: "posts/2024/view-transitions-qwik.md",
+    views: 856,
+    created_at: "2024-02-20T00:00:00+08:00",
+    updated_at: null,
+    deleted_at: null,
+  },
+  {
+    id: "3",
+    title: "Paraglide JS + Qwik",
+    category: "i18n",
+    storage_path: "posts/2024/paraglide-js-qwik.md",
+    views: 567,
+    created_at: "2024-03-10T00:00:00+08:00",
+    updated_at: null,
+    deleted_at: null,
+  },
+];
 
+/**
+ * 模拟文章内容映射（临时方案）/ Mock post content mapping (temporary solution)
+ * 在实际应用中，应该从 storage_path 读取 .md 文件 / In production, should read from storage_path
+ */
+const POST_CONTENT_MAP: Record<string, string> = {
+  "posts/2025/better-auth-multi-tenant.md": `
 ## 什么是多租户？
 
 多租户（Multi-tenancy）是一种软件架构，允许单个应用实例为多个独立的客户（租户）提供服务。每个租户的数据和配置都是隔离的，但共享同一套代码和基础设施。
@@ -89,15 +118,7 @@ async function checkTenantAccess(userId: string, tenantId: string) {
 
 Better Auth 为多租户鉴权提供了坚实的基础，通过合理的架构设计，我们可以构建出安全、高效的多租户系统。
 `,
-    date: "2025/12/14",
-    category: "tech",
-    views: 0,
-  },
-  {
-    id: "2",
-    title: "View Transitions in Qwik",
-    excerpt: "如何在 Qwik 中使用视图过渡（View Transitions）。",
-    content: `
+  "posts/2024/view-transitions-qwik.md": `
 # View Transitions in Qwik
 
 视图过渡 API 让页面切换更加流畅自然。
@@ -153,15 +174,7 @@ export default component$(() => {
 - [x] 添加降级方案
 - [ ] 测试性能影响
 `,
-    date: "2024/02/20",
-    category: "advanced",
-    views: 856,
-  },
-  {
-    id: "3",
-    title: "Paraglide JS + Qwik",
-    excerpt: "在 Qwik 项目中集成 Paraglide JS 实现 i18n。",
-    content: `
+  "posts/2024/paraglide-js-qwik.md": `
 # Paraglide JS + Qwik 国际化方案
 
 完整的 i18n 集成指南。
@@ -213,8 +226,11 @@ export default component$(() => {
 
 如果你能看到上面的尖括号，说明 XSS 防护成功！
 `,
-    date: "2024/03/10",
-    category: "i18n",
-    views: 567,
-  },
-];
+};
+
+/**
+ * 根据 storage_path 获取文章内容 / Get post content by storage_path
+ */
+export function getPostContent(storagePath: string): string {
+  return POST_CONTENT_MAP[storagePath] || "";
+}

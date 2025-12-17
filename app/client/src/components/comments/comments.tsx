@@ -3,8 +3,14 @@
  *
  * 提供评论展示、社交登录和评论提交功能 / Provides comment display, social login, and comment submission
  */
-import { $, component$, useSignal } from "@builder.io/qwik";
 import type { Comment } from "@/data/mock-comments";
+import {
+  $,
+  component$,
+  useSignal,
+  type PropFunction,
+  type Signal,
+} from "@builder.io/qwik";
 import Modules from "./comments.module.scss";
 
 interface CommentsProps {
@@ -13,196 +19,257 @@ interface CommentsProps {
 }
 
 /**
+ * 可复用的评论表单组件 / Reusable comment form component
+ */
+const CommentForm = component$<{
+  authorName: Signal<string>;
+  authorEmail: Signal<string>;
+  content: Signal<string>;
+  onSubmit: PropFunction<() => void>;
+  onCancel?: PropFunction<() => void>;
+  placeholder?: string;
+}>(({ authorName, authorEmail, content, onSubmit, onCancel, placeholder }) => {
+  return (
+    <>
+      <div class={Modules["form-row"]}>
+        <input
+          type="text"
+          placeholder="昵称 *"
+          class={Modules.input}
+          value={authorName.value}
+          onInput$={(e) =>
+            (authorName.value = (e.target as HTMLInputElement).value)
+          }
+          required
+        />
+        <input
+          type="email"
+          placeholder="邮箱 *"
+          class={Modules.input}
+          value={authorEmail.value}
+          onInput$={(e) =>
+            (authorEmail.value = (e.target as HTMLInputElement).value)
+          }
+          required
+        />
+      </div>
+      <div class={Modules["textarea-wrapper"]}>
+        <textarea
+          placeholder={placeholder || "写下你的评论... *"}
+          class={Modules.textarea}
+          value={content.value}
+          onInput$={(e) =>
+            (content.value = (e.target as HTMLTextAreaElement).value)
+          }
+          rows={4}
+          required
+        />
+        {content.value.trim() &&
+          authorName.value.trim() &&
+          authorEmail.value.trim() && (
+            <button
+              class={Modules["submit-button"]}
+              onClick$={onSubmit}
+              type="button"
+            >
+              <span class="icon-[mynaui--send-solid]" />
+              发送留言
+            </button>
+          )}
+      </div>
+      {onCancel && (
+        <div class={Modules["form-actions"]}>
+          <button
+            class={Modules["cancel-button"]}
+            onClick$={onCancel}
+            type="button"
+          >
+            取消
+          </button>
+        </div>
+      )}
+    </>
+  );
+});
+
+/**
+ * 格式化时间戳为显示格式 / Format timestamp for display
+ */
+const formatTime = (timestamp: string): string => {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+};
+
+/**
+ * 获取用户名首字母 / Get first letter of username
+ */
+const getFirstLetter = (name: string): string => {
+  if (!name) return "?";
+  return name.charAt(0).toUpperCase();
+};
+
+/**
+ * 根据字符串生成稳定的随机颜色 / Generate stable random color from string
+ */
+const getColorFromString = (str: string): string => {
+  // 预定义的颜色数组 / Predefined color array
+  const colors = [
+    "#FF6B6B", // 红色 / Red
+    "#4ECDC4", // 青色 / Cyan
+    "#45B7D1", // 蓝色 / Blue
+    "#FFA07A", // 橙色 / Orange
+    "#98D8C8", // 薄荷绿 / Mint
+    "#F7DC6F", // 黄色 / Yellow
+    "#BB8FCE", // 紫色 / Purple
+    "#85C1E2", // 天蓝 / Sky Blue
+    "#F8B739", // 金色 / Gold
+    "#52B788", // 绿色 / Green
+    "#E63946", // 深红 / Deep Red
+    "#457B9D", // 钢蓝 / Steel Blue
+  ];
+
+  // 使用字符串生成哈希值 / Generate hash from string
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    hash = hash & hash; // Convert to 32bit integer
+  }
+
+  // 使用哈希值选择颜色 / Use hash to select color
+  const index = Math.abs(hash) % colors.length;
+  return colors[index];
+};
+
+/**
  * 单条评论组件 / Single comment component
  */
-const CommentItem = component$<{ comment: Comment; isReply?: boolean }>(
-  ({ comment, isReply = false }) => {
-    // 回复表单状态 / Reply form state
-    const showReplyForm = useSignal(false);
-    const replyContent = useSignal("");
-    const replyAuthorName = useSignal("");
-    const replyAuthorEmail = useSignal("");
+const CommentItem = component$<{
+  comment: Comment;
+  allComments: Comment[];
+  isReply?: boolean;
+}>(({ comment, allComments, isReply = false }) => {
+  // 回复表单状态 / Reply form state
+  const showReplyForm = useSignal(false);
+  const replyContent = useSignal("");
+  const replyAuthorName = useSignal("");
+  const replyAuthorEmail = useSignal("");
 
-    /**
-     * 切换回复表单 / Toggle reply form
-     */
-    const toggleReplyForm = $(() => {
-      showReplyForm.value = !showReplyForm.value;
-      // 关闭时清空表单 / Clear form when closing
-      if (!showReplyForm.value) {
-        replyContent.value = "";
-        replyAuthorName.value = "";
-        replyAuthorEmail.value = "";
-      }
-    });
+  // 筛选出当前评论的子评论 / Filter child comments
+  const replies = allComments.filter((c) => c.parent_id === comment.id);
 
-    /**
-     * 提交回复 / Submit reply
-     */
-    const handleReplySubmit = $(() => {
-      const replyData = {
-        parentCommentId: comment.id,
-        parentFloor: comment.floor,
-        content: replyContent.value,
-        author: replyAuthorName.value || "匿名用户",
-        email: replyAuthorEmail.value,
-        timestamp: new Date().toISOString(),
-      };
-
-      console.log("回复表单数据:", replyData);
-
-      // 重置表单 / Reset form
+  /**
+   * 切换回复表单 / Toggle reply form
+   */
+  const toggleReplyForm = $(() => {
+    showReplyForm.value = !showReplyForm.value;
+    // 关闭时清空表单 / Clear form when closing
+    if (!showReplyForm.value) {
       replyContent.value = "";
       replyAuthorName.value = "";
       replyAuthorEmail.value = "";
-      showReplyForm.value = false;
-    });
+    }
+  });
 
-    return (
-      <div class={isReply ? Modules.reply : Modules.comment}>
-        <div class={Modules["comment-header"]}>
-          <img
-            src={comment.avatar}
-            alt={comment.author}
-            class={Modules.avatar}
-            width={40}
-            height={40}
-          />
-          <div class={Modules["comment-info"]}>
-            <div class={Modules["author-line"]}>
-              <span class={Modules.author}>{comment.author}</span>
-              {comment.loginType === "github" && (
-                <span
-                  class={`${Modules["login-badge"]} icon-[mdi--github]`}
-                  title="GitHub登录"
-                />
-              )}
-              {comment.loginType === "google" && (
-                <span
-                  class={`${Modules["login-badge"]} icon-[mdi--google]`}
-                  title="Google登录"
-                />
-              )}
-            </div>
-            <div class={Modules.meta}>
-              <span class={Modules.time}>{comment.time}</span>
-              <span class={Modules.floor}>#{comment.floor}</span>
-              {comment.location && (
-                <span class={Modules.location}>来自: {comment.location}</span>
-              )}
-            </div>
-          </div>
+  /**
+   * 提交回复 / Submit reply
+   */
+  const handleReplySubmit = $(() => {
+    const replyData = {
+      parentCommentId: comment.id,
+      parentFloor: comment.floor,
+      content: replyContent.value,
+      author: replyAuthorName.value || "匿名用户",
+      email: replyAuthorEmail.value,
+      timestamp: new Date().toISOString(),
+    };
+
+    console.log("回复表单数据:", replyData);
+
+    // 重置表单 / Reset form
+    replyContent.value = "";
+    replyAuthorName.value = "";
+    replyAuthorEmail.value = "";
+    showReplyForm.value = false;
+  });
+
+  return (
+    <div class={isReply ? Modules.reply : Modules.comment}>
+      <div class={Modules["comment-main"]}>
+        <div
+          class={Modules.avatar}
+          style={{
+            backgroundColor: getColorFromString(comment.author),
+          }}
+        >
+          {getFirstLetter(comment.author)}
         </div>
-        <div class={Modules["comment-content"]}>{comment.content}</div>
+        <div class={Modules["comment-bubble-wrapper"]}>
+          <div class={Modules["author-line"]}>
+            <span class={Modules.author}>{comment.author}</span>
+            <span class={Modules.time}>{formatTime(comment.created_at)}</span>
+            <span class={Modules.floor}>#{comment.floor}</span>
+            <span class={Modules.location}>来自：{comment.location}</span>
+          </div>
+          <div class={Modules["comment-bubble"]}>
+            <div class={Modules["comment-content"]}>{comment.content}</div>
+          </div>
 
-        {/* 回复按钮 - 只在基础评论显示 / Reply button - only show for base comments */}
-        {!isReply && (
-          <div class={Modules["comment-actions"]}>
+          {/* 回复按钮 - 只在基础评论显示 / Reply button - only show for base comments */}
+          {!isReply && (
             <button
               class={Modules["reply-button"]}
               onClick$={toggleReplyForm}
               type="button"
+              aria-label={showReplyForm.value ? "取消回复" : "回复"}
             >
-              {showReplyForm.value ? "取消回复" : "回复"}
+              <span class="icon-[mynaui--chat-messages-solid]" />
             </button>
-          </div>
-        )}
-
-        {/* 回复表单 / Reply form */}
-        {!isReply && showReplyForm.value && (
-          <div class={Modules["reply-form"]}>
-            <div class={Modules["form-row"]}>
-              <input
-                type="text"
-                placeholder="昵称 *"
-                class={Modules.input}
-                value={replyAuthorName.value}
-                onInput$={(e) =>
-                  (replyAuthorName.value = (e.target as HTMLInputElement).value)
-                }
-                required
-              />
-              <input
-                type="email"
-                placeholder="邮箱 *"
-                class={Modules.input}
-                value={replyAuthorEmail.value}
-                onInput$={(e) =>
-                  (replyAuthorEmail.value = (
-                    e.target as HTMLInputElement
-                  ).value)
-                }
-                required
-              />
-            </div>
-            <textarea
-              placeholder="写下你的回复... *"
-              class={Modules.textarea}
-              value={replyContent.value}
-              onInput$={(e) =>
-                (replyContent.value = (e.target as HTMLTextAreaElement).value)
-              }
-              rows={3}
-              required
-            />
-            <div class={Modules["form-actions"]}>
-              <button
-                class={Modules["submit-button"]}
-                onClick$={handleReplySubmit}
-                type="button"
-                disabled={
-                  !replyContent.value.trim() ||
-                  !replyAuthorName.value.trim() ||
-                  !replyAuthorEmail.value.trim()
-                }
-              >
-                提交回复
-              </button>
-              <button
-                class={Modules["cancel-button"]}
-                onClick$={toggleReplyForm}
-                type="button"
-              >
-                取消
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* 回复列表 / Replies list */}
-        {comment.replies && comment.replies.length > 0 && (
-          <div class={Modules.replies}>
-            {comment.replies.map((reply) => (
-              <CommentItem key={reply.id} comment={reply} isReply={true} />
-            ))}
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    );
-  },
-);
+
+      {/* 回复表单 / Reply form */}
+      {!isReply && showReplyForm.value && (
+        <div class={Modules["reply-form"]}>
+          <CommentForm
+            authorName={replyAuthorName}
+            authorEmail={replyAuthorEmail}
+            content={replyContent}
+            onSubmit={handleReplySubmit}
+            onCancel={toggleReplyForm}
+            placeholder="写下你的回复... *"
+          />
+        </div>
+      )}
+
+      {/* 回复列表 / Replies list */}
+      {replies.length > 0 && (
+        <div class={Modules.replies}>
+          {replies.map((reply) => (
+            <CommentItem
+              key={reply.id}
+              comment={reply}
+              allComments={allComments}
+              isReply={true}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+});
 
 export default component$<CommentsProps>(({ comments, postId }) => {
   // 评论表单状态 / Comment form state
   const commentContent = useSignal("");
   const authorName = useSignal("");
   const authorEmail = useSignal("");
-  const showAnonymousForm = useSignal(false);
-
-  /**
-   * 处理社交登录 / Handle social login
-   */
-  const handleSocialLogin = $((provider: "github" | "google") => {
-    console.log(`社交登录: ${provider}`);
-    // TODO: 实现真实的社交登录逻辑
-  });
-
-  /**
-   * 切换免登录评论表单 / Toggle anonymous comment form
-   */
-  const toggleAnonymousForm = $(() => {
-    showAnonymousForm.value = !showAnonymousForm.value;
-  });
 
   /**
    * 提交评论 / Submit comment
@@ -222,108 +289,35 @@ export default component$<CommentsProps>(({ comments, postId }) => {
     commentContent.value = "";
     authorName.value = "";
     authorEmail.value = "";
-    showAnonymousForm.value = false;
   });
 
   return (
     <div class={Modules.container}>
-      {/* 登录区域 / Login section */}
-      <div class={Modules["login-section"]}>
-        <h3 class={Modules["login-title"]}>使用社交账号登录</h3>
-        <div class={Modules["social-buttons"]}>
-          <button
-            class={Modules["social-button"]}
-            onClick$={() => handleSocialLogin("github")}
-            type="button"
-            aria-label="使用GitHub登录"
-          >
-            <span class="icon-[mdi--github]" />
-          </button>
-          <button
-            class={Modules["social-button"]}
-            onClick$={() => handleSocialLogin("google")}
-            type="button"
-            aria-label="使用Google登录"
-          >
-            <span class="icon-[mdi--google]" />
-          </button>
-        </div>
-        <button
-          class={Modules["anonymous-button"]}
-          onClick$={toggleAnonymousForm}
-          type="button"
-        >
-          免登录评论
-        </button>
+      {/* 评论表单 / Comment form */}
+      <div class={Modules["comment-form"]}>
+        <CommentForm
+          authorName={authorName}
+          authorEmail={authorEmail}
+          content={commentContent}
+          onSubmit={handleSubmit}
+          placeholder="写下你的评论... *"
+        />
       </div>
-
-      {/* 免登录评论表单 / Anonymous comment form */}
-      {showAnonymousForm.value && (
-        <div class={Modules["comment-form"]}>
-          <div class={Modules["form-row"]}>
-            <input
-              type="text"
-              placeholder="昵称 *"
-              class={Modules.input}
-              value={authorName.value}
-              onInput$={(e) =>
-                (authorName.value = (e.target as HTMLInputElement).value)
-              }
-              required
-            />
-            <input
-              type="email"
-              placeholder="邮箱 *"
-              class={Modules.input}
-              value={authorEmail.value}
-              onInput$={(e) =>
-                (authorEmail.value = (e.target as HTMLInputElement).value)
-              }
-              required
-            />
-          </div>
-          <textarea
-            placeholder="写下你的评论... *"
-            class={Modules.textarea}
-            value={commentContent.value}
-            onInput$={(e) =>
-              (commentContent.value = (e.target as HTMLTextAreaElement).value)
-            }
-            rows={4}
-            required
-          />
-          <div class={Modules["form-actions"]}>
-            <button
-              class={Modules["submit-button"]}
-              onClick$={handleSubmit}
-              type="button"
-              disabled={
-                !commentContent.value.trim() ||
-                !authorName.value.trim() ||
-                !authorEmail.value.trim()
-              }
-            >
-              提交评论
-            </button>
-            <button
-              class={Modules["cancel-button"]}
-              onClick$={toggleAnonymousForm}
-              type="button"
-            >
-              取消
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* 评论列表 / Comments list */}
       <div class={Modules["comments-list"]}>
         {comments.length === 0 ? (
           <div class={Modules["empty-state"]}>暂无评论，快来抢沙发吧！</div>
         ) : (
-          comments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} />
-          ))
+          comments
+            .filter((comment) => comment.parent_id === null)
+            .map((comment) => (
+              <CommentItem
+                key={comment.id}
+                comment={comment}
+                allComments={comments}
+              />
+            ))
         )}
       </div>
     </div>

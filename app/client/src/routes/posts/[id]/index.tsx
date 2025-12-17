@@ -1,6 +1,6 @@
 import Comments from "@/components/comments/comments";
 import { MOCK_COMMENTS } from "@/data/mock-comments";
-import { MOCK_POSTS } from "@/data/mock-posts";
+import { MOCK_POSTS, getPostContent } from "@/data/mock-posts";
 import { SilvaConfig } from "@/lib/config-loader";
 import { markdownToHtml } from "@/lib/markdown";
 import * as m from "@/paraglide/messages";
@@ -40,7 +40,8 @@ export const usePost = routeLoader$(async ({ params, status, url }) => {
   }
 
   // 在服务端编译 Markdown 为 HTML / Compile Markdown to HTML on server
-  const htmlContent = await markdownToHtml(post.content);
+  const content = getPostContent(post.storage_path);
+  const htmlContent = await markdownToHtml(content);
 
   // 生成完整的文章链接 / Generate full post URL
   const fullUrl = `${url.origin}/posts/${id}`;
@@ -243,7 +244,15 @@ export default component$(() => {
             <div class="flex items-center justify-center gap-2 text-sm text-gray-400">
               <span class={Modules.label}>
                 <span class="icon-[mynaui--clock-four]" />
-                <span>{post.value.lastModified || post.value.date}</span>
+                <span>
+                  {new Date(
+                    post.value.updated_at || post.value.created_at,
+                  ).toLocaleDateString("zh-CN", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
               </span>
               <span class={Modules.label}>
                 <span class="icon-[mynaui--hash-circle] h-4 w-3" />
