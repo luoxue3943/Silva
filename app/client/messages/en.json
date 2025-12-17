@@ -38,5 +38,21 @@
     "yearPercentage": "{percentage}% of the year has passed",
     "dayPercentage": "{percentage}% of today has passed",
     "postsCount": "{count} posts"
+  },
+  "Comments": {
+    "nicknamePlaceholder": "Nickname *",
+    "emailPlaceholder": "Email *",
+    "commentPlaceholder": "Write your comment... *",
+    "replyPlaceholder": "Write your reply... *",
+    "sendMessage": "Send Message",
+    "cancel": "Cancel",
+    "from": "From: ",
+    "reply": "Reply",
+    "cancelReply": "Cancel Reply",
+    "emptyState": "No comments yet, be the first!"
+  },
+  "MessageBoard": {
+    "title": "Message Board",
+    "welcome": "Welcome to leave your thoughts and suggestions here"
   }
 }

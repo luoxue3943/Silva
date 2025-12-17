@@ -4,6 +4,7 @@
  * 提供评论展示、社交登录和评论提交功能 / Provides comment display, social login, and comment submission
  */
 import type { Comment } from "@/data/mock-comments";
+import * as m from "@/paraglide/messages";
 import {
   $,
   component$,
@@ -35,7 +36,7 @@ const CommentForm = component$<{
       <div class={Modules["form-row"]}>
         <input
           type="text"
-          placeholder="昵称 *"
+          placeholder={m["Comments.nicknamePlaceholder"]()}
           class={Modules.input}
           value={authorName.value}
           onInput$={(e) =>
@@ -45,7 +46,7 @@ const CommentForm = component$<{
         />
         <input
           type="email"
-          placeholder="邮箱 *"
+          placeholder={m["Comments.emailPlaceholder"]()}
           class={Modules.input}
           value={authorEmail.value}
           onInput$={(e) =>
@@ -56,7 +57,7 @@ const CommentForm = component$<{
       </div>
       <div class={Modules["textarea-wrapper"]}>
         <textarea
-          placeholder={placeholder || "写下你的评论... *"}
+          placeholder={placeholder || m["Comments.commentPlaceholder"]()}
           class={Modules.textarea}
           value={content.value}
           onInput$={(e) =>
@@ -74,7 +75,7 @@ const CommentForm = component$<{
               type="button"
             >
               <span class="icon-[mynaui--send-solid]" />
-              发送留言
+              {m["Comments.sendMessage"]()}
             </button>
           )}
       </div>
@@ -85,7 +86,7 @@ const CommentForm = component$<{
             onClick$={onCancel}
             type="button"
           >
-            取消
+            {m["Comments.cancel"]()}
           </button>
         </div>
       )}
@@ -185,7 +186,7 @@ const CommentItem = component$<{
       parent_id: comment.id,
       parentFloor: comment.floor,
       content: replyContent.value,
-      author: replyAuthorName.value || "匿名用户",
+      author: replyAuthorName.value,
       email: replyAuthorEmail.value,
       created_at: Date.now(),
     };
@@ -215,7 +216,10 @@ const CommentItem = component$<{
             <span class={Modules.author}>{comment.author}</span>
             <span class={Modules.time}>{formatTime(comment.created_at)}</span>
             <span class={Modules.floor}>#{comment.floor}</span>
-            <span class={Modules.location}>来自：{comment.location}</span>
+            <span class={Modules.location}>
+              {m["Comments.from"]()}
+              {comment.location}
+            </span>
           </div>
           <div class={Modules["comment-bubble"]}>
             <div class={Modules["comment-content"]}>{comment.content}</div>
@@ -227,7 +231,11 @@ const CommentItem = component$<{
               class={Modules["reply-button"]}
               onClick$={toggleReplyForm}
               type="button"
-              aria-label={showReplyForm.value ? "取消回复" : "回复"}
+              aria-label={
+                showReplyForm.value
+                  ? m["Comments.cancelReply"]()
+                  : m["Comments.reply"]()
+              }
             >
               <span class="icon-[mynaui--chat-messages-solid]" />
             </button>
@@ -244,7 +252,7 @@ const CommentItem = component$<{
             content={replyContent}
             onSubmit={handleReplySubmit}
             onCancel={toggleReplyForm}
-            placeholder="写下你的回复... *"
+            placeholder={m["Comments.replyPlaceholder"]()}
           />
         </div>
       )}
@@ -279,7 +287,7 @@ export default component$<CommentsProps>(({ comments, postId }) => {
     const formData = {
       post_id: postId ? Number(postId) : 1,
       content: commentContent.value,
-      author: authorName.value || "匿名用户",
+      author: authorName.value,
       email: authorEmail.value,
       created_at: Date.now(),
     };
@@ -301,14 +309,16 @@ export default component$<CommentsProps>(({ comments, postId }) => {
           authorEmail={authorEmail}
           content={commentContent}
           onSubmit={handleSubmit}
-          placeholder="写下你的评论... *"
+          placeholder={m["Comments.commentPlaceholder"]()}
         />
       </div>
 
       {/* 评论列表 / Comments list */}
       <div class={Modules["comments-list"]}>
         {comments.length === 0 ? (
-          <div class={Modules["empty-state"]}>暂无评论，快来抢沙发吧！</div>
+          <div class={Modules["empty-state"]}>
+            {m["Comments.emptyState"]()}
+          </div>
         ) : (
           comments
             .filter((comment) => comment.parent_id === null)

@@ -39,5 +39,21 @@
     "dayPercentage": "今天已过 {percentage}%",
     "motto": "活在当下，珍惜眼下",
     "postsCount": "{count} 篇"
+  },
+  "Comments": {
+    "nicknamePlaceholder": "昵称 *",
+    "emailPlaceholder": "邮箱 *",
+    "commentPlaceholder": "写下你的评论... *",
+    "replyPlaceholder": "写下你的回复... *",
+    "sendMessage": "发送留言",
+    "cancel": "取消",
+    "from": "来自：",
+    "reply": "回复",
+    "cancelReply": "取消回复",
+    "emptyState": "暂无评论，快来抢沙发吧！"
+  },
+  "MessageBoard": {
+    "title": "留言板",
+    "welcome": "欢迎在这里留下你的想法和建议"
   }
 }
