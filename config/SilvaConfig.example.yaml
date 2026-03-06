@@ -80,6 +80,32 @@ filings:
   # - 将 xxxxxxxx 替换为实际的备案号 / Replace xxxxxxxx with actual filing number
 
 # ----------------------------------------------------------------------------
+# 文章分类配置
+# Post Categories Configuration
+# ----------------------------------------------------------------------------
+categories:
+  # 分类名称 / Category name
+  - name: "技术"
+    # 中文名称 / Chinese name
+    name_zh: "技术"
+    # 英文名称 / English name
+    name_en: "Tech"
+    # URL 路径 / URL slug
+    slug: "tech"
+  - name: "进阶"
+    name_zh: "进阶"
+    name_en: "Advanced"
+    slug: "advanced"
+  - name: "国际化"
+    name_zh: "国际化"
+    name_en: "i18n"
+    slug: "i18n"
+    # 注意事项 / Notes:
+    # - 分类名称建议简短，slug 用于 URL 路径，推荐使用英文且不包含空格 / Category names should be concise, slug is used for URL path, recommended to use English without spaces
+    # - name 是必填项，name_zh 和 name_en 可选，如果缺失会使用 name / name is required, name_zh and name_en are optional, if missing will use name
+    # - 可以根据需要添加更多分类 / Can add more categories as needed
+
+# ----------------------------------------------------------------------------
 # SEO 元数据配置
 # SEO Metadata Configuration
 # ----------------------------------------------------------------------------

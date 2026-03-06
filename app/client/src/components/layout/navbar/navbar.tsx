@@ -5,7 +5,7 @@
  */
 import { SilvaConfig } from "@/lib/config-loader";
 import * as m from "@/paraglide/messages";
-import { setLocale } from "@/paraglide/runtime";
+import { getLocale, setLocale } from "@/paraglide/runtime";
 import {
   $,
   component$,
@@ -26,6 +26,9 @@ interface CategoryOptions {
 }
 
 export default component$(() => {
+  // 获取当前语言 / Get current locale
+  const currentLocale = getLocale();
+
   // 获取当前路由位置 / Get current route location
   const loc = useLocation();
 
@@ -222,9 +225,6 @@ export default component$(() => {
                 onMouseLeave$={$(() => setCategoryMenu(false))}
               >
                 {SilvaConfig.categories.map((category: CategoryOptions) => {
-                  const messageKey =
-                    `Categories.${category.slug}` as keyof typeof m;
-                  const messageFn = m[messageKey];
                   return (
                     <Link
                       key={category.slug}
@@ -232,9 +232,9 @@ export default component$(() => {
                       class={Modules["category-option"]}
                       onClick$={$(() => setCategoryMenu(false))}
                     >
-                      {typeof messageFn === "function"
-                        ? (messageFn as () => string)()
-                        : category.slug}
+                      {currentLocale === "zh"
+                        ? category.name_zh || category.name
+                        : category.name_en || category.name}
                     </Link>
                   );
                 })}

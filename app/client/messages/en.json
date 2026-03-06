@@ -25,12 +25,6 @@
     "totalVisitors": "Total Visitors",
     "onlineUsers": "Online Users"
   },
-  "Categories": {
-    "tech": "Tech",
-    "advanced": "Advanced",
-    "i18n": "i18n",
-    "allCategories": "All Categories"
-  },
   "Timeline": {
     "title": "Timeline",
     "totalPosts": "{count} posts in total, keep going",
