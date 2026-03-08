@@ -21,7 +21,7 @@
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik",
-    "license": "pnpx generate-license-file --input ./package.json --output ./third-party-licenses.txt"
+    "license": "pnpx generate-license-file --input ./package.json --output ../../third-party-licenses.txt"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.17.2",
