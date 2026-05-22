@@ -4,7 +4,7 @@
  * 包含导航容器、链接按钮和视图过渡动画样式。 / Contains navbar container, link buttons, and view transition animation styles.
  */
 
-@use "@/app/variables" as var;
+@use "../../../app/[locale]/variables" as var;
 
 /* 导航容器与滚动毛玻璃效果 / Nav wrapper with scroll glassmorphism */
 .nav {
@@ -88,9 +88,9 @@
 .locale-menu {
   position: absolute;
   top: 100%;
-  left: 50%;
   z-index: 5;
   display: flex;
+  left: 50%;
   border: 1px solid var.$glass-stroke-color;
   border-radius: 0.75rem;
   padding: 0.5rem 0.75rem;
@@ -149,9 +149,9 @@
 .category-menu {
   position: absolute;
   top: 100%;
-  left: 50%;
   z-index: 5;
   display: flex;
+  left: 50%;
   border: 1px solid var.$glass-stroke-color;
   border-radius: 0.75rem;
   padding: 0.5rem 0.75rem;

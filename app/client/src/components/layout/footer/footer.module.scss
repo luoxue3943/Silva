@@ -2,7 +2,7 @@
  * 页脚模块样式 / Footer module styles
  */
 
-@use "@/app/variables" as var;
+@use "../../../app/[locale]/variables" as var;
 
 /* 页脚容器样式 / Footer container styles */
 .footer {

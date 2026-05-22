@@ -3,7 +3,7 @@
  *
  * 按年份分组展示文章的时间线视图样式 / Styles for timeline view displaying posts grouped by year
  */
-@use "@/app/variables" as var;
+@use "../../../app/[locale]/variables" as var;
 
 /* 时间线页面容器 / Timeline page container */
 .timeline {

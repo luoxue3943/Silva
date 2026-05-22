@@ -9,16 +9,10 @@
  */
 
 import { Link } from "next-view-transitions";
+import { Link as I18nLink } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
-import {
-  type MouseEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Modules from "./navbar.module.scss";
 
 export type NavbarCategory = {
@@ -98,7 +92,6 @@ type NavbarClientProps = {
 };
 
 export default function NavbarClient({ categories }: NavbarClientProps) {
-  const router = useRouter();
   const pathname = usePathname() ?? "/";
   const locale = useLocale();
   const t = useTranslations("Navbar");
@@ -188,20 +181,6 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
       categoryMenuTimerRef.current = setTimeout(finishCategoryClose, 180);
     },
     [finishCategoryClose, showCategoryMenu],
-  );
-
-  const changeLocale = useCallback(
-    (nextLocale: string) => {
-      /**
-       * 如果你使用 next-intl middleware，这个 cookie 通常会被用于记住语言。
-       * 如果你的项目使用 /zh-CN、/en-US 这种路由前缀，可以后续改成 router.replace 对应路径。
-       */
-      document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
-
-      setLocaleMenu(false);
-      router.refresh();
-    },
-    [router, setLocaleMenu],
   );
 
   useEffect(() => {
@@ -407,17 +386,14 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
               }`.trim()}
             >
               {localeOptions.map((option) => (
-                <button
+                <I18nLink
+                  href={pathname}
+                  locale={option.locale}
                   key={option.locale}
                   className={Modules["locale-option"]}
-                  type="button"
-                  onClick={(event: MouseEvent<HTMLButtonElement>) => {
-                    event.stopPropagation();
-                    changeLocale(option.locale);
-                  }}
                 >
                   {option.label}
-                </button>
+                </I18nLink>
               ))}
             </div>
           )}

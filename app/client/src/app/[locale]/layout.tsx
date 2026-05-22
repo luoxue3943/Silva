@@ -10,7 +10,7 @@ import "./global.scss";
 import Navbar from "@/components/layout/navbar/navbar";
 
 const ChillRoundF = localFont({
-  src: "../../public/fonts/ChillRoundM.otf",
+  src: "../../../public/fonts/ChillRoundM.otf",
 });
 
 export default async function RootLayout({

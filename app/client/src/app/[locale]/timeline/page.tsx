@@ -60,49 +60,6 @@ function getTimelinePosts() {
   };
 }
 
-/**
- * 计算今年进度和今天进度 / Calculate year and day progress
- */
-function getTimeProgress() {
-  const now = new Date();
-
-  const year = now.getFullYear();
-
-  const startOfYear = new Date(year, 0, 1);
-  const startOfNextYear = new Date(year + 1, 0, 1);
-
-  const startOfToday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-  );
-  const startOfTomorrow = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1,
-  );
-
-  const yearElapsed = now.getTime() - startOfYear.getTime();
-  const yearTotal = startOfNextYear.getTime() - startOfYear.getTime();
-
-  const dayElapsed = now.getTime() - startOfToday.getTime();
-  const dayTotal = startOfTomorrow.getTime() - startOfToday.getTime();
-
-  const dayOfYear =
-    Math.floor((startOfToday.getTime() - startOfYear.getTime()) / 86_400_000) +
-    1;
-
-  const yearPercentage = ((yearElapsed / yearTotal) * 100).toFixed(2);
-  const dayPercentage = ((dayElapsed / dayTotal) * 100).toFixed(2);
-
-  return {
-    year,
-    dayOfYear,
-    yearPercentage,
-    dayPercentage,
-  };
-}
-
 function getCategoryLabel(
   category: string | null,
   translateCategory: (key: string) => string,
