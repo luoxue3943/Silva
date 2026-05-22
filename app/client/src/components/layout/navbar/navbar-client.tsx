@@ -8,7 +8,7 @@
  * category menu, and locale switcher.
  */
 
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { Link as I18nLink } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";

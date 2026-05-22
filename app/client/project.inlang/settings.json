@@ -1,0 +1,10 @@
+{
+  "sourceLanguageTag": "zh-CN",
+  "languageTags": ["zh-CN", "en-US"],
+  "modules": [
+    "https://cdn.jsdelivr.net/npm/@inlang/plugin-next-intl@latest/dist/index.js"
+  ],
+  "plugin.inlang.nextIntl": {
+    "pathPattern": "./messages/{languageTag}.json"
+  }
+}

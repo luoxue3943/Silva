@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
-import { ViewTransitions } from "next-view-transitions";
+import { ViewTransition } from "react";
 import ParticlesBackground from "@/components/ReactBits/particles/particles";
 import Footer from "@/components/layout/footer/footer";
 
@@ -19,7 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
+    <ViewTransition>
       <html lang="zh-CN">
         <body className={ChillRoundF.className}>
           <NextIntlClientProvider>
@@ -53,6 +53,6 @@ export default async function RootLayout({
           </NextIntlClientProvider>
         </body>
       </html>
-    </ViewTransitions>
+    </ViewTransition>
   );
 }

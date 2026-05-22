@@ -81,7 +81,7 @@ export default function TimelineProgressClient() {
   }, []);
 
   return (
-    <div className="mx-auto mt-6 flex max-w-3xl flex-col items-center gap-2 text-sm text-gray-400">
+    <div className="mx-auto mt-6 flex max-w-3xl flex-col gap-2 text-sm text-gray-400">
       <p>
         {t("yearPercentage", {
           percentage: progress.yearPercentage,
