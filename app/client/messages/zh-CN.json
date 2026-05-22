@@ -1,1 +1,57 @@
-{}
+{
+  "HomePage": {
+    "welcome": "Welcome, 这里是"
+  },
+  "Navbar": {
+    "home": "首页",
+    "posts": "文章",
+    "timeline": "时间线",
+    "messages": "留言",
+    "more": "更多",
+    "message": "留言"
+  },
+  "PostDetail": {
+    "notFound": "文章不存在",
+    "backToList": "返回列表",
+    "author": "文章作者",
+    "link": "文章链接",
+    "commercialLicense": "商业转载请联系站长获得授权；非商业转载请注明本文出处及原文链接。您可以在任何媒体、以任何形式自由复制、分发、修改与再创作本文内容；但在分发衍生作品时，必须以相同的许可协议发布",
+    "licenseText": "本文采用",
+    "licenseName": "非商业性使用 - 相同方式共享 4.0 国际进行许可。"
+  },
+  "Stats": {
+    "totalViews": "总访问量",
+    "totalVisitors": "总访客数",
+    "onlineUsers": "在线人数"
+  },
+  "Timeline": {
+    "title": "时间线",
+    "totalPosts": "共有 {count} 篇文章，再接再厉",
+    "yearProgress": "今天是 {year} 年的第 {day} 天",
+    "yearPercentage": "今年已过 {percentage}%",
+    "dayPercentage": "今天已过 {percentage}%",
+    "motto": "活在当下，珍惜眼下",
+    "postsCount": "{count} 篇"
+  },
+  "Categories": {
+    "tech": "技术",
+    "advanced": "进阶",
+    "i18n": "国际化"
+  },
+  "Comments": {
+    "nicknamePlaceholder": "昵称 *",
+    "emailPlaceholder": "邮箱 *",
+    "commentPlaceholder": "写下你的评论... *",
+    "replyPlaceholder": "写下你的回复... *",
+    "sendMessage": "发送留言",
+    "cancel": "取消",
+    "from": "来自：",
+    "reply": "回复",
+    "cancelReply": "取消回复",
+    "emptyState": "暂无评论，快来抢沙发吧！"
+  },
+  "MessageBoard": {
+    "title": "留言板",
+    "welcome": "欢迎在这里留下你的想法和建议"
+  }
+}

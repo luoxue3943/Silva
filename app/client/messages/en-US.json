@@ -1,1 +1,57 @@
-{}
+{
+  "HomePage": {
+    "welcome": "Welcome, Here is"
+  },
+  "Navbar": {
+    "home": "Home",
+    "posts": "Posts",
+    "timeline": "Timeline",
+    "messages": "Messages",
+    "more": "More",
+    "message": "Message"
+  },
+  "PostDetail": {
+    "notFound": "Post Not Found",
+    "backToList": "Back to List",
+    "author": "Author",
+    "link": "Article Link",
+    "commercialLicense": "For commercial reprints, please contact the site owner for authorization; for non-commercial reprints, please indicate the source and original link of this article. You may freely copy, distribute, modify and recreate the content of this article in any media and in any form; however, when distributing derivative works, you must publish them under the same license agreement",
+    "licenseText": "This article is licensed under",
+    "licenseName": "Non-Commercial Use - Share Alike 4.0 International."
+  },
+  "Stats": {
+    "totalViews": "Total Views",
+    "totalVisitors": "Total Visitors",
+    "onlineUsers": "Online Users"
+  },
+  "Timeline": {
+    "title": "Timeline",
+    "totalPosts": "{count} posts in total, keep going",
+    "yearProgress": "Today is day {day} of {year}",
+    "yearPercentage": "{percentage}% of the year has passed",
+    "dayPercentage": "{percentage}% of today has passed",
+    "postsCount": "{count} posts",
+    "motto": "Live in the present and cherish the moment."
+  },
+  "Categories": {
+    "tech": "Tech",
+    "advanced": "Advanced",
+    "i18n": "i18n"
+  },
+  "Comments": {
+    "nicknamePlaceholder": "Nickname *",
+    "emailPlaceholder": "Email *",
+    "commentPlaceholder": "Write your comment... *",
+    "replyPlaceholder": "Write your reply... *",
+    "sendMessage": "Send Message",
+    "cancel": "Cancel",
+    "from": "From: ",
+    "reply": "Reply",
+    "cancelReply": "Cancel Reply",
+    "emptyState": "No comments yet, be the first!"
+  },
+  "MessageBoard": {
+    "title": "Message Board",
+    "welcome": "Welcome to leave your thoughts and suggestions here"
+  }
+}

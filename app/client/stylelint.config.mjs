@@ -1,28 +1,39 @@
 /** @type {import("stylelint").Config} */
-export default {
+const stylelintConfig = {
   extends: ["stylelint-config-standard-scss"],
   plugins: ["stylelint-order"],
   rules: {
     "block-no-empty": true,
     "color-hex-length": "long",
+
     "selector-type-no-unknown": [
       true,
       {
         ignoreTypes: [],
       },
     ],
+
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        ignorePseudoClasses: ["global"],
+      },
+    ],
+
     "selector-pseudo-element-no-unknown": [
       true,
       {
         ignorePseudoElements: ["v-deep"],
       },
     ],
+
     "no-descending-specificity": null,
     "at-rule-no-unknown": null,
     "comment-no-empty": true,
     "shorthand-property-no-redundant-values": true,
     "value-no-vendor-prefix": true,
     "property-no-vendor-prefix": true,
+
     "order/properties-order": [
       "position",
       "top",
@@ -42,7 +53,7 @@ export default {
       "margin-top",
       "margin-right",
       "margin-bottom",
-      "margin-left",
+      "left",
       "border",
       "border-style",
       "border-width",
@@ -103,3 +114,5 @@ export default {
     ],
   },
 };
+
+export default stylelintConfig;

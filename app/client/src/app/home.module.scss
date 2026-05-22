@@ -1,0 +1,187 @@
+/**
+ * 首页模块样式
+ * Home Page Module Styles
+ *
+ * 包含首页的弹出动画、布局和图标样式
+ * Contains home page pop-up animations, layout and icon styles
+ */
+
+/* 弹出动画类 / Pop-up animation class */
+.pop-up {
+  display: inline-block;
+  pointer-events: none;
+  animation: pop-up-translate 0.6s ease forwards;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+/* 页面容器布局 / Page container layout */
+.container {
+  display: flex;
+}
+
+/* 个人头像区域 / Profile avatar section */
+.profile {
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
+  width: 50%;
+}
+
+/* 头像样式 / Avatar styles */
+.avatar {
+  display: block;
+  margin: 0 auto;
+  border-radius: 9999px;
+}
+
+/**
+ * 欢迎信息
+ * Welcome message
+ */
+.welcome {
+  display: flex;
+  margin: 0 auto;
+  width: fit-content;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 标题文本区域 / Headline text section */
+.headline {
+  display: grid;
+  margin-top: calc((100vh - 300px) / 2 - 4.35rem);
+  width: 50%;
+  height: fit-content;
+  max-height: 300px;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+/* 图标基础样式 / Icon base styles */
+.icon {
+  display: inline-block;
+  transition: transform 0.18s ease-out;
+}
+
+/* 图标悬停缩放效果 / Icon hover scale effect */
+.icon-link:hover .icon {
+  transform: scale(1.2);
+}
+
+/* 图标容器样式 / Social link icon styles */
+.icon-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: white;
+}
+
+/* 社交链接容器 / Social links container */
+.social-links {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  font-size: 1.25rem;
+  gap: 0.875rem;
+  line-height: 1.75rem;
+}
+
+/* GitHub 图标背景 / GitHub icon background */
+.bg-github {
+  background-color: #000000;
+}
+
+/* Twitter 图标背景 / Twitter icon background */
+.bg-twitter {
+  background-color: #000000;
+}
+
+/* Email 图标背景 / Email icon background */
+.bg-email {
+  background-color: #ea4335;
+}
+
+/* Telegram 图标背景 / Telegram icon background */
+.bg-telegram {
+  background-color: #0088cc;
+}
+
+/* 所有者名称样式 / Owner name styles */
+.owner-name {
+  display: inline-block;
+  padding-inline: 0.75rem;
+}
+
+/* 座右铭样式 / Motto styles */
+.motto {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #a7afbe;
+}
+
+/* 滚动提示图标 / Scroll indicator icon */
+.scroll-indicator {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  left: 0;
+  margin: 0 auto;
+}
+
+/**
+ * 动画延迟类生成器
+ * Animation delay class generator
+ *
+ * 为每个字符生成不同的延迟时间，实现逐字弹出效果
+ * Generates different delay times for each character to achieve character-by-character pop-up effect
+ */
+@for $i from 0 through 100 {
+  .delay-#{$i} {
+    animation-delay: #{0.075 * $i}s;
+  }
+}
+
+/**
+ * 弹出平移动画
+ * Pop-up translate animation
+ *
+ * 从下方弹出，先向上超过目标位置，然后回落到最终位置
+ * Pops up from below, overshoots the target position, then settles to final position
+ */
+@keyframes pop-up-translate {
+  0% {
+    transform: translateY(1em);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  60% {
+    transform: translateY(-0.2em);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/**
+ * 向下提示弹跳动画
+ * Downward hint bounce animation
+ */
+@keyframes indicator-bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}

@@ -1,0 +1,78 @@
+/**
+ * 全局 SCSS 样式
+ * Global SCSS Styles
+ *
+ * 定义全局布局、基础样式和滚动条样式
+ * Defines global layout, base styles and scrollbar styles
+ */
+
+/* 导入主题变量 / Import theme variables */
+@use "./variables" as var;
+
+/* 页面主体样式 / Page body styles */
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  color: rgb(255 255 255);
+  background-color: var.$background-color;
+  flex-direction: column;
+}
+
+/* 页面头部（导航栏容器）/ Page header (navbar container) */
+header {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 主内容区域 / Main content area */
+main {
+  position: relative;
+  margin-top: 4.35rem;
+  width: 100%;
+  min-height: calc(100vh - 4.35rem);
+  flex: 1;
+}
+
+/* 背景层容器（粒子效果）/ Background layer container (particle effect) */
+.basics-background {
+  position: fixed;
+  inset: 0;
+}
+
+/* 页面底部 / Page footer */
+footer {
+  width: 100%;
+}
+
+/**
+ * 自定义滚动条样式
+ * Custom scrollbar styles
+ */
+
+/* Firefox 滚动条宽度 / Firefox scrollbar width */
+* {
+  scrollbar-width: thin;
+}
+
+/* Webkit 浏览器滚动条轨道 / Webkit browser scrollbar track */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Webkit 浏览器滚动条滑块 / Webkit browser scrollbar thumb */
+*::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgb(136 136 136);
+}
+
+/* Webkit 浏览器滚动条滑块悬停状态 / Webkit browser scrollbar thumb hover state */
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(85 85 85);
+}
