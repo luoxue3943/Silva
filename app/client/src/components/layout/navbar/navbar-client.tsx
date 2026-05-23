@@ -1,11 +1,10 @@
 "use client";
 
 /**
- * 导航栏组件 / Navigation Bar Component
+ * 导航栏客户端组件 / Navigation bar client component
  *
- * 提供网站主导航功能，包括页面链接、高亮、滚动检测、分类菜单与语言切换。
- * Provides primary site navigation with link highlighting, scroll detection,
- * category menu, and locale switcher.
+ * 处理主导航高亮、滚动状态、分类菜单和语言切换。
+ * Handles primary nav highlighting, scroll state, category menu, and locale switching.
  */
 
 import Link from "next/link";
@@ -248,7 +247,7 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
     >
       <div className={Modules["nav-container"]}>
         <div className={Modules.navbar}>
-          {/* 首页链接 / Home link */}
+          {/* 首页导航项 / Home navigation item */}
           <Link href="/" className={Modules["link-button"]}>
             <div
               className={`${Modules.title} ${
@@ -266,7 +265,7 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
             </div>
           </Link>
 
-          {/* 文章链接 / Posts link */}
+          {/* 文章导航项与分类菜单 / Posts navigation item with category menu */}
           <div
             className={Modules["category-wrapper"]}
             onMouseEnter={() => setCategoryMenu(true)}
@@ -312,7 +311,7 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
             )}
           </div>
 
-          {/* 时间线链接 / Timeline link */}
+          {/* 时间线导航项 / Timeline navigation item */}
           <Link href="/timeline" className={Modules["link-button"]}>
             <div
               className={`${Modules.title} ${
@@ -330,7 +329,7 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
             </div>
           </Link>
 
-          {/* 留言链接 / Message link */}
+          {/* 留言导航项 / Message navigation item */}
           <Link href="/message" className={Modules["link-button"]}>
             <div
               className={`${Modules.title} ${
@@ -348,7 +347,7 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
             </div>
           </Link>
 
-          {/* 更多链接 / More link */}
+          {/* 更多导航项占位 / More navigation placeholder */}
           <div className={Modules["link-button"]}>
             <div
               className={`${Modules.title} ${
@@ -367,7 +366,7 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
           </div>
         </div>
 
-        {/* 语言切换入口 / Locale switch entry */}
+        {/* 语言切换器入口 / Locale switcher entry */}
         <div
           className={Modules["locale-switcher"]}
           onClick={() => setLocaleMenu(!showLocaleMenu)}

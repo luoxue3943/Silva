@@ -1,7 +1,8 @@
 /**
- * 留言板页面 / Messages Page
+ * 留言板页面 / Message board page
  *
- * 展示留言评论区 / Display message board with comments
+ * 展示留言标题和评论区。
+ * Displays the message board title and comments area.
  */
 
 import Comments from "@/components/comments/comments";
@@ -9,7 +10,7 @@ import { MOCK_COMMENTS } from "@/data/mock-comments";
 import { getTranslations } from "next-intl/server";
 
 /**
- * 加载留言数据 / Load messages data
+ * 加载留言板评论数据 / Loads message board comment data
  */
 function getMessages() {
   return MOCK_COMMENTS;

@@ -7,7 +7,7 @@ import TimelineProgressClient from "./timeline-progress-client";
 export const dynamic = "force-dynamic";
 
 /**
- * 按年份分组的文章类型 / Posts grouped by year type
+ * 年份分组后的文章集合类型 / Post collection type grouped by year
  */
 interface PostsByYear {
   year: string;
@@ -21,7 +21,7 @@ interface PostsByYear {
 }
 
 /**
- * 获取并按年份分组文章 / Fetch and group posts by year
+ * 生成按年份分组的时间线文章 / Builds timeline posts grouped by year
  */
 function getTimelinePosts() {
   const postsByYear: Record<string, PostsByYear["posts"]> = {};
@@ -83,7 +83,7 @@ export default async function TimelinePage() {
 
   return (
     <section className={styles.timeline}>
-      {/* 顶部标题区域 / Header section */}
+      {/* 时间线顶部标题区域 / Timeline header area */}
       <div className={styles.header}>
         <h1 className={styles.title}>{t("title")}</h1>
 
@@ -98,11 +98,11 @@ export default async function TimelinePage() {
         <p className="mt-5 text-sm text-gray-500">{t("motto")}</p>
       </div>
 
-      {/* 时间线列表 / Timeline list */}
+      {/* 按年份分组的时间线列表 / Timeline list grouped by year */}
       <div className={styles.list}>
         {data.groupedPosts.map((yearGroup) => (
           <div key={yearGroup.year} className={styles["year-group"]}>
-            {/* 年份标题 / Year header */}
+            {/* 年份分组标题 / Year group header */}
             <div className={styles["year-header"]}>
               <h2 className={styles["year-title"]}>{yearGroup.year}</h2>
 
@@ -113,7 +113,7 @@ export default async function TimelinePage() {
               </span>
             </div>
 
-            {/* 文章列表 / Posts list */}
+            {/* 当前年份的文章列表 / Posts list for the current year */}
             <div
               className={`${styles["posts-list"]} ${
                 yearGroup.posts.length > 1 ? styles["has-line"] : ""

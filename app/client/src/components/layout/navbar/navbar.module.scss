@@ -1,12 +1,13 @@
 /**
- * 导航栏模块样式 / Navigation Bar Module Styles
+ * 导航栏模块样式 / Navigation bar module styles
  *
- * 包含导航容器、链接按钮和视图过渡动画样式。 / Contains navbar container, link buttons, and view transition animation styles.
+ * 定义导航容器、下拉菜单、链接状态和视图过渡动画。
+ * Defines the nav container, dropdown menus, link states, and view transition animations.
  */
 
 @use "../../../app/[locale]/variables" as var;
 
-/* 导航容器与滚动毛玻璃效果 / Nav wrapper with scroll glassmorphism */
+/* 导航外壳与滚动毛玻璃效果 / Nav shell with scroll glassmorphism */
 .nav {
   padding: 1rem 0;
   width: 100%;
@@ -20,7 +21,7 @@
   }
 }
 
-/* 导航外层容器（定位语言切换）/ Nav outer container (positions locale switcher) */
+/* 导航居中容器（定位语言切换器）/ Centered nav container that positions the locale switcher */
 .nav-container {
   position: relative;
   display: flex;
@@ -28,7 +29,7 @@
   width: 100%;
 }
 
-/* 导航栏容器（保持描边与阴影）/ Navbar container (keeps stroke and shadow before scroll) */
+/* 胶囊导航栏容器 / Pill-shaped navbar container */
 .navbar {
   display: flex;
   align-items: center;
@@ -41,13 +42,13 @@
   background-color: var.$glass-surface-color;
   box-shadow: 0 -36px 33px -35px var.$glass-inset-shadow inset;
 
-  /* 避免双层背景闪烁，仅动画描边与阴影 / Avoid double-background flicker; animate stroke and shadow only */
+  /* 只过渡描边与阴影，避免背景层闪烁 / Transitions only stroke and shadow to avoid background flicker */
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
-/* 语言切换触发区域 / Locale switch trigger area */
+/* 语言切换器触发区域 / Locale switcher trigger area */
 .locale-switcher {
   position: absolute;
   right: 4.25rem;
@@ -59,7 +60,7 @@
   color: inherit;
 }
 
-/* 语言图标容器 / Locale icon container */
+/* 语言图标圆形容器 / Circular locale icon container */
 .locale-icon-wrapper {
   display: flex;
   justify-content: center;
@@ -79,12 +80,12 @@
   }
 }
 
-/* 语言图标样式 / Locale icon styles */
+/* 语言图标尺寸 / Locale icon size */
 .locale-icon {
   font-size: 1.75rem;
 }
 
-/* 语言下拉菜单容器 / Locale dropdown container */
+/* 语言下拉菜单面板 / Locale dropdown menu panel */
 .locale-menu {
   position: absolute;
   top: 100%;
@@ -112,7 +113,7 @@
   }
 }
 
-/* 语言选项按钮 / Locale option buttons */
+/* 语言选项按钮 / Locale option button */
 .locale-option {
   border: none;
   border-radius: 0.5rem;
@@ -131,21 +132,21 @@
   }
 }
 
-/* 滚动状态下的导航栏样式 / Navbar styles when scrolled */
+/* 滚动状态下移除导航栏底色 / Removes navbar fill when scrolled */
 .nav.scrolled .navbar {
   border-color: transparent;
   background-color: transparent;
   box-shadow: none;
 }
 
-/* 分类菜单包装器 / Category menu wrapper */
+/* 文章分类菜单定位容器 / Category menu positioning wrapper */
 .category-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* 分类下拉菜单容器 / Category dropdown container */
+/* 分类下拉菜单面板 / Category dropdown menu panel */
 .category-menu {
   position: absolute;
   top: 100%;
@@ -167,7 +168,7 @@
   flex-direction: column;
   gap: 0.25rem;
 
-  /* 添加伪元素填补间隙 / Add pseudo-element to fill gap */
+  /* 扩展悬停热区以连接按钮和菜单 / Extends hover hit area between trigger and menu */
   &::before {
     content: "";
     position: absolute;
@@ -184,7 +185,7 @@
   }
 }
 
-/* 分类选项按钮 / Category option buttons */
+/* 分类选项链接按钮 / Category option link button */
 .category-option {
   display: block;
   border: none;
@@ -205,14 +206,14 @@
   }
 }
 
-/* 导航链接按钮 / Navigation link button */
+/* 顶级导航链接按钮 / Top-level navigation link button */
 .link-button {
   display: grid;
   justify-content: center;
   border-radius: 0.5rem;
   padding: 0 1rem;
 
-  /* 链接标题样式 / Link title styles */
+  /* 导航链接文本与图标容器 / Nav link text and icon container */
   .title {
     display: flex;
     justify-content: center;
@@ -224,26 +225,26 @@
     transition: color 0.3s;
     column-gap: 3px;
 
-    /* 桌面端悬停效果 / Desktop hover effect */
+    /* 桌面端悬停强调 / Desktop hover emphasis */
     @media (width >= 1024px) {
       &:hover {
         color: var.$select-color;
       }
     }
 
-    /* 活跃状态样式 / Active state styles */
+    /* 当前路由高亮状态 / Current route active state */
     &.active {
       color: var.$theme-color;
     }
   }
 }
 
-/* 导航图标视图过渡 / Navigation icon view transition */
+/* 导航图标视图过渡名称 / View transition name for nav icons */
 .nav-icon {
   view-transition-name: nav-icon;
 }
 
-/* 导航文本视图过渡 / Navigation text view transitions */
+/* 各导航文本的视图过渡名称 / View transition names for each nav text */
 .nav-text {
   &[data-page="home"] {
     view-transition-name: nav-text-home;
@@ -266,7 +267,7 @@
   }
 }
 
-/* 视图过渡动画配置 / View transition animation configuration */
+/* 导航视图过渡动画参数 / Animation settings for nav view transitions */
 ::view-transition-old(nav-icon),
 ::view-transition-new(nav-icon),
 ::view-transition-old(nav-text-home),
@@ -283,7 +284,7 @@
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 下拉菜单入场动画 / Locale menu entrance animation */
+/* 语言菜单入场动画 / Locale menu entrance animation */
 @keyframes locale-menu-enter {
   from {
     opacity: 0;
@@ -296,7 +297,7 @@
   }
 }
 
-/* 下拉菜单退场动画 / Locale menu exit animation */
+/* 语言菜单退场动画 / Locale menu exit animation */
 @keyframes locale-menu-exit {
   from {
     opacity: 1;

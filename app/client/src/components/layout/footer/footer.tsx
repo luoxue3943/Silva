@@ -1,8 +1,8 @@
 /**
- * 页脚组件 / Footer Component
+ * 页脚组件 / Footer component
  *
- * 展示站点统计信息、版权与备案信息
- * Displays site stats, copyright, and filing info
+ * 展示站点统计、版权声明和备案链接。
+ * Displays site stats, copyright text, and filing links.
  */
 
 import {
@@ -20,11 +20,11 @@ type FooterStats = {
 };
 
 /**
- * 占位统计数据
- * Placeholder stats data
+ * 页脚统计占位数据
+ * Footer stats placeholder data
  *
- * 后续可以替换为服务端接口返回的数据。
- * Can be replaced with server API data later.
+ * 后续可替换为服务端统计接口返回值。
+ * Can later be replaced with values from a server stats API.
  */
 const placeholderStats: FooterStats = {
   totalVisits: 12345,
@@ -33,24 +33,24 @@ const placeholderStats: FooterStats = {
 };
 
 export default function Footer() {
-  // 获取当前语言环境 / Get current locale
+  // 读取当前语言环境 / Reads the current locale
   const locale = useLocale();
 
-  // 获取翻译函数 / Get translation function
+  // 读取统计文案翻译函数 / Reads the stats translation function
   const t = useTranslations("Stats");
 
-  // 统计数据占位 / Placeholder stats
+  // 使用本地占位统计数据 / Uses local placeholder stats
   const stats = placeholderStats;
 
-  // 根据当前语言获取站点名称 / Get localized site name
+  // 按当前语言解析站点名称 / Resolves site name for the current locale
   const siteName = getLocalizedName(SilvaConfig.site, locale);
 
-  // 版权信息 / Copyright text
+  // 生成默认版权文案 / Builds fallback copyright text
   const copyrightText =
     SilvaConfig.site.copyright ??
     `Copyright © 2025${siteName ? ` ${siteName}` : ""}`;
 
-  // 备案信息列表 / Filing info list
+  // 读取备案链接列表 / Reads filing link list
   const filings = SilvaConfig.filings ?? [];
 
   return (

@@ -1,21 +1,21 @@
 /**
- * 文章详情页样式 / Post Detail Page Styles
+ * 文章详情页样式 / Post detail page styles
  *
- * Markdown 文章排版、代码高亮和目录样式
- * Markdown article typography, code highlighting, and table of contents styles
+ * 定义 Markdown 排版、代码块高亮、复制按钮和目录侧栏。
+ * Defines Markdown typography, code highlighting, copy buttons, and the TOC sidebar.
  */
 
 // ============================================
-// Markdown 文章排版样式 / Markdown article typography styles
+// Markdown 文章正文排版 / Markdown article body typography
 // ============================================
 
-/* Markdown 内容容器样式 / Markdown content container styles */
+/* Markdown 内容主容器 / Main Markdown content container */
 .markdown {
   font-size: 1rem;
   color: #e5e7eb;
   line-height: 1.75;
 
-  // 标题样式 / Heading styles
+  // Markdown 标题层级样式 / Markdown heading hierarchy styles
   :global(h1),
   :global(h2),
   :global(h3),
@@ -53,7 +53,7 @@
     font-size: 1rem;
   }
 
-  // 段落和文本 / Paragraphs and text
+  // 段落与基础文本 / Paragraphs and base text
   :global(p) {
     margin-bottom: 1rem;
   }
@@ -72,7 +72,7 @@
     opacity: 0.7;
   }
 
-  // 链接 / Links
+  // Markdown 链接样式 / Markdown link styles
   :global(a) {
     text-decoration: underline;
     color: #60a5fa;
@@ -83,7 +83,7 @@
     }
   }
 
-  // 列表 / Lists
+  // Markdown 有序与无序列表 / Markdown ordered and unordered lists
   :global(ul),
   :global(ol) {
     margin-bottom: 1rem;
@@ -102,12 +102,12 @@
     margin-bottom: 0.5rem;
   }
 
-  // 任务列表（GFM）/ Task lists (GFM)
+  // GFM 任务列表复选框 / GFM task list checkboxes
   :global(input[type="checkbox"]) {
     margin-right: 0.5rem;
   }
 
-  // 引用块 / Blockquotes
+  // Markdown 引用块 / Markdown blockquotes
   :global(blockquote) {
     margin: 1.5rem 0;
     border-left: 4px solid #60a5fa;
@@ -121,14 +121,14 @@
     }
   }
 
-  // 水平分割线 / Horizontal rules
+  // Markdown 水平分割线 / Markdown horizontal rules
   :global(hr) {
     margin: 2rem 0;
     border: none;
     border-top: 1px solid #374151;
   }
 
-  // 表格（GFM）/ Tables (GFM)
+  // GFM 表格布局 / GFM table layout
   :global(table) {
     display: block;
     overflow-x: auto;
@@ -157,7 +157,7 @@
     background-color: rgb(31 41 55 / 50%);
   }
 
-  // 行内代码 / Inline code
+  // 非代码块中的行内代码 / Inline code outside code blocks
   :global(code:not([class*="language-"])) {
     border: 1px solid #374151;
     border-radius: 0.25rem;
@@ -169,7 +169,7 @@
   }
 
   // ============================================
-  // 代码块包装器样式 / Code block wrapper styles
+  // 代码块工具栏包装器 / Code block toolbar wrapper
   // ============================================
 
   :global(.code-block-wrapper) {
@@ -228,7 +228,7 @@
   }
 
   // ============================================
-  // Prism 代码块基础样式 / Prism code block base styles
+  // Prism 代码块基础排版 / Prism code block base typography
   // ============================================
 
   :global(pre[class*="language-"]) {
@@ -243,7 +243,7 @@
     line-height: 1.6;
     tab-size: 2;
 
-    // 代码块内的 code 标签 / Code tag inside code block
+    // 代码块内部 code 元素重置 / Resets code element inside code blocks
     :global(code[class*="language-"]) {
       border: none;
       padding: 0;
@@ -259,7 +259,7 @@
   // Prism Token 高亮样式（必须使用 :global）/ Prism token highlighting styles (must use :global)
   // ============================================
 
-  // 注释 / Comments
+  // 注释 Token / Comment tokens
   :global(.token.comment),
   :global(.token.prolog),
   :global(.token.doctype),
@@ -268,17 +268,17 @@
     font-style: italic;
   }
 
-  // 标点符号 / Punctuation
+  // 标点符号 Token / Punctuation tokens
   :global(.token.punctuation) {
     color: #94a3b8;
   }
 
-  // 命名空间 / Namespace
+  // 命名空间 Token / Namespace tokens
   :global(.token.namespace) {
     opacity: 0.7;
   }
 
-  // 属性、标签、布尔值、常量、符号、删除 / Property, tag, boolean, constant, symbol, deleted
+  // 属性、标签、布尔值、常量、符号和删除 Token / Property, tag, boolean, constant, symbol, and deleted tokens
   :global(.token.property),
   :global(.token.tag),
   :global(.token.boolean),
@@ -289,7 +289,7 @@
     color: #f472b6;
   }
 
-  // 选择器、属性名、字符串、字符、内置、插入 / Selector, attr-name, string, char, builtin, inserted
+  // 选择器、属性名、字符串、字符、内置和插入 Token / Selector, attr-name, string, char, builtin, and inserted tokens
   :global(.token.selector),
   :global(.token.attr-name),
   :global(.token.string),
@@ -299,14 +299,14 @@
     color: #a3e635;
   }
 
-  // 操作符、实体、URL / Operator, entity, URL
+  // 操作符、实体与 URL Token / Operator, entity, and URL tokens
   :global(.token.operator),
   :global(.token.entity),
   :global(.token.url) {
     color: #38bdf8;
   }
 
-  // 关键字、控制流、指令 / Keyword, control, directive
+  // 关键字、控制流和指令 Token / Keyword, control, and directive tokens
   :global(.token.keyword),
   :global(.token.control),
   :global(.token.directive) {
@@ -314,31 +314,31 @@
     color: #c084fc;
   }
 
-  // 函数、类名 / Function, class name
+  // 函数与类名 Token / Function and class-name tokens
   :global(.token.function),
   :global(.token.class-name) {
     color: #fbbf24;
   }
 
-  // 正则表达式、重要 / Regex, important
+  // 正则表达式与重要标记 Token / Regex and important tokens
   :global(.token.regex),
   :global(.token.important) {
     font-weight: 600;
     color: #fb923c;
   }
 
-  // 变量 / Variable
+  // 变量 Token / Variable tokens
   :global(.token.variable) {
     color: #60a5fa;
   }
 
-  // Bash 特定 / Bash specific
+  // Bash 特有 Token / Bash-specific tokens
   :global(.token.shebang) {
     color: #64748b;
     font-style: italic;
   }
 
-  // 粗体和斜体 / Bold and italic
+  // 加粗与斜体 Token / Bold and italic tokens
   :global(.token.important),
   :global(.token.bold) {
     font-weight: 700;
@@ -348,13 +348,13 @@
     font-style: italic;
   }
 
-  // 实体 / Entity
+  // 实体 Token 交互 / Entity token interaction
   :global(.token.entity) {
     cursor: help;
   }
 
   // ============================================
-  // 可选：行号样式（如果启用 showLineNumbers）/ Optional: Line numbers styles (if showLineNumbers enabled)
+  // 可选行号样式（启用 showLineNumbers 时生效）/ Optional line number styles (active when showLineNumbers is enabled)
   // ============================================
 
   :global(.line-numbers) {
@@ -389,7 +389,7 @@
   }
 
   // ============================================
-  // 可选：行高亮样式（如果使用 data-line 属性）/ Optional: Line highlight styles (if using data-line attribute)
+  // 可选行高亮样式（使用 data-line 属性时生效）/ Optional line highlight styles (active when data-line is used)
   // ============================================
 
   :global(pre[data-line]) {
@@ -410,10 +410,10 @@
 }
 
 // ============================================
-// 目录样式 / Table of contents styles
+// 文章目录侧栏样式 / Article table of contents sidebar styles
 // ============================================
 
-/* 目录容器样式 / Table of contents container styles */
+/* 目录侧栏容器 / Table of contents sidebar container */
 .toc {
   position: sticky;
   top: 8rem;
@@ -428,7 +428,7 @@
     display: none;
   }
 
-  // 自定义滚动条 / Custom scrollbar
+  // 目录侧栏自定义滚动条 / Custom scrollbar for the TOC sidebar
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -443,7 +443,7 @@
   }
 }
 
-/* 进度条背景样式 / Progress bar background styles */
+/* 阅读进度条轨道 / Reading progress bar track */
 .progress {
   position: absolute;
   top: 0;
@@ -453,21 +453,21 @@
   background-color: rgb(255 255 255 / 10%);
 }
 
-/* 进度条填充样式 / Progress bar fill styles */
+/* 阅读进度条填充 / Reading progress bar fill */
 .progress-bar {
   width: 100%;
   background-color: rgb(122.77 241.32 167.54);
   transition: height 0.1s ease-out;
 }
 
-/* 目录导航容器样式 / TOC navigation container styles */
+/* 目录导航列表容器 / TOC navigation list container */
 .nav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-/* 目录项样式 / TOC item styles */
+/* 目录导航按钮 / TOC navigation button */
 .item {
   display: block;
   border: none;
@@ -492,24 +492,24 @@
   }
 }
 
-/* 一级标题样式 / Level 1 heading styles */
+/* 一级标题目录项 / Level 1 heading TOC item */
 .level-1 {
   padding-left: 0;
   font-weight: 600;
 }
 
-/* 二级标题样式 / Level 2 heading styles */
+/* 二级标题目录项 / Level 2 heading TOC item */
 .level-2 {
   padding-left: 1rem;
 }
 
-/* 三级标题样式 / Level 3 heading styles */
+/* 三级标题目录项 / Level 3 heading TOC item */
 .level-3 {
   padding-left: 2rem;
   font-size: 0.8125rem;
 }
 
-/* 四级标题样式 / Level 4 heading styles */
+/* 四级标题目录项 / Level 4 heading TOC item */
 .level-4 {
   padding-left: 3rem;
   font-size: 0.8125rem;

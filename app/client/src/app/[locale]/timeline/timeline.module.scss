@@ -1,11 +1,12 @@
 /**
- * 时间线页面样式 / Timeline Page Styles
+ * 时间线页面样式 / Timeline page styles
  *
- * 按年份分组展示文章的时间线视图样式 / Styles for timeline view displaying posts grouped by year
+ * 定义按年份分组的文章时间线布局与交互状态。
+ * Defines layout and interaction states for posts grouped by year.
  */
 @use "../../../app/[locale]/variables" as var;
 
-/* 时间线页面容器 / Timeline page container */
+/* 时间线页面主容器 / Main timeline page container */
 .timeline {
   margin: 0 auto;
   padding: 2rem 1rem;
@@ -13,13 +14,13 @@
   min-height: 100vh;
 }
 
-/* 顶部标题区域 / Header section */
+/* 时间线顶部标题区域 / Timeline header area */
 .header {
   margin-bottom: 3rem;
   text-align: left;
 }
 
-/* 主标题样式 / Main title styles */
+/* 时间线主标题 / Timeline main title */
 .title {
   margin-bottom: 0.5rem;
   font-size: 2.5rem;
@@ -27,28 +28,28 @@
   color: #ffffff;
 }
 
-/* 副标题样式 / Subtitle styles */
+/* 时间线副标题 / Timeline subtitle */
 .subtitle {
   font-size: 1.125rem;
   color: #9ca3af;
 }
 
-/* 时间线列表 / Timeline list */
+/* 时间线列表定位容器 / Timeline list positioning container */
 .list {
   position: relative;
 }
 
-/* 年份分组 / Year group */
+/* 单个年份分组 / Single year group */
 .year-group {
   margin-bottom: 1rem;
 
-  /* 最后一个分组不需要底部间距 / Last group needs no bottom margin */
+  /* 移除最后一个年份分组的底部间距 / Removes bottom spacing from the final year group */
   &:last-child {
     margin-bottom: 0;
   }
 }
 
-/* 年份标题 / Year header */
+/* 年份标题行 / Year header row */
 .year-header {
   position: relative;
   display: flex;
@@ -57,7 +58,7 @@
   gap: 0.75rem;
 }
 
-/* 年份文本样式 / Year text styles */
+/* 年份数字文本 / Year number text */
 .year-title {
   margin: 0;
   font-size: 1.875rem;
@@ -65,19 +66,19 @@
   color: #ffffff;
 }
 
-/* 年份文章数量样式 / Year post count styles */
+/* 年份文章数量文本 / Year post count text */
 .year-count {
   font-size: 0.875rem;
   color: #6b7280;
 }
 
-/* 文章列表 / Posts list */
+/* 年份下文章列表 / Posts list within a year */
 .posts-list {
   position: relative;
   padding-left: 2rem;
 }
 
-/* 只有多篇文章时显示竖线 / Show line only when multiple posts */
+/* 多篇文章时显示时间线竖线 / Shows timeline line when multiple posts exist */
 .posts-list.has-line::before {
   position: absolute;
   top: 1.5rem;
@@ -88,7 +89,7 @@
   content: "";
 }
 
-/* 文章项 / Post item */
+/* 时间线文章链接项 / Timeline post link item */
 .post-item {
   position: relative;
   display: flex;
@@ -99,14 +100,14 @@
   color: inherit;
   transition: all 0.2s ease;
 
-  /* 悬停效果 / Hover effects */
+  /* 桌面悬停交互 / Desktop hover interaction */
   &:hover {
-    /* 标题变为主题色 / Title changes to theme color */
+    /* 悬停时标题变为主题色 / Turns title into theme color on hover */
     .post-title {
       color: var.$theme-color;
     }
 
-    /* 圆点高亮并添加光晕 / Dot highlights with glow effect */
+    /* 悬停时圆点高亮并显示光晕 / Highlights dot and adds glow on hover */
     .post-dot {
       background: var.$theme-color;
       box-shadow: 0 0 0 4px rgb(122.77 241.32 167.54 / 20%);
@@ -114,7 +115,7 @@
   }
 }
 
-/* 圆点标记 / Dot marker */
+/* 时间线圆点标记 / Timeline dot marker */
 .post-dot {
   position: absolute;
   left: -1.75rem;
@@ -126,7 +127,7 @@
   flex-shrink: 0;
 }
 
-/* 文章内容 / Post content */
+/* 文章内容横向排版 / Horizontal layout for post content */
 .post-content {
   display: flex;
   align-items: center;
@@ -135,7 +136,7 @@
   min-width: 0;
 }
 
-/* 文章日期样式 / Post date styles */
+/* 文章日期文本 / Post date text */
 .post-date {
   min-width: 3.5rem;
   font-size: 0.875rem;
@@ -144,7 +145,7 @@
   flex-shrink: 0;
 }
 
-/* 文章标题样式 / Post title styles */
+/* 文章标题文本 / Post title text */
 .post-title {
   overflow: hidden;
   font-size: 1rem;
@@ -155,7 +156,7 @@
   flex: 1;
 }
 
-/* 文章分类标签样式 / Post category tag styles */
+/* 文章分类标签 / Post category tag */
 .post-category {
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
@@ -165,7 +166,7 @@
   flex-shrink: 0;
 }
 
-/* 响应式设计 / Responsive design */
+/* 时间线移动端布局 / Mobile layout for timeline */
 @media (width <= 768px) {
   .timeline {
     padding: 1.5rem 1rem;

@@ -1,38 +1,41 @@
-/* 
- 全局 CSS 样式 / Global CSS Styles
- 
- 配置 Tailwind CSS、图标插件、视图过渡和自定义字体
- Configures Tailwind CSS, icon plugin, view transitions, and custom fonts */
+/*
+ * 全局 CSS 入口
+ * Global CSS entry
+ *
+ * 配置 Tailwind、Iconify、视图过渡和站点字体。
+ * Configures Tailwind, Iconify, view transitions, and the site font.
+ */
 
-/* 导入 Tailwind CSS / Import Tailwind CSS */
+/* 导入 Tailwind 核心样式 / Imports Tailwind core styles */
 @import "tailwindcss";
-/* 导入 Iconify 图标插件 / Import Iconify icon plugin */
+
+/* 启用 Iconify Tailwind 图标插件 / Enables the Iconify Tailwind icon plugin */
 @plugin "@iconify/tailwind4";
 
-/* 视图过渡根元素 / View transition root element */
+/* 视图过渡根节点标识 / View transition root node identifier */
 html.transition {
   view-transition-name: root;
 }
 
-/* 视图过渡动画时长 / View transition animation duration */
+/* 根视图过渡动画时长 / Root view transition animation duration */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.3s;
 }
 
-/* 自定义字体定义 / Custom font definition */
+/* 站点自定义字体声明 / Site custom font declaration */
 @font-face {
-  font-family: "ChillRoundM";
+  font-family: ChillRoundM;
   src: url("/fonts/ChillRoundM.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-/* 根元素字体配置 / Root element font configuration */
+/* 根元素默认字体栈 / Default font stack on the root element */
 :root {
   font-family:
-    "ChillRoundM",
+    ChillRoundM,
     system-ui,
     -apple-system,
     BlinkMacSystemFont,

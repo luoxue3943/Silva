@@ -1,10 +1,10 @@
 import "server-only";
 
 /**
- * Markdown 处理工具 / Markdown Processing Utilities
+ * Markdown 渲染工具 / Markdown rendering utilities
  *
- * 提供安全的 Markdown 到 HTML 转换功能，包含代码高亮和复制功能。
- * Provides safe Markdown to HTML conversion with code highlighting and copy functionality.
+ * 将 Markdown 安全转换为 HTML，并为代码块补充高亮与复制能力。
+ * Converts Markdown to safe HTML and adds highlighting plus copy support for code blocks.
  */
 
 import type { Root as MdastRoot } from "mdast";
@@ -42,11 +42,11 @@ function isText(node: unknown): node is Text {
 }
 
 /**
- * 自定义 remark 插件：将所有 HTML 节点转换为纯文本节点。
- * Custom remark plugin: Convert all HTML nodes to plain text nodes.
+ * remark 安全插件：将 HTML 节点降级为纯文本节点。
+ * remark safety plugin: Downgrades HTML nodes to plain text nodes.
  *
- * 防止 Markdown 中的原生 HTML 被渲染为真实 DOM。
- * Prevents native HTML in Markdown from being rendered as real DOM.
+ * 避免 Markdown 原生 HTML 直接渲染成真实 DOM。
+ * Prevents raw Markdown HTML from being rendered as real DOM.
  */
 function remarkHtmlToText() {
   return (tree: MdastRoot) => {
@@ -93,8 +93,8 @@ function getCodeLanguage(codeNode: Element): string {
 }
 
 /**
- * 自定义 rehype 插件：为代码块添加复制按钮和语言标签。
- * Custom rehype plugin: Add copy button and language label to code blocks.
+ * rehype 代码块插件：添加语言标签和复制按钮。
+ * rehype code block plugin: Adds language labels and copy buttons.
  */
 function rehypeCodeBlock() {
   return (tree: HastRoot) => {
@@ -177,18 +177,18 @@ function rehypeCodeBlock() {
 }
 
 /**
- * 将 Markdown 字符串编译为安全的 HTML。
- * Compile Markdown string to safe HTML.
+ * 将 Markdown 字符串编译为经过清理的 HTML。
+ * Compiles a Markdown string into sanitized HTML.
  *
- * 安全措施 / Security measures:
- * 1. remarkHtmlToText：将 Markdown 原生 HTML 转为纯文本。
- * 2. remark-rehype：不启用 allowDangerousHtml。
- * 3. rehype-prism-plus：服务端代码高亮。
- * 4. rehypeCodeBlock：添加代码块工具栏和复制按钮。
- * 5. rehype-sanitize：只允许安全标签和属性。
+ * 安全处理流程 / Security pipeline:
+ * 1. remarkHtmlToText：把 Markdown 原生 HTML 转为纯文本。
+ * 2. remark-rehype：保持 allowDangerousHtml 关闭。
+ * 3. rehype-prism-plus：在服务端完成代码高亮。
+ * 4. rehypeCodeBlock：注入代码块工具栏与复制按钮。
+ * 5. rehype-sanitize：只保留允许的标签和属性。
  *
- * @param markdown 原始 Markdown 字符串 / Raw Markdown string
- * @returns 编译后的 HTML 字符串 / Compiled HTML string
+ * @param markdown 待渲染的 Markdown 原文 / Markdown source to render
+ * @returns 清理后的 HTML 字符串 / Sanitized HTML string
  */
 export async function markdownToHtml(markdown: string): Promise<string> {
   const processor = unified()

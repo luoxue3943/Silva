@@ -26,7 +26,7 @@ export default function PostsListClient({ posts }: PostsListClientProps) {
     (post: Post) => {
       console.log("Selected:", post.title);
 
-      // 导航到文章详情页 / Navigate to post detail page
+      // 跳转到选中文章详情页 / Navigates to the selected post detail page
       router.push(`/posts/${post.id}`);
     },
     [router],

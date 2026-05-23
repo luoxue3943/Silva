@@ -1,15 +1,15 @@
 /**
- * 全局 SCSS 样式
- * Global SCSS Styles
+ * 全局 SCSS 基础样式
+ * Global SCSS base styles
  *
- * 定义全局布局、基础样式和滚动条样式
- * Defines global layout, base styles and scrollbar styles
+ * 定义页面骨架布局、背景层和滚动条外观。
+ * Defines page shell layout, background layer, and scrollbar appearance.
  */
 
-/* 导入主题变量 / Import theme variables */
+/* 引入共享主题变量 / Imports shared theme variables */
 @use "./variables" as var;
 
-/* 页面主体样式 / Page body styles */
+/* 页面 body 基础布局 / Base layout for the page body */
 body {
   display: flex;
   margin: 0;
@@ -20,18 +20,18 @@ body {
   flex-direction: column;
 }
 
-/* 页面头部（导航栏容器）/ Page header (navbar container) */
+/* 固定页头导航容器 / Fixed page header navigation container */
 header {
   position: fixed;
   right: 0;
-  left: 0;
   z-index: 99;
   display: flex;
   justify-content: center;
   align-items: center;
+  left: 0;
 }
 
-/* 主内容区域 / Main content area */
+/* 主内容区域布局 / Main content area layout */
 main {
   position: relative;
   margin-top: 4.35rem;
@@ -40,39 +40,39 @@ main {
   flex: 1;
 }
 
-/* 背景层容器（粒子效果）/ Background layer container (particle effect) */
+/* 全屏背景层容器（粒子效果）/ Full-screen background layer container (particle effect) */
 .basics-background {
   position: fixed;
   inset: 0;
 }
 
-/* 页面底部 / Page footer */
+/* 页面底部容器 / Page footer container */
 footer {
   width: 100%;
 }
 
 /**
- * 自定义滚动条样式
- * Custom scrollbar styles
+ * 自定义滚动条外观
+ * Custom scrollbar appearance
  */
 
-/* Firefox 滚动条宽度 / Firefox scrollbar width */
+/* Firefox 细滚动条 / Thin scrollbar for Firefox */
 * {
   scrollbar-width: thin;
 }
 
-/* Webkit 浏览器滚动条轨道 / Webkit browser scrollbar track */
+/* WebKit 滚动条宽度 / WebKit scrollbar width */
 *::-webkit-scrollbar {
   width: 8px;
 }
 
-/* Webkit 浏览器滚动条滑块 / Webkit browser scrollbar thumb */
+/* WebKit 滚动条滑块 / WebKit scrollbar thumb */
 *::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgb(136 136 136);
 }
 
-/* Webkit 浏览器滚动条滑块悬停状态 / Webkit browser scrollbar thumb hover state */
+/* WebKit 滚动条滑块悬停态 / WebKit scrollbar thumb hover state */
 *::-webkit-scrollbar-thumb:hover {
   background-color: rgb(85 85 85);
 }

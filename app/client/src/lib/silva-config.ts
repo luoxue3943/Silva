@@ -8,15 +8,15 @@ export type LocalizedTextMap = Record<string, string>;
 
 export interface LocalizedNameConfig {
   /**
-   * 默认名称 / Default name
+   * 默认展示名称 / Default display name
    *
-   * 由 names.default 或第一个可用名称规范化得到。
+   * 从 names.default 或第一个可用的本地化名称归一化得到。
    * Normalized from names.default or the first available localized name.
    */
   name: string;
 
   /**
-   * 可扩展本地化名称 / Extensible localized names
+   * 可扩展的本地化名称映射 / Extensible localized name map
    *
    * 示例 / Examples:
    * - default: "示例"
@@ -117,8 +117,7 @@ function resolveSilvaConfigPath(): string {
 function legacyNameKeyToLocale(key: `name_${string}`): string {
   const lang = key.replace(/^name_/, "");
 
-  // 兼容旧字段：name_zh / name_en
-  // Keep compatibility with legacy fields: name_zh / name_en
+  // 兼容旧版 name_zh / name_en 字段 / Keep compatibility with legacy name_zh / name_en fields
   if (lang === "zh") return "zh-CN";
   if (lang === "en") return "en-US";
 

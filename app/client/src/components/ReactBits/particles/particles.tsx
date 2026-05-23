@@ -245,6 +245,7 @@ const Particles: React.FC<ParticlesProps> = ({
         container.removeChild(gl.canvas);
       }
     };
+    // 依赖列表显式覆盖会重建 WebGL 场景的参数 / Dependency list explicitly covers parameters that rebuild the WebGL scene
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     particleCount,

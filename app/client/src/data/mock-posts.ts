@@ -1,19 +1,19 @@
 /**
- * 文章类型定义 / Post type definition
+ * 文章记录类型 / Post record type
  */
 export type Post = {
-  id: number; // 文章主键（唯一标识） / Post primary key (unique identifier)
-  title: string; // 文章标题 / Post title
-  category: string | null; // 分类（可选） / Category (optional)
-  storage_path: string; // 文章存储位置（相对路径） / Storage path (relative path)
-  views: number; // 浏览量计数 / View count
-  created_at: number; // 创建时间戳（毫秒） / Creation timestamp (milliseconds)
-  updated_at: number | null; // 更新时间戳 / Update timestamp
-  deleted_at: number | null; // 软删除时间戳 / Soft delete timestamp
+  id: number; // 文章唯一 ID / Unique post ID
+  title: string; // 文章标题文本 / Post title text
+  category: string | null; // 可选分类标识 / Optional category slug
+  storage_path: string; // Markdown 内容相对路径 / Relative path to Markdown content
+  views: number; // 浏览次数统计 / View count
+  created_at: number; // 创建时间戳（毫秒）/ Creation timestamp in milliseconds
+  updated_at: number | null; // 更新时间戳（毫秒）/ Update timestamp in milliseconds
+  deleted_at: number | null; // 软删除时间戳（毫秒）/ Soft-delete timestamp in milliseconds
 };
 
 /**
- * 模拟文章数据 / Mock posts data
+ * 本地模拟文章列表 / Local mock post list
  */
 export const MOCK_POSTS: Post[] = [
   {
@@ -22,8 +22,8 @@ export const MOCK_POSTS: Post[] = [
     category: "tech",
     storage_path: "posts/2025/better-auth-multi-tenant.md",
     views: 0,
-    created_at: 1734105620000, // 2025-12-14T00:47:00+08:00
-    updated_at: 1734105620000, // 2025-12-14T00:47:00+08:00
+    created_at: 1734105620000, // 创建时间：2025-12-14T00:47:00+08:00 / Created at: 2025-12-14T00:47:00+08:00
+    updated_at: 1734105620000, // 更新时间：2025-12-14T00:47:00+08:00 / Updated at: 2025-12-14T00:47:00+08:00
     deleted_at: null,
   },
   {
@@ -32,7 +32,7 @@ export const MOCK_POSTS: Post[] = [
     category: "advanced",
     storage_path: "posts/2024/view-transitions-qwik.md",
     views: 856,
-    created_at: 1708358400000, // 2024-02-20T00:00:00+08:00
+    created_at: 1708358400000, // 创建时间：2024-02-20T00:00:00+08:00 / Created at: 2024-02-20T00:00:00+08:00
     updated_at: null,
     deleted_at: null,
   },
@@ -42,15 +42,15 @@ export const MOCK_POSTS: Post[] = [
     category: "i18n",
     storage_path: "posts/2024/paraglide-js-qwik.md",
     views: 567,
-    created_at: 1710028800000, // 2024-03-10T00:00:00+08:00
+    created_at: 1710028800000, // 创建时间：2024-03-10T00:00:00+08:00 / Created at: 2024-03-10T00:00:00+08:00
     updated_at: null,
     deleted_at: null,
   },
 ];
 
 /**
- * 模拟文章内容映射（临时方案）/ Mock post content mapping (temporary solution)
- * 在实际应用中，应该从 storage_path 读取 .md 文件 / In production, should read from storage_path
+ * 本地模拟文章内容映射（临时数据源）/ Local mock post content map (temporary data source)
+ * 正式接入时应改为按 storage_path 读取 Markdown 文件。 / Production code should read Markdown files from storage_path.
  */
 const POST_CONTENT_MAP: Record<string, string> = {
   "posts/2025/better-auth-multi-tenant.md": `
@@ -229,7 +229,7 @@ export default component$(() => {
 };
 
 /**
- * 根据 storage_path 获取文章内容 / Get post content by storage_path
+ * 按 storage_path 读取模拟文章内容 / Reads mock post content by storage_path
  */
 export function getPostContent(storagePath: string): string {
   return POST_CONTENT_MAP[storagePath] || "";

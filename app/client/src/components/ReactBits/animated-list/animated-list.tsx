@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * 动画列表组件 / Animated List Component
+ * 动画列表组件 / Animated list component
  *
- * 支持键盘导航、滚动渐变和自定义渲染的交互式列表。
- * Interactive list with keyboard navigation, scroll gradients, and custom rendering.
+ * 提供可自定义渲染的列表项、键盘导航和滚动边缘渐变。
+ * Provides custom item rendering, keyboard navigation, and scroll edge gradients.
  */
 
 import {
@@ -18,7 +18,7 @@ import {
 import styles from "./animated-list.module.scss";
 
 /**
- * 动画列表项属性 / Animated item props
+ * 动画列表项参数 / Animated item props
  */
 interface AnimatedItemProps {
   index: number;
@@ -74,7 +74,7 @@ export function AnimatedItem({
 }
 
 /**
- * 动画列表属性 / Animated list props
+ * 动画列表参数 / Animated list props
  */
 interface AnimatedListProps<T = string> {
   items: T[];
@@ -150,7 +150,7 @@ export function AnimatedList<T = string>({
   }, []);
 
   /**
-   * 键盘导航 / Keyboard navigation
+   * 处理方向键与 Tab 的列表导航 / Handles list navigation with arrow keys and Tab
    */
   useEffect(() => {
     if (!enableArrowNavigation) {
@@ -200,7 +200,7 @@ export function AnimatedList<T = string>({
   }, [enableArrowNavigation, items, onItemSelect]);
 
   /**
-   * 自动滚动到选中项 / Auto-scroll to selected item
+   * 将键盘选中的列表项滚动到可见区域 / Scrolls keyboard-selected item into view
    */
   useEffect(() => {
     const container = listRef.current;

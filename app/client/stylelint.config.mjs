@@ -1,10 +1,33 @@
-/** @type {import("stylelint").Config} */
+/**
+ * Stylelint 配置类型提示 / Stylelint config type hint.
+ *
+ * @type {import("stylelint").Config}
+ */
 const stylelintConfig = {
   extends: ["stylelint-config-standard-scss"],
   plugins: ["stylelint-order"],
   rules: {
     "block-no-empty": true,
     "color-hex-length": "long",
+
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        ignoreAtRules: [
+          "tailwind",
+          "apply",
+          "layer",
+          "config",
+          "plugin",
+          "theme",
+          "source",
+          "utility",
+          "variant",
+          "custom-variant",
+          "reference",
+        ],
+      },
+    ],
 
     "selector-type-no-unknown": [
       true,

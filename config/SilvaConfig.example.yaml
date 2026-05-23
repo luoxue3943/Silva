@@ -1,96 +1,98 @@
 # ============================================================================
-# Silva 配置文件示例
-# Silva Configuration File Example
+# Silva 站点配置示例
+# Silva site configuration example
 # ============================================================================
-# 使用说明 / Usage Instructions:
-# 1. 复制此文件并重命名为 `SilvaConfig.yaml` / Copy this file and rename to `SilvaConfig.yaml`
-# 2. 根据需要修改配置项 / Modify configuration items as needed
-# 3. 应用会自动读取 SilvaConfig.yaml 文件 / App will automatically read SilvaConfig.yaml
+# 使用方式 / How to use:
+# 1. 复制此文件并重命名为 `SilvaConfig.yaml` / Copy this file and rename it to `SilvaConfig.yaml`
+# 2. 按站点实际信息修改配置项 / Adjust the configuration for your site
+# 3. 应用启动时会自动读取 SilvaConfig.yaml / The app reads SilvaConfig.yaml automatically at startup
 # ============================================================================
 
 # ----------------------------------------------------------------------------
-# 网站信息配置
-# Site Information Configuration
+# 站点基础信息
+# Basic site information
 # ----------------------------------------------------------------------------
 site:
-  # 网站所有者名称（默认）/ Site owner name (default)
-  # 当没有匹配的语言特定名称时使用 / Used when no language-specific name matches
+  # 默认站点所有者名称 / Default site owner name
+  # 没有匹配的本地化名称时使用 / Used when no localized name matches
   name: "示例"
 
-  # 中文名称 / Chinese name
-  # 当用户语言为中文时显示 / Displayed when user language is Chinese
+  # 简体中文显示名称 / Simplified Chinese display name
+  # 当前语言为中文时优先显示 / Preferred when the current language is Chinese
   name_zh: "示例"
 
-  # 英文名称 / English name
-  # 当用户语言为英文时显示 / Displayed when user language is English
+  # 英文显示名称 / English display name
+  # 当前语言为英文时优先显示 / Preferred when the current language is English
   name_en: "example"
 
-  # 座右铭 / Motto
-  # 网站首页显示的简短描述 / A brief description displayed on the homepage
+  # 首页座右铭 / Homepage motto
+  # 首页展示的一句简短介绍 / Short description shown on the homepage
   motto: "example motto goes here."
 
-  # 注意事项 / Notes:
-  # - 建议名称长度：中文 5 字符以内，英文 10 字符以内
+  # 配置建议 / Configuration tips:
+  # - 建议名称长度：中文 5 字以内，英文 10 字以内
   #   Recommended length: Chinese within 5 chars, English within 10 chars
-  # - 如果只使用一种语言，只保留 name 即可
-  #   If using only one language, keep only "name"
+  # - 单语言站点只需要保留 name
+  #   For a single-language site, keep only "name"
 
 # ----------------------------------------------------------------------------
-# 社交链接配置
-# Social Links Configuration
+# 社交链接列表
+# Social link list
 # ----------------------------------------------------------------------------
 links:
-  # GitHub 链接 / GitHub link
+  # GitHub 主页链接 / GitHub profile link
   - type: "github"
     url: "https://github.com/yourusername"
 
-  # Twitter/X 链接 / Twitter/X link
+  # Twitter/X 主页链接 / Twitter/X profile link
   - type: "twitter"
     url: "https://twitter.com/yourusername"
 
-  # 电子邮件 / Email
+  # 联系邮箱链接 / Contact email link
   - type: "email"
     url: "mailto:your@email.com"
 
-  # Telegram 链接 / Telegram link
+  # Telegram 主页链接 / Telegram profile link
   - type: "telegram"
     url: "https://t.me/yourusername"
 
-  # 注意事项 / Notes:
-  # - 支持的类型 / Supported types: github, twitter, email, telegram
-  # - 可以删除不需要的链接 / Can remove unwanted links
+  # 链接配置说明 / Link configuration notes:
+  # - 当前支持类型 / Currently supported types: github, twitter, email, telegram
+  # - 可删除不需要展示的链接 / Remove links that should not be displayed
 
 # ----------------------------------------------------------------------------
-# 备案信息配置
-# Filing Information Configuration
+# 备案信息列表
+# Filing information list
 # ----------------------------------------------------------------------------
 filings:
-  # ICP 备案 / ICP Filing
+  # ICP 备案链接 / ICP filing link
   - name: "京ICP备xxxxxxxx号"
     url: "https://beian.miit.gov.cn/"
 
-  # 公安备案 / Public Security Filing
+  # 公安备案链接 / Public security filing link
   - name: "京公网安备xxxxxxxx号"
     url: "http://www.beian.gov.cn/portal/registerSystemInfo"
 
-  # 注意事项 / Notes:
-  # - 如果不需要备案信息，可以删除整个 filings 部分
-  #   If filing info is not needed, remove the entire filings section
-  # - 可以添加多个备案信息 / Can add multiple filing entries
-  # - 将 xxxxxxxx 替换为实际的备案号 / Replace xxxxxxxx with actual filing number
+  # 备案配置说明 / Filing configuration notes:
+  # - 无备案信息时可删除整个 filings 部分
+  #   Remove the entire filings section when filing info is not needed
+  # - 可按需添加多条备案记录
+  #   Add multiple filing entries when needed
+  # - 将 xxxxxxxx 替换为真实备案号
+  #   Replace xxxxxxxx with the actual filing number
 
 # ----------------------------------------------------------------------------
-# 文章分类配置
-# Post Categories Configuration
+# 文章分类列表
+# Post category list
 # ----------------------------------------------------------------------------
 categories:
-  # 分类名称 / Category name
+  # 默认分类名称 / Default category name
   - name: "技术"
-    # 中文名称 / Chinese name
+    # 中文分类名称 / Chinese category name
     name_zh: "技术"
-    # 英文名称 / English name
+    # 英文分类名称 / English category name
     name_en: "Tech"
-    # URL 路径 / URL slug
+    # URL 分类标识 / URL category slug
     slug: "tech"
   - name: "进阶"
     name_zh: "进阶"
@@ -100,78 +102,78 @@ categories:
     name_zh: "国际化"
     name_en: "i18n"
     slug: "i18n"
-    # 注意事项 / Notes:
-    # - 分类名称建议简短，slug 用于 URL 路径，推荐使用英文且不包含空格 / Category names should be concise, slug is used for URL path, recommended to use English without spaces
-    # - name 是必填项，name_zh 和 name_en 可选，如果缺失会使用 name / name is required, name_zh and name_en are optional, if missing will use name
-    # - 可以根据需要添加更多分类 / Can add more categories as needed
+    # 分类配置说明 / Category configuration notes:
+    # - 分类名称建议简短，slug 会用于 URL，推荐英文且不含空格 / Keep category names concise; slug is used in URLs and should be English without spaces
+    # - name 为必填项，name_zh 和 name_en 缺失时回退到 name / name is required; name_zh and name_en fall back to name when missing
+    # - 可继续追加更多分类 / Add more categories as needed
 
 # ----------------------------------------------------------------------------
-# SEO 元数据配置
-# SEO Metadata Configuration
+# SEO 元数据
+# SEO metadata
 # ----------------------------------------------------------------------------
 seo:
-  # 网站标题 / Site title
-  # 显示在浏览器标签页和搜索结果中 / Displayed in browser tab and search results
+  # SEO 网站标题 / SEO site title
+  # 用于浏览器标签页和搜索结果 / Used in browser tabs and search results
   title: "示例网站标题"
 
-  # 网站名称 / Site name
-  # 用于 Open Graph 和其他社交媒体分享 / Used for Open Graph and social media sharing
+  # SEO 网站名称 / SEO site name
+  # 用于 Open Graph 与社交平台分享 / Used for Open Graph and social sharing
   site_name: "示例网站"
 
-  # 网站描述 / Site description
-  # 显示在搜索结果和社交媒体分享中 / Displayed in search results and social sharing
+  # SEO 网站描述 / SEO site description
+  # 用于搜索摘要和社交分享摘要 / Used in search snippets and social sharing summaries
   description: "这是一个示例网站描述，介绍网站的主要内容和特色。"
 
-  # 默认语言 / Default Language
-  # 网站的默认显示语言 / Default display language for the site
-  # 可选值 / Available values: zh-CN (简体中文), en-US (美式英语)
+  # 默认语言 / Default language
+  # 站点默认展示语言 / Default display language for the site
+  # 可选值 / Available values: zh-CN (简体中文), en-US (American English)
   locale: "zh-CN"
 
-  # 规范链接 / Canonical URL
-  # 网站的主域名，用于 SEO / Main domain for SEO purposes
+  # 规范化站点地址 / Canonical site URL
+  # 用于 SEO 的主域名 / Main domain used for SEO
   canonical: "https://example.com"
 
-  # 作者 / Author
-  # 网站内容的作者或所有者 / Content author or site owner
+  # 内容作者 / Content author
+  # 站点内容作者或所有者 / Author or owner of the site content
   author: "示例作者"
 
-  # 主题色 / Theme color
-  # 浏览器地址栏和任务切换器中显示的颜色 / Color shown in browser address bar
-  # 格式：十六进制颜色代码 / Format: hex color code
+  # 浏览器主题色 / Browser theme color
+  # 用于浏览器地址栏和任务切换器 / Used in the browser address bar and task switcher
+  # 格式为十六进制颜色代码 / Format is a hex color code
   theme_color: "#7bf1a8"
 
-  # Open Graph 配置 / Open Graph Configuration
-  # 用于社交媒体分享时的展示效果 / Used for social media sharing display
+  # Open Graph 分享配置 / Open Graph sharing configuration
+  # 控制社交平台分享卡片展示 / Controls social platform sharing cards
   og:
-    # OG 标题 / OG title
-    # 社交媒体分享时显示的标题 / Title shown when shared on social media
+    # Open Graph 标题 / Open Graph title
+    # 社交分享卡片标题 / Title shown in social sharing cards
     title: "示例网站 - 副标题"
 
-    # OG 描述 / OG description
-    # 社交媒体分享时显示的描述 / Description shown when shared on social media
+    # Open Graph 描述 / Open Graph description
+    # 社交分享卡片描述 / Description shown in social sharing cards
     description: "这是社交媒体分享时显示的描述文本。"
 
-    # OG 类型 / OG type
-    # 常用值 / Common values: website, article, profile
+    # Open Graph 类型 / Open Graph type
+    # 常见值 / Common values: website, article, profile
     type: "website"
 
-    # OG 分享图片 / OG share image
-    # ⚠️ 需要自行修改为实际图片 URL / Need to manually modify to actual image URL
-    # 图片建议尺寸：1200x630 像素 / Recommended image size: 1200x630 pixels
+    # Open Graph 分享图片 / Open Graph share image
+    # 需要替换为真实图片 URL / Replace with the real image URL
+    # 推荐图片尺寸：1200x630 像素 / Recommended image size: 1200x630 pixels
     image: "https://example.com/og-image.jpg"
 
-  # Twitter Card 配置 / Twitter Card Configuration
-  # 用于 Twitter/X 平台的分享展示 / Used for Twitter/X sharing display
+  # Twitter/X 卡片配置 / Twitter/X card configuration
+  # 控制 Twitter/X 平台分享展示 / Controls sharing display on Twitter/X
   twitter:
-    # Twitter 网站账号 / Twitter site account
-    # 格式：@username / Format: @username
+    # Twitter/X 站点账号 / Twitter/X site account
+    # 格式为 @username / Format is @username
     site: "@yourusername"
 
-    # Twitter 内容创作者账号 / Twitter creator account
-    # 格式：@username / Format: @username
+    # Twitter/X 内容创作者账号 / Twitter/X creator account
+    # 格式为 @username / Format is @username
     creator: "@yourusername"
 
-    # Twitter 卡片类型 / Twitter card type
-    # ⚠️ 需要自行修改 / Need to manually modify
-    # 常用值 / Common values: summary, summary_large_image
+    # Twitter/X 卡片类型 / Twitter/X card type
+    # 按实际分享样式选择 / Choose based on the desired sharing style
+    # 常见值 / Common values: summary, summary_large_image
     card: "summary_large_image"

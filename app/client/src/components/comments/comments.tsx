@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * 评论区组件 / Comments Component
+ * 评论区组件 / Comments component
  *
- * 提供评论展示、社交登录和评论提交功能。
- * Provides comment display, social login, and comment submission.
+ * 渲染评论列表、评论表单和回复交互。
+ * Renders the comment list, comment form, and reply interactions.
  */
 
 import type { Comment } from "@/data/mock-comments";
@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import Modules from "./comments.module.scss";
 
-/** 评论组件属性 / Comments component props */
+/** 评论区入口参数 / Comments entry props */
 interface CommentsProps {
   comments: Comment[];
   postId?: string;
@@ -31,7 +31,7 @@ interface CommentFormProps {
 }
 
 /**
- * 可复用的评论表单组件 / Reusable comment form component
+ * 可复用评论表单 / Reusable comment form
  */
 function CommentForm({
   authorName,
@@ -111,7 +111,7 @@ function CommentForm({
 }
 
 /**
- * 格式化时间戳为显示格式 / Format timestamp for display
+ * 将时间戳格式化为页面展示文本 / Formats timestamp for page display
  */
 function formatTime(timestamp: number): string {
   const date = new Date(timestamp);
@@ -127,7 +127,7 @@ function formatTime(timestamp: number): string {
 }
 
 /**
- * 获取用户名首字母 / Get first letter of username
+ * 获取作者名称的首字母 / Gets the first letter of the author name
  */
 function getFirstLetter(name: string): string {
   if (!name) {
@@ -138,7 +138,7 @@ function getFirstLetter(name: string): string {
 }
 
 /**
- * 根据字符串生成稳定的随机颜色 / Generate stable random color from string
+ * 根据字符串生成稳定头像颜色 / Generates a stable avatar color from a string
  */
 function getColorFromString(str: string): string {
   const colors = [
@@ -175,7 +175,7 @@ interface CommentItemProps {
 }
 
 /**
- * 单条评论组件 / Single comment component
+ * 单条评论及其回复列表 / Single comment with its reply list
  */
 function CommentItem({
   comment,
@@ -195,7 +195,7 @@ function CommentItem({
   );
 
   /**
-   * 切换回复表单 / Toggle reply form
+   * 打开或关闭回复表单 / Opens or closes the reply form
    */
   const toggleReplyForm = () => {
     setShowReplyForm((current) => {
@@ -212,7 +212,7 @@ function CommentItem({
   };
 
   /**
-   * 提交回复 / Submit reply
+   * 组装并提交回复数据 / Builds and submits reply data
    */
   const handleReplySubmit = () => {
     const replyData = {
@@ -319,7 +319,7 @@ export default function Comments({ comments, postId }: CommentsProps) {
   );
 
   /**
-   * 提交评论 / Submit comment
+   * 组装并提交顶级评论数据 / Builds and submits top-level comment data
    */
   const handleSubmit = () => {
     const formData = {

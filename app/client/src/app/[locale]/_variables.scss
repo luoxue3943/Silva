@@ -1,24 +1,24 @@
 /**
- * SCSS 主题变量 / SCSS Theme Variables
+ * SCSS 主题变量 / SCSS theme variables
  *
- * 定义全局使用的颜色变量。
- * Defines globally used color variables.
+ * 集中维护站点颜色与玻璃拟态效果变量。
+ * Centralizes site colors and glassmorphism effect variables.
  */
 
-/* 主题色（青绿色）/ Theme color (cyan-green) */
+/* 品牌主题色（青绿色）/ Brand theme color (cyan green) */
 $theme-color: rgb(122.77 241.32 167.54);
 
-/* 选中/悬停色（浅青绿色）/ Selection/hover color (light cyan-green) */
+/* 选中和悬停强调色（浅青绿色）/ Selection and hover accent color (light cyan green) */
 $select-color: rgb(151.95 242.01 185.07);
 
-/* 背景色（深灰色）/ Background color (dark gray) */
+/* 页面深灰背景色 / Page dark gray background color */
 $background-color: rgb(33 33 33);
 
-/* 玻璃描边色（浅灰透明）/ Glass stroke color (light gray with alpha) */
+/* 毛玻璃边框描边色 / Glassmorphism border stroke color */
 $glass-stroke-color: rgb(92 92 92 / 36.1%);
 
-/* 玻璃背景色（深灰高不透明）/ Glass surface color (dark gray high opacity) */
+/* 毛玻璃面板背景色 / Glassmorphism panel surface color */
 $glass-surface-color: rgb(26 26 26 / 94.1%);
 
-/* 玻璃内阴影色（浅灰透明）/ Glass inset shadow color (light gray with alpha) */
+/* 毛玻璃内阴影色 / Glassmorphism inset shadow color */
 $glass-inset-shadow: rgb(214 214 214 / 11.9%);

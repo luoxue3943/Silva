@@ -1,14 +1,17 @@
 /**
- * 评论区样式 / Comments styles
+ * 评论区模块样式 / Comments module styles
+ *
+ * 管理评论表单、评论气泡、回复层级和移动端布局。
+ * Manages the comment form, comment bubbles, reply nesting, and mobile layout.
  */
 
-/* 评论区容器样式 / Comments container styles */
+/* 评论区外层宽度容器 / Outer width container for comments */
 .container {
   margin: 0 auto;
   max-width: 60rem;
 }
 
-/* 登录区域样式 / Login section styles */
+/* 登录入口区域容器 / Login entry section container */
 .login-section {
   margin-bottom: 3rem;
   border: 1px solid rgb(255 255 255 / 5%);
@@ -18,7 +21,7 @@
   background: rgb(255 255 255 / 2%);
 }
 
-/* 登录标题样式 / Login title styles */
+/* 登录区域标题文本 / Login section title text */
 .login-title {
   margin-bottom: 1.5rem;
   font-size: 1.125rem;
@@ -26,7 +29,7 @@
   color: rgb(255 255 255 / 90%);
 }
 
-/* 社交按钮容器样式 / Social buttons container styles */
+/* 社交登录按钮组 / Social login button group */
 .social-buttons {
   display: flex;
   justify-content: center;
@@ -34,7 +37,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* 社交登录按钮样式 / Social login button styles */
+/* 圆形社交登录按钮 / Circular social login button */
 .social-button {
   display: flex;
   justify-content: center;
@@ -59,7 +62,7 @@
   }
 }
 
-/* 匿名登录按钮样式 / Anonymous login button styles */
+/* 匿名登录操作按钮 / Anonymous login action button */
 .anonymous-button {
   border: 1px solid rgb(255 255 255 / 20%);
   border-radius: 24px;
@@ -76,7 +79,7 @@
   }
 }
 
-/* 评论表单样式 / Comment form styles */
+/* 评论表单面板 / Comment form panel */
 .comment-form {
   margin-bottom: 2rem;
   border: 1px solid rgb(255 255 255 / 5%);
@@ -85,7 +88,7 @@
   background: rgb(255 255 255 / 2%);
 }
 
-/* 表单行样式 / Form row styles */
+/* 昵称与邮箱输入行 / Nickname and email input row */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -93,7 +96,7 @@
   margin-bottom: 1rem;
 }
 
-/* 输入框样式 / Input field styles */
+/* 表单文本输入框 / Form text input */
 .input {
   border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 8px;
@@ -114,13 +117,13 @@
   }
 }
 
-/* 文本域包装器样式 / Textarea wrapper styles */
+/* 评论文本域定位容器 / Comment textarea positioning wrapper */
 .textarea-wrapper {
   position: relative;
   margin-bottom: 1rem;
 }
 
-/* 文本域样式 / Textarea styles */
+/* 评论内容文本域 / Comment content textarea */
 .textarea {
   border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 8px;
@@ -145,7 +148,7 @@
   }
 }
 
-/* 提交按钮样式 / Submit button styles */
+/* 文本域内嵌提交按钮 / Inline submit button inside textarea */
 .submit-button {
   position: absolute;
   right: 0.75rem;
@@ -172,7 +175,7 @@
   }
 }
 
-/* 上滑淡入动画 / Slide up fade in animation */
+/* 提交按钮上滑淡入动画 / Submit button slide-up fade-in animation */
 @keyframes slide-up-fade-in {
   from {
     opacity: 0;
@@ -185,7 +188,7 @@
   }
 }
 
-/* 取消按钮样式 / Cancel button styles */
+/* 回复表单取消按钮 / Reply form cancel button */
 .cancel-button {
   border: 1px solid rgb(255 255 255 / 20%);
   border-radius: 8px;
@@ -202,14 +205,14 @@
   }
 }
 
-/* 评论列表样式 / Comments list styles */
+/* 评论列表纵向布局 / Vertical comments list layout */
 .comments-list {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* 空状态样式 / Empty state styles */
+/* 无评论空状态提示 / Empty state shown when no comments exist */
 .empty-state {
   padding: 3rem 1rem;
   font-size: 0.9375rem;
@@ -217,20 +220,20 @@
   color: rgb(255 255 255 / 40%);
 }
 
-/* 单条评论样式 / Single comment styles */
+/* 顶级评论条目 / Top-level comment item */
 .comment {
   padding: 0.75rem 0;
   background: transparent;
 }
 
-/* 评论主体样式 / Comment main styles */
+/* 评论头像与内容主行 / Main row for avatar and comment content */
 .comment-main {
   display: flex;
   gap: 0.75rem;
   align-items: center;
 }
 
-/* 头像样式 / Avatar styles */
+/* 评论作者头像圆标 / Circular comment author avatar */
 .avatar {
   display: flex;
   justify-content: center;
@@ -245,7 +248,7 @@
   user-select: none;
 }
 
-/* 评论气泡包装器样式 / Comment bubble wrapper styles */
+/* 评论气泡与回复按钮容器 / Wrapper for comment bubble and reply button */
 .comment-bubble-wrapper {
   flex: 1;
   position: relative;
@@ -260,14 +263,14 @@
   }
 }
 
-/* 作者信息行样式 / Author info line styles */
+/* 作者元信息行 / Author metadata row */
 .author-line {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* 作者名称样式 / Author name styles */
+/* 作者名称文本 / Author name text */
 .author {
   font-size: 0.875rem;
   font-weight: 600;
@@ -275,7 +278,7 @@
   line-height: 1.4;
 }
 
-/* 时间、楼层、位置样式 / Time, floor, location styles */
+/* 时间、楼层和地区元信息 / Time, floor, and location metadata */
 .time,
 .floor,
 .location {
@@ -283,7 +286,7 @@
   color: rgb(255 255 255 / 50%);
 }
 
-/* 评论气泡样式 / Comment bubble styles */
+/* 评论内容气泡 / Comment content bubble */
 .comment-bubble {
   border-radius: 12px;
   padding: 0.875rem 1rem;
@@ -295,7 +298,7 @@
   }
 }
 
-/* 评论内容样式 / Comment content styles */
+/* 评论正文排版 / Comment body typography */
 .comment-content {
   font-size: 0.875rem;
   white-space: pre-wrap;
@@ -304,7 +307,7 @@
   overflow-wrap: break-word;
 }
 
-/* 回复按钮样式 / Reply button styles */
+/* 评论气泡内回复按钮 / Reply button inside comment bubble */
 .reply-button {
   position: absolute;
   right: 0.5rem;
@@ -334,7 +337,7 @@
   }
 }
 
-/* 回复表单 / Reply form */
+/* 嵌套回复表单面板 / Nested reply form panel */
 .reply-form {
   margin-top: 1rem;
   border: 1px solid rgb(255 255 255 / 5%);
@@ -343,7 +346,7 @@
   background: rgb(255 255 255 / 2%);
 }
 
-/* 回复列表样式 / Replies list styles */
+/* 回复列表缩进布局 / Indented reply list layout */
 .replies {
   display: flex;
   margin-top: 0.75rem;
@@ -352,7 +355,7 @@
   gap: 0.75rem;
 }
 
-/* 单条回复样式 / Single reply styles */
+/* 单条回复条目 / Single reply item */
 .reply {
   padding: 0.75rem 0;
   background: transparent;
@@ -386,7 +389,7 @@
   }
 }
 
-/* 响应式设计 / Responsive design */
+/* 评论区移动端适配 / Mobile adaptations for comments */
 @media (width <= 768px) {
   .container {
     padding: 1rem 0.5rem;

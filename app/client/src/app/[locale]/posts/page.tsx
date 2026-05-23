@@ -10,8 +10,8 @@ type PostsPageProps = {
 /**
  * 文章列表页面 / Posts page
  *
- * 根据 query category 筛选文章。
- * Filters posts by category query.
+ * 根据 category 查询参数筛选文章。
+ * Filters posts by the category query parameter.
  */
 export default async function PostsPage({ searchParams }: PostsPageProps) {
   const { category } = await searchParams;

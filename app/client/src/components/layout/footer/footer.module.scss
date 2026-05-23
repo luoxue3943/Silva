@@ -1,10 +1,13 @@
 /**
  * 页脚模块样式 / Footer module styles
+ *
+ * 管理统计、备案链接和版权文本的页脚排版。
+ * Manages footer layout for stats, filing links, and copyright text.
  */
 
 @use "../../../app/[locale]/variables" as var;
 
-/* 页脚容器样式 / Footer container styles */
+/* 页脚外层容器 / Footer outer container */
 .footer {
   position: relative;
   display: flex;
@@ -14,7 +17,7 @@
   background: transparent;
 }
 
-/* 内容容器样式 / Content container styles */
+/* 页脚内容纵向容器 / Vertical footer content container */
 .container {
   display: flex;
   flex-direction: column;
@@ -25,7 +28,7 @@
   line-height: 1.8;
 }
 
-/* 统计信息样式 / Statistics styles */
+/* 统计信息行布局 / Stats row layout */
 .stats {
   display: flex;
   flex-wrap: wrap;
@@ -34,19 +37,19 @@
   color: #b9becb;
 }
 
-/* 高亮文本样式 / Highlight text styles */
+/* 统计数字高亮文本 / Highlight text for stats numbers */
 .highlight {
   font-weight: 600;
   color: var.$theme-color;
 }
 
-/* 版权信息样式 / Copyright styles */
+/* 版权信息文本 / Copyright text */
 .copyright {
   font-size: 0.9rem;
   color: #d9dce2;
 }
 
-/* 备案信息样式 / Filing information styles */
+/* 备案链接列表 / Filing link list */
 .filings {
   display: flex;
   flex-wrap: wrap;
