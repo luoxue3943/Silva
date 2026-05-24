@@ -4,3 +4,4 @@ app/client/article/
 app/server/target/
 server.toml
 SilvaConfig.yaml
+.codex-screenshots/
