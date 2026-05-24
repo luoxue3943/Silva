@@ -2,6 +2,13 @@ import type { Comment } from "@/data/mock-comments";
 import { silvaAlova } from "@/lib/alova";
 import type { PaginationResponse } from "@/types/pagination";
 
+/**
+ * 评论数据服务 / Comment data service
+ *
+ * 封装站点留言和文章评论的分页 mock API 请求。
+ * Wraps paginated mock API requests for site messages and article comments.
+ */
+
 export const SITE_COMMENTS_URL = "/mock/comments/site";
 export const ARTICLE_COMMENTS_URL = "/mock/comments/article";
 
@@ -18,6 +25,9 @@ type ArticleCommentsParams = CommentsParams & {
   postId: number;
 };
 
+/**
+ * 获取站点留言分页数据 / Fetches paginated site-level comments.
+ */
 export function getSiteComments({
   page,
   pageSize = ROOT_COMMENT_PAGE_SIZE,
@@ -32,6 +42,9 @@ export function getSiteComments({
   });
 }
 
+/**
+ * 获取文章评论分页数据 / Fetches paginated article comments.
+ */
 export function getArticleComments({
   postId,
   page,
@@ -48,5 +61,8 @@ export function getArticleComments({
   });
 }
 
+/**
+ * 评论分页大小常量 / Comment pagination size constants.
+ */
 export const COMMENT_PAGE_SIZE = ROOT_COMMENT_PAGE_SIZE;
 export const COMMENT_REPLY_PAGE_SIZE = REPLY_PAGE_SIZE;

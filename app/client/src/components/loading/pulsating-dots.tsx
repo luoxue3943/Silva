@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * 脉冲点加载指示器 / Pulsating dots loading indicator
+ *
+ * 使用 framer-motion 渲染三个错峰缩放的加载圆点。
+ * Uses framer-motion to render three staggered scaling loading dots.
+ */
+
 import { motion } from "framer-motion";
 
 export default function PulsatingDots() {

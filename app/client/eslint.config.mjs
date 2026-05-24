@@ -10,9 +10,9 @@ const eslintConfig = defineConfig([
   eslintConfigPrettier,
   reactHooks.configs.flat["recommended-latest"],
 
-  // Override default ignores of eslint-config-next.
+  // 覆盖 eslint-config-next 的默认忽略规则 / Overrides default ignores from eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
+    // eslint-config-next 默认忽略项 / Default ignores from eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",

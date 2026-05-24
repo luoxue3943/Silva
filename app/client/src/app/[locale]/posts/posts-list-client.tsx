@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * 文章列表客户端组件 / Post list client component
+ *
+ * 负责按分类加载文章、渲染卡片列表，并通过滚动哨兵追加分页数据。
+ * Loads posts by category, renders cards, and appends paginated data through a scroll sentinel.
+ */
+
 import PulsatingDots from "@/components/loading/pulsating-dots";
 import type { Post } from "@/data/mock-posts";
 import {
@@ -17,6 +24,9 @@ type PostsListClientProps = {
 
 const POSTS_PAGE_SIZE = 15;
 
+/**
+ * 格式化文章日期 / Formats a post date.
+ */
 function formatPostDate(dateString: number) {
   const date = new Date(dateString);
 
@@ -27,6 +37,7 @@ function formatPostDate(dateString: number) {
 }
 
 export default function PostsListClient({ category }: PostsListClientProps) {
+  // 将当前分类绑定进分页请求 / Binds the active category into paginated requests.
   const getPage = useCallback(
     (page: number, pageSize: number) => getPosts(page, pageSize, category),
     [category],
@@ -38,12 +49,14 @@ export default function PostsListClient({ category }: PostsListClientProps) {
       getPage,
     });
 
+  // 列表底部进入视口时加载下一页 / Loads the next page when the list sentinel enters the viewport.
   const sentinelRef = useLoadMoreSentinel(hasMore && !loading, loadMore);
 
   return (
     <section className={Modules["posts-section"]}>
       <div className={Modules["posts-list"]}>
         {items.map((post) => {
+          // 每张卡片只格式化一次展示日期 / Formats the display date once per card.
           const formattedDate = formatPostDate(post.created_at);
 
           return (

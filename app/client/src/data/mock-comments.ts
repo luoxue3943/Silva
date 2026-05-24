@@ -1,5 +1,5 @@
 /**
- * Comment record type.
+ * 评论记录类型 / Comment record type.
  */
 export type Comment = {
   id: number;
@@ -144,17 +144,17 @@ function buildArticleComments() {
 }
 
 /**
- * Local mock site-level comments.
+ * 本地模拟站点级评论 / Local mock site-level comments.
  */
 export const MOCK_SITE_COMMENTS: Comment[] = buildSiteComments();
 
 /**
- * Local mock article-level comments.
+ * 本地模拟文章级评论 / Local mock article-level comments.
  */
 export const MOCK_ARTICLE_COMMENTS: Comment[] = buildArticleComments();
 
 /**
- * Compatibility export for callers that still need the full mock list.
+ * 兼容仍需完整模拟评论列表的调用方 / Compatibility export for callers that still need the full mock list.
  */
 export const MOCK_COMMENTS: Comment[] = [
   ...MOCK_SITE_COMMENTS,

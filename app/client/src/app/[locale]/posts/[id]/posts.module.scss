@@ -5,9 +5,9 @@
  * Defines Markdown typography, code highlighting, copy buttons, and the TOC sidebar.
  */
 
-// ============================================
-// Markdown 文章正文排版 / Markdown article body typography
-// ============================================
+/**
+ * Markdown 文章正文排版 / Markdown article body typography
+ */
 
 /* Markdown 内容主容器 / Main Markdown content container */
 .markdown {
@@ -168,9 +168,9 @@
     background-color: #1f2937;
   }
 
-  // ============================================
-  // 代码块工具栏包装器 / Code block toolbar wrapper
-  // ============================================
+  /**
+   * 代码块工具栏包装器 / Code block toolbar wrapper
+   */
 
   :global(.code-block-wrapper) {
     position: relative;
@@ -227,9 +227,9 @@
     }
   }
 
-  // ============================================
-  // Prism 代码块基础排版 / Prism code block base typography
-  // ============================================
+  /**
+   * Prism 代码块基础排版 / Prism code block base typography
+   */
 
   :global(pre[class*="language-"]) {
     overflow-x: auto;
@@ -255,9 +255,9 @@
     }
   }
 
-  // ============================================
-  // Prism Token 高亮样式（必须使用 :global）/ Prism token highlighting styles (must use :global)
-  // ============================================
+  /**
+   * Prism Token 高亮样式（必须使用 :global）/ Prism token highlighting styles (must use :global)
+   */
 
   // 注释 Token / Comment tokens
   :global(.token.comment),
@@ -353,9 +353,9 @@
     cursor: help;
   }
 
-  // ============================================
-  // 可选行号样式（启用 showLineNumbers 时生效）/ Optional line number styles (active when showLineNumbers is enabled)
-  // ============================================
+  /**
+   * 可选行号样式（启用 showLineNumbers 时生效）/ Optional line number styles (active when showLineNumbers is enabled)
+   */
 
   :global(.line-numbers) {
     position: relative;
@@ -388,9 +388,9 @@
     }
   }
 
-  // ============================================
-  // 可选行高亮样式（使用 data-line 属性时生效）/ Optional line highlight styles (active when data-line is used)
-  // ============================================
+  /**
+   * 可选行高亮样式（使用 data-line 属性时生效）/ Optional line highlight styles (active when data-line is used)
+   */
 
   :global(pre[data-line]) {
     position: relative;
@@ -409,9 +409,9 @@
   }
 }
 
-// ============================================
-// 文章目录侧栏样式 / Article table of contents sidebar styles
-// ============================================
+/**
+ * 文章目录侧栏样式 / Article table of contents sidebar styles
+ */
 
 /* 目录侧栏容器 / Table of contents sidebar container */
 .toc {

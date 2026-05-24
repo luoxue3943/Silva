@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * 时间线客户端组件 / Timeline client component
+ *
+ * 按年份分组分页文章，并渲染带加载哨兵的时间线列表。
+ * Groups paginated posts by year and renders the timeline with a load-more sentinel.
+ */
+
 import PulsatingDots from "@/components/loading/pulsating-dots";
 import type { Post } from "@/data/mock-posts";
 import {
@@ -26,6 +33,9 @@ interface PostsByYear {
   }>;
 }
 
+/**
+ * 按年份整理文章列表 / Groups posts by year.
+ */
 function groupPostsByYear(posts: Post[]) {
   const postsByYear: Record<string, PostsByYear["posts"]> = {};
 
@@ -56,6 +66,9 @@ function groupPostsByYear(posts: Post[]) {
     .sort((left, right) => Number(right.year) - Number(left.year));
 }
 
+/**
+ * 获取分类展示名称 / Gets the display label for a category.
+ */
 function getCategoryLabel(
   category: string | null,
   translateCategory: (key: string) => string,
@@ -75,6 +88,7 @@ export default function TimelineClient() {
   const t = useTranslations("Timeline");
   const tCategory = useTranslations("Categories");
 
+  // 时间线始终请求所有分类文章 / Timeline always requests posts across all categories.
   const getPage = useCallback(
     (page: number, pageSize: number) => getTimelinePosts(page, pageSize),
     [],
@@ -86,7 +100,10 @@ export default function TimelineClient() {
       getPage,
     });
 
+  // 哨兵进入视口时追加下一页 / Appends the next page when the sentinel enters the viewport.
   const sentinelRef = useLoadMoreSentinel(hasMore && !loading, loadMore);
+
+  // 已加载文章按年份重新分组 / Regroups loaded posts by year.
   const groupedPosts = useMemo(() => groupPostsByYear(items), [items]);
 
   return (

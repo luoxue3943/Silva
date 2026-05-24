@@ -1,6 +1,7 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Git 忽略规则参考 / Reference for Git ignore rules:
+# https://help.github.com/articles/ignoring-files/
 
-# dependencies
+# 依赖目录 / Dependency directories
 /node_modules
 /.pnp
 .pnp.*
@@ -10,32 +11,32 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# 测试产物 / Test artifacts
 /coverage
 
-# next.js
+# Next.js 构建产物 / Next.js build artifacts
 /.next/
 /out/
 
-# production
+# 生产构建目录 / Production build directory
 /build
 
-# misc
+# 杂项系统文件 / Miscellaneous system files
 .DS_Store
 *.pem
 
-# debug
+# 调试日志 / Debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# 环境变量文件（需要时可选择提交）/ Environment files (can opt in to committing when needed)
 .env*
 
-# vercel
+# Vercel 本地产物 / Vercel local artifacts
 .vercel
 
-# typescript
+# TypeScript 编译缓存 / TypeScript build cache
 *.tsbuildinfo
 next-env.d.ts

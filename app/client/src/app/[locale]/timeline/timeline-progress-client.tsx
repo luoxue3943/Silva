@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * 时间进度客户端组件 / Time progress client component
+ *
+ * 展示当前年份进度和当天进度，避免服务端时间与客户端时间不一致。
+ * Displays current year and day progress while avoiding server-client time mismatch.
+ */
+
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
@@ -13,6 +20,9 @@ const initialProgress: ProgressState = {
   dayPercentage: "--",
 };
 
+/**
+ * 计算当前年份已经过去的百分比 / Calculates the elapsed percentage of the current year.
+ */
 function getYearPercentage(): string {
   const now = new Date();
 
@@ -31,6 +41,9 @@ function getYearPercentage(): string {
   return percentage.toFixed(2);
 }
 
+/**
+ * 计算今天已经过去的百分比 / Calculates the elapsed percentage of today.
+ */
 function getDayPercentage(): string {
   const now = new Date();
 
@@ -60,6 +73,7 @@ export default function TimelineProgressClient() {
   const [progress, setProgress] = useState<ProgressState>(initialProgress);
 
   useEffect(() => {
+    // 年进度一天内变化很小，挂载时固定即可 / Year progress changes slowly enough to fix it on mount.
     const fixedYearPercentage = getYearPercentage();
 
     let frameId = 0;
@@ -70,6 +84,7 @@ export default function TimelineProgressClient() {
         dayPercentage: getDayPercentage(),
       });
 
+      // 天进度连续刷新，保持小数部分平滑变化 / Day progress refreshes continuously for smooth decimal updates.
       frameId = window.requestAnimationFrame(update);
     };
 

@@ -1,8 +1,9 @@
 "use client";
 
 /**
- * Comments component.
+ * 评论组件 / Comments component.
  *
+ * 渲染评论表单、分页顶级评论和分页回复列表。
  * Renders the comment form, paginated top-level comments, and paginated replies.
  */
 

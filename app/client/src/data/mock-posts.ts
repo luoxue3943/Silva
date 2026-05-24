@@ -1,5 +1,5 @@
 /**
- * Post record type.
+ * 文章记录类型 / Post record type.
  */
 export type Post = {
   id: number;
@@ -145,7 +145,7 @@ const POST_SEEDS: PostSeed[] = [
 ];
 
 /**
- * Local mock post list.
+ * 本地模拟文章列表 / Local mock post list.
  */
 export const MOCK_POSTS: Post[] = POST_SEEDS.map((post, index) => {
   const id = index + 1;
