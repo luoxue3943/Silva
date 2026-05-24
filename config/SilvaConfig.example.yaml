@@ -1,6 +1,5 @@
 # ============================================================================
-# Silva 站点配置示例
-# Silva site configuration example
+# Silva 站点配置示例 / Silva site configuration example
 # ============================================================================
 # 使用方式 / How to use:
 # 1. 复制此文件并重命名为 `SilvaConfig.yaml` / Copy this file and rename it to `SilvaConfig.yaml`
@@ -9,8 +8,7 @@
 # ============================================================================
 
 # ----------------------------------------------------------------------------
-# 站点基础信息
-# Basic site information
+# 站点基础信息 / Basic site information
 # ----------------------------------------------------------------------------
 site:
   # 默认站点所有者名称 / Default site owner name
@@ -30,14 +28,11 @@ site:
   motto: "example motto goes here."
 
   # 配置建议 / Configuration tips:
-  # - 建议名称长度：中文 5 字以内，英文 10 字以内
-  #   Recommended length: Chinese within 5 chars, English within 10 chars
-  # - 单语言站点只需要保留 name
-  #   For a single-language site, keep only "name"
+  # - 建议名称长度：中文 5 字以内，英文 10 字以内 / Recommended length: Chinese within 5 chars, English within 10 chars
+  # - 单语言站点只需要保留 name / For a single-language site, keep only "name"
 
 # ----------------------------------------------------------------------------
-# 社交链接列表
-# Social link list
+# 社交链接列表 / Social link list
 # ----------------------------------------------------------------------------
 links:
   # GitHub 主页链接 / GitHub profile link
@@ -61,8 +56,7 @@ links:
   # - 可删除不需要展示的链接 / Remove links that should not be displayed
 
 # ----------------------------------------------------------------------------
-# 备案信息列表
-# Filing information list
+# 备案信息列表 / Filing information list
 # ----------------------------------------------------------------------------
 filings:
   # ICP 备案链接 / ICP filing link
@@ -74,16 +68,12 @@ filings:
     url: "http://www.beian.gov.cn/portal/registerSystemInfo"
 
   # 备案配置说明 / Filing configuration notes:
-  # - 无备案信息时可删除整个 filings 部分
-  #   Remove the entire filings section when filing info is not needed
-  # - 可按需添加多条备案记录
-  #   Add multiple filing entries when needed
-  # - 将 xxxxxxxx 替换为真实备案号
-  #   Replace xxxxxxxx with the actual filing number
+  # - 无备案信息时可删除整个 filings 部分 / Remove the entire filings section when filing info is not needed
+  # - 可按需添加多条备案记录 / Add multiple filing entries when needed
+  # - 将 xxxxxxxx 替换为真实备案号 / Replace xxxxxxxx with the actual filing number
 
 # ----------------------------------------------------------------------------
-# 文章分类列表
-# Post category list
+# 文章分类列表 / Post category list
 # ----------------------------------------------------------------------------
 categories:
   # 默认分类名称 / Default category name
@@ -108,8 +98,7 @@ categories:
     # - 可继续追加更多分类 / Add more categories as needed
 
 # ----------------------------------------------------------------------------
-# SEO 元数据
-# SEO metadata
+# SEO 元数据 / SEO metadata
 # ----------------------------------------------------------------------------
 seo:
   # SEO 网站标题 / SEO site title

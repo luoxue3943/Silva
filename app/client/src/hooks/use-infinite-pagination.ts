@@ -137,6 +137,24 @@ export function useInfinitePagination<T>({
     void loadPage(pageRef.current + 1, false);
   }, [enabled, loadPage]);
 
+  const reload = useCallback(() => {
+    if (!enabled) {
+      return;
+    }
+
+    loadingRef.current = false;
+    hasMoreRef.current = true;
+    pageRef.current = 0;
+
+    setItems([]);
+    setPage(0);
+    setTotal(null);
+    setHasMore(true);
+    setInitialLoaded(false);
+
+    void loadPage(1, true);
+  }, [enabled, loadPage]);
+
   return {
     items,
     page,
@@ -147,6 +165,7 @@ export function useInfinitePagination<T>({
     loadingMore: loading && initialLoaded,
     error,
     loadMore,
+    reload,
   };
 }
 

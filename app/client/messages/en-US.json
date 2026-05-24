@@ -49,7 +49,14 @@
     "reply": "Reply",
     "cancelReply": "Cancel Reply",
     "loadMoreReplies": "Load more replies",
-    "emptyState": "No comments yet, be the first!"
+    "emptyState": "No comments yet, be the first!",
+    "authorInvalid": "Nickname must be between 1 and 80 characters",
+    "emailInvalid": "Please enter a valid email address",
+    "contentInvalid": "Comment must be between 1 and 5000 characters",
+    "parentMissing": "The comment you are replying to no longer exists",
+    "postMissing": "The post you are commenting on no longer exists",
+    "commentSubmitFailed": "Comment submit failed",
+    "replySubmitFailed": "Reply submit failed"
   },
   "MessageBoard": {
     "title": "Message Board",

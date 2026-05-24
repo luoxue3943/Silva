@@ -1,4 +1,6 @@
 # 本仓库本地开发忽略项 / Local development ignores for this repository
 app/client/.vscode/
 app/client/article/
+app/server/target/
+server.toml
 SilvaConfig.yaml

@@ -1,93 +1,43 @@
-import { resolveMockApi } from "@/data/mock-api";
-import { createAlova, type AlovaRequestAdapter } from "alova";
+import { createAlova } from "alova";
+import adapterFetch from "alova/fetch";
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8080/api/v1";
 
 /**
- * alova 客户端配置 / alova client configuration
- *
- * 通过本地 mock 适配器模拟接口延迟、响应和错误处理。
- * Uses a local mock adapter to simulate API latency, responses, and error handling.
+ * API 响应统一包裹结构 / Unified API response envelope.
  */
-
-const MOCK_BASE_URL = "http://silva.mock";
-const MOCK_DELAY_MS = 260;
-
-/**
- * 等待指定毫秒数 / Waits for the given number of milliseconds.
- */
-function delay(ms: number) {
-  return new Promise((resolve) => {
-    globalThis.setTimeout(resolve, ms);
-  });
-}
-
-/**
- * 本地 mock 请求适配器 / Local mock request adapter
- *
- * 将 alova 请求解析到内存数据集，并复用同一次请求的响应 Promise。
- * Resolves alova requests against in-memory datasets and reuses the response promise per request.
- */
-const mockRequestAdapter: AlovaRequestAdapter<unknown, Response, Headers> = (
-  elements,
-) => {
-  let aborted = false;
-  let responsePromise: Promise<Response> | undefined;
-
-  const buildResponse = async () => {
-    if (!responsePromise) {
-      responsePromise = (async () => {
-        await delay(MOCK_DELAY_MS);
-
-        if (aborted) {
-          throw new Error("Mock request aborted");
-        }
-
-        const requestUrl = new URL(elements.url, MOCK_BASE_URL);
-        const result = resolveMockApi(requestUrl);
-
-        return new Response(JSON.stringify(result.body), {
-          status: result.status ?? 200,
-          headers: {
-            "content-type": "application/json",
-          },
-        });
-      })();
-    }
-
-    return responsePromise;
-  };
-
-  return {
-    response: buildResponse,
-    headers: async () => (await buildResponse()).headers,
-    abort: () => {
-      aborted = true;
-    },
-  };
+type ApiEnvelope<T> = {
+  code: number;
+  data: T;
+  message?: string;
 };
 
 /**
- * Silva API 客户端实例 / Silva API client instance
+ * Silva API 客户端实例 / Silva API client instance.
+ *
+ * 统一解析后端响应包裹结构，并把错误响应转换为 Error。
+ * Parses backend response envelopes and converts error responses into Error.
  */
 export const silvaAlova = createAlova({
-  baseURL: MOCK_BASE_URL,
-  requestAdapter: mockRequestAdapter,
+  baseURL: API_BASE_URL,
+  requestAdapter: adapterFetch(),
   cacheFor: {
     GET: 0,
   },
   responded: async (response) => {
-    const data = await response.json();
+    const envelope = (await response.json()) as ApiEnvelope<unknown>;
 
+    // HTTP 层错误直接透出后端消息 / HTTP-level errors expose the backend message directly.
     if (!response.ok) {
-      const errorData = data as { message?: unknown };
-
-      // 将 mock 错误响应标准化为 Error / Normalizes mock error responses into Error.
-      throw new Error(
-        typeof errorData.message === "string"
-          ? errorData.message
-          : "Mock request failed",
-      );
+      throw new Error(envelope.message ?? "API request failed");
     }
 
-    return data;
+    // 业务层错误同样标准化为 Error / Business-level errors are also normalized into Error.
+    if (envelope.code !== 0) {
+      throw new Error(envelope.message ?? "API request failed");
+    }
+
+    return envelope.data;
   },
 });

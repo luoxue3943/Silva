@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/data/mock-posts";
+import type { Post } from "@/types/post";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./posts.module.scss";
 

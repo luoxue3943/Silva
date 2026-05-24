@@ -8,7 +8,6 @@
  */
 
 import PulsatingDots from "@/components/loading/pulsating-dots";
-import type { Comment } from "@/data/mock-comments";
 import {
   useInfinitePagination,
   useLoadMoreSentinel,
@@ -16,9 +15,12 @@ import {
 import {
   COMMENT_PAGE_SIZE,
   COMMENT_REPLY_PAGE_SIZE,
+  createArticleComment,
+  createSiteComment,
   getArticleComments,
   getSiteComments,
 } from "@/services/comments";
+import type { Comment } from "@/types/comment";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 import Modules from "./comments.module.scss";
@@ -37,9 +39,72 @@ interface CommentFormProps {
   onAuthorNameChange: (value: string) => void;
   onAuthorEmailChange: (value: string) => void;
   onContentChange: (value: string) => void;
-  onSubmit: () => void;
+  onSubmit: () => void | Promise<void>;
   onCancel?: () => void;
   placeholder?: string;
+  submitting?: boolean;
+}
+
+type CommentValidationErrorKey =
+  | "authorInvalid"
+  | "emailInvalid"
+  | "contentInvalid";
+
+type CommentApiErrorKey =
+  | CommentValidationErrorKey
+  | "parentMissing"
+  | "postMissing";
+
+const COMMENT_ERROR_TRANSLATION_KEYS = {
+  "author must be between 1 and 80 characters": "authorInvalid",
+  "email is invalid": "emailInvalid",
+  "content must be between 1 and 5000 characters": "contentInvalid",
+  "parentId does not exist": "parentMissing",
+  "postId does not exist": "postMissing",
+} as const satisfies Record<string, CommentApiErrorKey>;
+
+function getCommentValidationError(
+  authorName: string,
+  authorEmail: string,
+  content: string,
+): CommentValidationErrorKey | null {
+  const trimmedAuthorName = authorName.trim();
+  const trimmedAuthorEmail = authorEmail.trim();
+  const trimmedContent = content.trim();
+
+  if (trimmedAuthorName.length < 1 || trimmedAuthorName.length > 80) {
+    return "authorInvalid";
+  }
+
+  if (
+    trimmedAuthorEmail.length < 1 ||
+    trimmedAuthorEmail.length > 255 ||
+    !trimmedAuthorEmail.includes("@")
+  ) {
+    return "emailInvalid";
+  }
+
+  if (trimmedContent.length < 1 || trimmedContent.length > 5000) {
+    return "contentInvalid";
+  }
+
+  return null;
+}
+
+function getCommentApiErrorKey(error: unknown): CommentApiErrorKey | null {
+  if (!(error instanceof Error)) {
+    return null;
+  }
+
+  return (
+    COMMENT_ERROR_TRANSLATION_KEYS[
+      error.message as keyof typeof COMMENT_ERROR_TRANSLATION_KEYS
+    ] ?? null
+  );
+}
+
+function getErrorMessage(error: unknown): string | null {
+  return error instanceof Error ? error.message : null;
 }
 
 function CommentForm({
@@ -52,13 +117,15 @@ function CommentForm({
   onSubmit,
   onCancel,
   placeholder,
+  submitting = false,
 }: CommentFormProps) {
   const t = useTranslations("Comments");
 
   const canSubmit =
     content.trim() !== "" &&
     authorName.trim() !== "" &&
-    authorEmail.trim() !== "";
+    authorEmail.trim() !== "" &&
+    !submitting;
 
   return (
     <>
@@ -69,6 +136,8 @@ function CommentForm({
           className={Modules.input}
           value={authorName}
           onChange={(event) => onAuthorNameChange(event.target.value)}
+          disabled={submitting}
+          maxLength={80}
           required
         />
 
@@ -78,6 +147,8 @@ function CommentForm({
           className={Modules.input}
           value={authorEmail}
           onChange={(event) => onAuthorEmailChange(event.target.value)}
+          disabled={submitting}
+          maxLength={255}
           required
         />
       </div>
@@ -88,6 +159,8 @@ function CommentForm({
           className={Modules.textarea}
           value={content}
           onChange={(event) => onContentChange(event.target.value)}
+          disabled={submitting}
+          maxLength={5000}
           rows={4}
           required
         />
@@ -95,8 +168,9 @@ function CommentForm({
         {canSubmit && (
           <button
             className={Modules["submit-button"]}
-            onClick={onSubmit}
+            onClick={() => void onSubmit()}
             type="button"
+            disabled={submitting}
           >
             <span className="icon-[mynaui--send-solid]" />
             {t("sendMessage")}
@@ -267,6 +341,8 @@ function CommentItem({ comment, source, postId }: CommentItemProps) {
   const [replyContent, setReplyContent] = useState("");
   const [replyAuthorName, setReplyAuthorName] = useState("");
   const [replyAuthorEmail, setReplyAuthorEmail] = useState("");
+  const [replySubmitting, setReplySubmitting] = useState(false);
+  const [replySubmitError, setReplySubmitError] = useState<string | null>(null);
 
   const getRepliesPage = useCommentsPageGetter(source, postId, comment.id);
   const {
@@ -274,7 +350,9 @@ function CommentItem({ comment, source, postId }: CommentItemProps) {
     hasMore,
     loading,
     initialLoading,
+    error: repliesError,
     loadMore,
+    reload,
   } = useInfinitePagination<Comment>({
     pageSize: COMMENT_REPLY_PAGE_SIZE,
     getPage: getRepliesPage,
@@ -294,22 +372,55 @@ function CommentItem({ comment, source, postId }: CommentItemProps) {
     });
   };
 
-  const handleReplySubmit = () => {
-    const replyData = {
-      parent_id: comment.id,
-      parentFloor: comment.floor,
-      content: replyContent,
-      author: replyAuthorName,
-      email: replyAuthorEmail,
-      created_at: Date.now(),
-    };
+  const handleReplySubmit = async () => {
+    setReplySubmitError(null);
 
-    console.log("Reply form data:", replyData);
+    const validationErrorKey = getCommentValidationError(
+      replyAuthorName,
+      replyAuthorEmail,
+      replyContent,
+    );
 
-    setReplyContent("");
-    setReplyAuthorName("");
-    setReplyAuthorEmail("");
-    setShowReplyForm(false);
+    if (validationErrorKey) {
+      setReplySubmitError(t(validationErrorKey));
+      return;
+    }
+
+    setReplySubmitting(true);
+
+    try {
+      const payload = {
+        parentId: comment.id,
+        content: replyContent,
+        author: replyAuthorName,
+        email: replyAuthorEmail,
+      };
+
+      if (source === "article") {
+        await createArticleComment({
+          ...payload,
+          postId: postId ?? 0,
+        }).send(true);
+      } else {
+        await createSiteComment(payload).send(true);
+      }
+
+      setReplyContent("");
+      setReplyAuthorName("");
+      setReplyAuthorEmail("");
+      setShowReplyForm(false);
+      reload();
+    } catch (error) {
+      const errorKey = getCommentApiErrorKey(error);
+
+      setReplySubmitError(
+        errorKey
+          ? t(errorKey)
+          : (getErrorMessage(error) ?? t("replySubmitFailed")),
+      );
+    } finally {
+      setReplySubmitting(false);
+    }
   };
 
   return (
@@ -332,11 +443,16 @@ function CommentItem({ comment, source, postId }: CommentItemProps) {
             onSubmit={handleReplySubmit}
             onCancel={toggleReplyForm}
             placeholder={t("replyPlaceholder")}
+            submitting={replySubmitting}
           />
+
+          {replySubmitError && (
+            <div className={Modules["empty-state"]}>{replySubmitError}</div>
+          )}
         </div>
       )}
 
-      {(initialLoading || replies.length > 0) && (
+      {(initialLoading || replies.length > 0 || repliesError) && (
         <div className={Modules.replies}>
           {replies.map((reply) => (
             <CommentBubble key={reply.id} comment={reply} isReply />
@@ -363,6 +479,10 @@ function CommentItem({ comment, source, postId }: CommentItemProps) {
               <PulsatingDots />
             </div>
           )}
+
+          {repliesError && (
+            <div className={Modules["empty-state"]}>{repliesError.message}</div>
+          )}
         </div>
       )}
     </div>
@@ -375,6 +495,8 @@ export default function Comments({ source, postId }: CommentsProps) {
   const [commentContent, setCommentContent] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [authorEmail, setAuthorEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const getRootCommentsPage = useCommentsPageGetter(source, postId);
   const {
@@ -384,6 +506,7 @@ export default function Comments({ source, postId }: CommentsProps) {
     initialLoading,
     error,
     loadMore,
+    reload,
   } = useInfinitePagination<Comment>({
     pageSize: COMMENT_PAGE_SIZE,
     getPage: getRootCommentsPage,
@@ -392,20 +515,53 @@ export default function Comments({ source, postId }: CommentsProps) {
 
   const sentinelRef = useLoadMoreSentinel(hasMore && !loading, loadMore);
 
-  const handleSubmit = () => {
-    const formData = {
-      post_id: source === "article" ? (postId ?? 1) : 0,
-      content: commentContent,
-      author: authorName,
-      email: authorEmail,
-      created_at: Date.now(),
-    };
+  const handleSubmit = async () => {
+    setSubmitError(null);
 
-    console.log("Comment form data:", formData);
+    const validationErrorKey = getCommentValidationError(
+      authorName,
+      authorEmail,
+      commentContent,
+    );
 
-    setCommentContent("");
-    setAuthorName("");
-    setAuthorEmail("");
+    if (validationErrorKey) {
+      setSubmitError(t(validationErrorKey));
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const payload = {
+        content: commentContent,
+        author: authorName,
+        email: authorEmail,
+      };
+
+      if (source === "article") {
+        await createArticleComment({
+          ...payload,
+          postId: postId ?? 0,
+        }).send(true);
+      } else {
+        await createSiteComment(payload).send(true);
+      }
+
+      setCommentContent("");
+      setAuthorName("");
+      setAuthorEmail("");
+      reload();
+    } catch (error) {
+      const errorKey = getCommentApiErrorKey(error);
+
+      setSubmitError(
+        errorKey
+          ? t(errorKey)
+          : (getErrorMessage(error) ?? t("commentSubmitFailed")),
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -420,7 +576,12 @@ export default function Comments({ source, postId }: CommentsProps) {
           onContentChange={setCommentContent}
           onSubmit={handleSubmit}
           placeholder={t("commentPlaceholder")}
+          submitting={submitting}
         />
+
+        {submitError && (
+          <div className={Modules["empty-state"]}>{submitError}</div>
+        )}
       </div>
 
       <div className={Modules["comments-list"]}>

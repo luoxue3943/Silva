@@ -8,12 +8,12 @@
  */
 
 import PulsatingDots from "@/components/loading/pulsating-dots";
-import type { Post } from "@/data/mock-posts";
 import {
   useInfinitePagination,
   useLoadMoreSentinel,
 } from "@/hooks/use-infinite-pagination";
 import { getTimelinePosts } from "@/services/posts";
+import type { Post } from "@/types/post";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useCallback, useMemo } from "react";

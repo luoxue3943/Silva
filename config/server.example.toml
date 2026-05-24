@@ -1,0 +1,30 @@
+[server]
+# HTTP 服务监听地址 / HTTP server listen address
+host = "127.0.0.1"
+# HTTP 服务监听端口 / HTTP server listen port
+port = 8080
+
+[database]
+# PostgreSQL 连接地址 / PostgreSQL connection URL
+url = "postgres://postgres:postgres@localhost:5432/silva"
+
+[redis]
+# Redis 连接地址 / Redis connection URL
+url = "redis://127.0.0.1:6379/"
+# 在线用户集合键名 / Online users set key
+online_users_key = "silva:online_users"
+
+[cors]
+# 允许跨域访问的前端来源 / Frontend origins allowed for CORS
+allowed_origins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+]
+
+[comments]
+# 无法解析位置时使用的默认评论地点 / Default comment location when location cannot be resolved
+default_location = "Unknown"
+
+[stats]
+# 在线用户心跳过期秒数 / Online user heartbeat expiration in seconds
+online_user_ttl_seconds = 120
