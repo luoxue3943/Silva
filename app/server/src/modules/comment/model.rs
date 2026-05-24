@@ -1,6 +1,7 @@
 use chrono::{DateTime, Utc};
 use sqlx::FromRow;
 
+/// comments 表数据库记录 / Database record for the comments table.
 #[derive(Debug, FromRow)]
 pub struct CommentRecord {
     pub id: i64,

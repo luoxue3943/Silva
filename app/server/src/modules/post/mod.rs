@@ -1,3 +1,5 @@
+//! 文章模块入口 / Post module entry.
+
 pub mod dto;
 pub mod handler;
 pub mod model;

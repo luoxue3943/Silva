@@ -2,6 +2,7 @@ use crate::config::Config;
 use actix_cors::Cors;
 use actix_web::http::header;
 
+/// 根据配置创建 CORS 中间件 / Builds CORS middleware from configuration.
 pub fn build_cors(config: &Config) -> Cors {
     let cors = Cors::default()
         .allowed_methods(["GET", "POST", "OPTIONS"])

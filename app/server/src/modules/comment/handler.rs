@@ -7,6 +7,7 @@ use crate::response::ApiResponse;
 use crate::state::AppState;
 use actix_web::{web, HttpResponse};
 
+/// 处理站点留言列表请求 / Handles site comment list requests.
 pub async fn list_site_comments(
     state: web::Data<AppState>,
     query: web::Query<CommentListQuery>,
@@ -16,6 +17,7 @@ pub async fn list_site_comments(
     Ok(HttpResponse::Ok().json(ApiResponse::success(page)))
 }
 
+/// 处理文章评论列表请求 / Handles article comment list requests.
 pub async fn list_article_comments(
     state: web::Data<AppState>,
     query: web::Query<CommentListQuery>,
@@ -25,6 +27,7 @@ pub async fn list_article_comments(
     Ok(HttpResponse::Ok().json(ApiResponse::success(page)))
 }
 
+/// 处理站点留言创建请求 / Handles site comment creation requests.
 pub async fn create_site_comment(
     state: web::Data<AppState>,
     request: web::Json<CreateSiteCommentRequest>,
@@ -39,6 +42,7 @@ pub async fn create_site_comment(
     Ok(HttpResponse::Ok().json(ApiResponse::success(comment)))
 }
 
+/// 处理文章评论创建请求 / Handles article comment creation requests.
 pub async fn create_article_comment(
     state: web::Data<AppState>,
     request: web::Json<CreateArticleCommentRequest>,

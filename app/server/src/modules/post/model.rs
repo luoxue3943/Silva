@@ -1,6 +1,7 @@
 use chrono::{DateTime, Utc};
 use sqlx::FromRow;
 
+/// posts 表数据库记录 / Database record for the posts table.
 #[derive(Debug, FromRow)]
 pub struct PostRecord {
     pub id: i64,

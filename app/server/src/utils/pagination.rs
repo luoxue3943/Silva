@@ -1,5 +1,6 @@
 const MAX_PAGE_SIZE: u32 = 100;
 
+/// 规范化分页参数 / Normalizes pagination parameters.
 pub fn normalize_paging(
     page: Option<&str>,
     page_size: Option<&str>,
@@ -13,6 +14,7 @@ pub fn normalize_paging(
     (page, page_size)
 }
 
+/// 解析正整数查询参数 / Parses a positive integer query parameter.
 pub fn parse_positive(value: Option<&str>) -> Option<u32> {
     value
         .and_then(|value| value.parse::<u32>().ok())

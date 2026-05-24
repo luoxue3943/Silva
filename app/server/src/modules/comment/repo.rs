@@ -3,6 +3,7 @@ use crate::modules::comment::dto::NewComment;
 use crate::modules::comment::model::CommentRecord;
 use sqlx::PgPool;
 
+/// 查询站点留言列表及总数 / Queries site-level comments and their total count.
 pub async fn list_site_comments(
     db: &PgPool,
     parent_id: Option<i64>,
@@ -12,6 +13,7 @@ pub async fn list_site_comments(
     list_comments(db, None, parent_id, page, page_size).await
 }
 
+/// 查询文章评论列表及总数 / Queries article comments and their total count.
 pub async fn list_article_comments(
     db: &PgPool,
     post_id: i64,
@@ -22,6 +24,7 @@ pub async fn list_article_comments(
     list_comments(db, Some(post_id), parent_id, page, page_size).await
 }
 
+/// 按站点或文章作用域查询评论 / Queries comments within a site or article scope.
 async fn list_comments(
     db: &PgPool,
     post_id: Option<i64>,
@@ -67,6 +70,7 @@ async fn list_comments(
     Ok((rows, total))
 }
 
+/// 在指定作用域内查找评论 / Finds a comment within the given scope.
 pub async fn find_comment_in_scope(
     db: &PgPool,
     comment_id: i64,
@@ -90,6 +94,7 @@ pub async fn find_comment_in_scope(
     Ok(comment)
 }
 
+/// 计算下一条顶级评论楼层 / Calculates the next root comment floor.
 pub async fn next_root_floor(db: &PgPool, post_id: Option<i64>) -> AppResult<f64> {
     let (floor,) = sqlx::query_as::<_, (f64,)>(
         r#"
@@ -107,6 +112,7 @@ pub async fn next_root_floor(db: &PgPool, post_id: Option<i64>) -> AppResult<f64
     Ok(floor)
 }
 
+/// 计算下一条回复楼层 / Calculates the next reply floor.
 pub async fn next_reply_floor(
     db: &PgPool,
     parent: &CommentRecord,
@@ -129,6 +135,7 @@ pub async fn next_reply_floor(
     Ok(parent.floor + ((reply_count + 1) as f64 / 10.0))
 }
 
+/// 写入评论并返回新记录 / Inserts a comment and returns the new record.
 pub async fn insert_comment(
     db: &PgPool,
     new_comment: NewComment,

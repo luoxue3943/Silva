@@ -2,6 +2,7 @@ use crate::modules::comment::model::CommentRecord;
 use crate::utils::time::{optional_timestamp_millis, timestamp_millis};
 use serde::{Deserialize, Serialize};
 
+/// 评论列表查询参数 / Comment list query parameters.
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CommentListQuery {
@@ -11,6 +12,7 @@ pub struct CommentListQuery {
     pub parent_id: Option<String>,
 }
 
+/// 站点留言创建请求 / Site comment creation request.
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CreateSiteCommentRequest {
@@ -20,6 +22,7 @@ pub struct CreateSiteCommentRequest {
     pub parent_id: Option<i64>,
 }
 
+/// 文章评论创建请求 / Article comment creation request.
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CreateArticleCommentRequest {
@@ -30,6 +33,7 @@ pub struct CreateArticleCommentRequest {
     pub parent_id: Option<i64>,
 }
 
+/// 对外返回的评论数据 / Comment data returned to clients.
 #[derive(Serialize)]
 pub struct CommentDto {
     pub id: i64,
@@ -46,6 +50,7 @@ pub struct CommentDto {
 }
 
 impl From<CommentRecord> for CommentDto {
+    /// 将数据库评论记录转换为接口 DTO / Converts a database comment record into an API DTO.
     fn from(comment: CommentRecord) -> Self {
         Self {
             id: comment.id,
@@ -63,6 +68,7 @@ impl From<CommentRecord> for CommentDto {
     }
 }
 
+/// 待写入数据库的新评论 / New comment to insert into the database.
 #[derive(Debug)]
 pub struct NewComment {
     pub post_id: Option<i64>,

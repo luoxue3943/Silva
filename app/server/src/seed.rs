@@ -1,8 +1,10 @@
 use chrono::{DateTime, Duration, Utc};
 use sqlx::PgPool;
 
+/// 种子数据写入结果 / Seed data write result.
 type SeedResult<T> = Result<T, sqlx::Error>;
 
+/// 文章种子数据 / Post seed data.
 struct PostSeed {
     title: &'static str,
     category: &'static str,
@@ -11,6 +13,7 @@ struct PostSeed {
     updated_at: Option<&'static str>,
 }
 
+/// 评论种子数据 / Comment seed data.
 struct CommentSeed {
     id: i64,
     post_id: Option<i64>,
@@ -23,6 +26,7 @@ struct CommentSeed {
     created_at: DateTime<Utc>,
 }
 
+/// 文章种子列表 / Post seed list.
 const POST_SEEDS: &[PostSeed] = &[
     PostSeed {
         title: "Building a Mock API Layer with alova",
@@ -166,10 +170,12 @@ const POST_SEEDS: &[PostSeed] = &[
     },
 ];
 
+/// 评论作者池 / Comment author pool.
 const AUTHORS: &[&str] = &[
     "Ada", "Linus", "Grace", "Ken", "Mira", "Nolan", "Rhea", "Tao", "Vera", "Yuki",
 ];
 
+/// 评论位置池 / Comment location pool.
 const LOCATIONS: &[&str] = &[
     "Shanghai",
     "Beijing",
@@ -181,6 +187,7 @@ const LOCATIONS: &[&str] = &[
     "Suzhou",
 ];
 
+/// 写入所有种子数据并刷新自增序列 / Writes all seed data and refreshes serial sequences.
 pub async fn run(db: &PgPool) -> SeedResult<()> {
     seed_posts(db).await?;
     seed_comments(db).await?;
@@ -189,6 +196,7 @@ pub async fn run(db: &PgPool) -> SeedResult<()> {
     Ok(())
 }
 
+/// 写入文章种子数据 / Writes post seed data.
 async fn seed_posts(db: &PgPool) -> SeedResult<()> {
     for (index, post) in POST_SEEDS.iter().enumerate() {
         let id = index as i64 + 1;
@@ -223,6 +231,7 @@ async fn seed_posts(db: &PgPool) -> SeedResult<()> {
     Ok(())
 }
 
+/// 写入评论种子数据 / Writes comment seed data.
 async fn seed_comments(db: &PgPool) -> SeedResult<()> {
     for comment in build_comments() {
         sqlx::query(
@@ -258,6 +267,7 @@ async fn seed_comments(db: &PgPool) -> SeedResult<()> {
     Ok(())
 }
 
+/// 构建站点和文章评论线程 / Builds site and article comment threads.
 fn build_comments() -> Vec<CommentSeed> {
     let mut comments = Vec::new();
     let mut next_id = 1;
@@ -300,6 +310,7 @@ fn build_comments() -> Vec<CommentSeed> {
     comments
 }
 
+/// 追加一个顶级评论及其回复线程 / Appends one root comment and its reply thread.
 fn append_thread(
     target: &mut Vec<CommentSeed>,
     next_id: &mut i64,
@@ -320,6 +331,7 @@ fn append_thread(
     );
     let root_id = root.id;
 
+    // 先写入根评论，再基于根评论 ID 追加回复 / Insert the root comment first, then append replies with its ID.
     *next_id += 1;
     target.push(root);
 
@@ -343,6 +355,7 @@ fn append_thread(
     }
 }
 
+/// 创建单条评论种子记录 / Creates one comment seed record.
 fn make_comment(
     id: i64,
     post_id: Option<i64>,
@@ -368,6 +381,7 @@ fn make_comment(
     }
 }
 
+/// 刷新 posts 和 comments 的自增序列 / Refreshes serial sequences for posts and comments.
 async fn refresh_sequences(db: &PgPool) -> SeedResult<()> {
     sqlx::query(
         r#"
@@ -396,6 +410,7 @@ async fn refresh_sequences(db: &PgPool) -> SeedResult<()> {
     Ok(())
 }
 
+/// 解析 RFC3339 种子时间 / Parses an RFC3339 seed timestamp.
 fn parse_seed_time(value: &str) -> DateTime<Utc> {
     DateTime::parse_from_rfc3339(value)
         .expect("seed timestamps must be RFC3339")

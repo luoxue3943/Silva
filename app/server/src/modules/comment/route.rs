@@ -1,6 +1,7 @@
 use crate::modules::comment::handler;
 use actix_web::web;
 
+/// 注册评论模块路由 / Registers comment module routes.
 pub fn configure(cfg: &mut web::ServiceConfig) {
     cfg.route("/comments/site", web::get().to(handler::list_site_comments))
         .route(

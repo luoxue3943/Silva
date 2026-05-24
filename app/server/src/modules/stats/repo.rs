@@ -2,6 +2,7 @@ use crate::error::AppResult;
 use crate::modules::stats::dto::StatsRecord;
 use sqlx::PgPool;
 
+/// 读取站点统计总览 / Reads the site stats summary.
 pub async fn get_stats(db: &PgPool) -> AppResult<StatsRecord> {
     let stats = sqlx::query_as::<_, StatsRecord>(
         r#"
@@ -16,6 +17,7 @@ pub async fn get_stats(db: &PgPool) -> AppResult<StatsRecord> {
     Ok(stats)
 }
 
+/// 记录一次访问并更新访客总数 / Records one visit and updates the guest total.
 pub async fn record_visit(db: &PgPool, guest_id: &str) -> AppResult<StatsRecord> {
     sqlx::query(
         r#"

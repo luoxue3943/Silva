@@ -6,6 +6,7 @@ use chrono::Utc;
 use redis::aio::MultiplexedConnection;
 use sqlx::PgPool;
 
+/// 获取站点统计并附加在线人数 / Gets site stats with online user count.
 pub async fn get_stats(db: &PgPool, redis: &redis::Client, config: &Config) -> AppResult<StatsDto> {
     let stats = repo::get_stats(db).await?;
     let online_users = online_user_count(redis, config).await?;
@@ -13,6 +14,7 @@ pub async fn get_stats(db: &PgPool, redis: &redis::Client, config: &Config) -> A
     Ok(StatsDto::from_record(stats, online_users))
 }
 
+/// 记录访问并刷新在线用户状态 / Records a visit and refreshes online-user state.
 pub async fn record_visit(
     db: &PgPool,
     redis: &redis::Client,
@@ -26,6 +28,7 @@ pub async fn record_visit(
     Ok(StatsDto::from_record(stats, online_users))
 }
 
+/// 获取当前在线用户数量 / Gets the current online user count.
 async fn online_user_count(redis: &redis::Client, config: &Config) -> AppResult<i64> {
     let mut connection = redis.get_multiplexed_async_connection().await?;
 
@@ -39,6 +42,7 @@ async fn online_user_count(redis: &redis::Client, config: &Config) -> AppResult<
     Ok(count)
 }
 
+/// 刷新访客在线过期时间并返回在线人数 / Refreshes a guest online expiration and returns online count.
 async fn touch_online_user(
     redis: &redis::Client,
     config: &Config,
@@ -64,6 +68,7 @@ async fn touch_online_user(
     Ok(count)
 }
 
+/// 清理已过期的在线用户 / Prunes expired online users.
 async fn prune_online_users(
     connection: &mut MultiplexedConnection,
     config: &Config,
@@ -80,6 +85,7 @@ async fn prune_online_users(
     Ok(())
 }
 
+/// 清理并校验访客标识 / Sanitizes and validates the guest identifier.
 fn sanitize_guest_id(guest_id: String) -> AppResult<String> {
     let guest_id = guest_id.trim().to_owned();
 

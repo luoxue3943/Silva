@@ -7,6 +7,7 @@ use server::routes;
 use server::state::AppState;
 use std::io;
 
+/// 启动 Actix Web 服务并挂载共享应用状态 / Starts the Actix Web server and mounts shared app state.
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     env_logger::init_from_env(env_logger::Env::default().default_filter_or("info"));

@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 
 const CONFIG_FILE_NAME: &str = "server.toml";
 
+/// 运行时配置 / Runtime configuration.
 #[derive(Clone, Debug)]
 pub struct Config {
     pub server_host: String,
@@ -16,6 +17,7 @@ pub struct Config {
     pub online_users_key: String,
 }
 
+/// TOML 原始配置结构 / Raw TOML configuration shape.
 #[derive(Debug, Deserialize)]
 struct RawConfig {
     #[serde(default)]
@@ -31,6 +33,7 @@ struct RawConfig {
     stats: RawStatsConfig,
 }
 
+/// 服务监听配置 / Server listen configuration.
 #[derive(Debug, Deserialize)]
 struct RawServerConfig {
     #[serde(default = "default_server_host")]
@@ -48,11 +51,13 @@ impl Default for RawServerConfig {
     }
 }
 
+/// 数据库连接配置 / Database connection configuration.
 #[derive(Debug, Deserialize)]
 struct RawDatabaseConfig {
     url: String,
 }
 
+/// Redis 连接与在线用户配置 / Redis connection and online-user configuration.
 #[derive(Debug, Deserialize)]
 struct RawRedisConfig {
     #[serde(default = "default_redis_url")]
@@ -70,6 +75,7 @@ impl Default for RawRedisConfig {
     }
 }
 
+/// CORS 来源配置 / CORS origin configuration.
 #[derive(Debug, Deserialize)]
 struct RawCorsConfig {
     #[serde(default = "default_cors_allowed_origins")]
@@ -84,6 +90,7 @@ impl Default for RawCorsConfig {
     }
 }
 
+/// 评论模块配置 / Comment module configuration.
 #[derive(Debug, Deserialize)]
 struct RawCommentsConfig {
     #[serde(default = "default_comment_location")]
@@ -98,6 +105,7 @@ impl Default for RawCommentsConfig {
     }
 }
 
+/// 统计模块配置 / Stats module configuration.
 #[derive(Debug, Deserialize)]
 struct RawStatsConfig {
     #[serde(default = "default_online_user_ttl_seconds")]
@@ -113,6 +121,7 @@ impl Default for RawStatsConfig {
 }
 
 impl Config {
+    /// 从仓库 config 目录读取服务配置 / Reads service configuration from the repository config directory.
     pub fn from_file() -> Result<Self, String> {
         let config_path = resolve_config_path()?;
         let raw_config = fs::read_to_string(&config_path)
@@ -138,11 +147,13 @@ impl Config {
         })
     }
 
+    /// 生成 HTTP 服务绑定地址 / Builds the HTTP server bind address.
     pub fn bind_addr(&self) -> String {
         format!("{}:{}", self.server_host, self.server_port)
     }
 }
 
+/// 定位可用的 server.toml 文件 / Locates the available server.toml file.
 fn resolve_config_path() -> Result<PathBuf, String> {
     candidate_config_dirs()
         .into_iter()
@@ -153,6 +164,7 @@ fn resolve_config_path() -> Result<PathBuf, String> {
         })
 }
 
+/// 收集当前目录和 Cargo 清单目录向上的 config 候选路径 / Collects config path candidates from cwd and Cargo manifest ancestors.
 fn candidate_config_dirs() -> Vec<PathBuf> {
     let mut dirs = Vec::new();
 
@@ -165,6 +177,7 @@ fn candidate_config_dirs() -> Vec<PathBuf> {
     dirs
 }
 
+/// 将指定基准目录的祖先 config 目录加入候选列表 / Adds ancestor config directories for the given base path.
 fn push_config_candidates(dirs: &mut Vec<PathBuf>, base: &Path) {
     let mut current = Some(base);
 

@@ -1,3 +1,5 @@
+//! Silva 后端库模块入口 / Silva backend library module entry.
+
 pub mod config;
 pub mod db;
 pub mod error;

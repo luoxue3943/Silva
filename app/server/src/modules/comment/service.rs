@@ -10,6 +10,7 @@ use sqlx::PgPool;
 
 const ROOT_COMMENT_PAGE_SIZE: u32 = 10;
 
+/// 获取站点留言分页数据 / Gets paginated site-level comments.
 pub async fn list_site_comments(
     db: &PgPool,
     query: CommentListQuery,
@@ -26,6 +27,7 @@ pub async fn list_site_comments(
     Ok(Page::new(data, page, page_size, total))
 }
 
+/// 获取文章评论分页数据 / Gets paginated article comments.
 pub async fn list_article_comments(
     db: &PgPool,
     query: CommentListQuery,
@@ -44,6 +46,7 @@ pub async fn list_article_comments(
     Ok(Page::new(data, page, page_size, total))
 }
 
+/// 创建站点留言 / Creates a site-level comment.
 pub async fn create_site_comment(
     db: &PgPool,
     request: CreateSiteCommentRequest,
@@ -63,6 +66,7 @@ pub async fn create_site_comment(
     .await
 }
 
+/// 创建文章评论或回复 / Creates an article comment or reply.
 pub async fn create_article_comment(
     db: &PgPool,
     request: CreateArticleCommentRequest,
@@ -86,6 +90,7 @@ pub async fn create_article_comment(
     .await
 }
 
+/// 创建评论并计算楼层 / Creates a comment and calculates its floor.
 async fn create_comment(db: &PgPool, mut new_comment: NewComment) -> AppResult<CommentDto> {
     sanitize_comment(&mut new_comment)?;
 
@@ -104,6 +109,7 @@ async fn create_comment(db: &PgPool, mut new_comment: NewComment) -> AppResult<C
     Ok(CommentDto::from(comment))
 }
 
+/// 清理并校验评论字段 / Sanitizes and validates comment fields.
 fn sanitize_comment(comment: &mut NewComment) -> AppResult<()> {
     comment.author = comment.author.trim().to_owned();
     comment.email = comment.email.trim().to_owned();
@@ -133,6 +139,7 @@ fn sanitize_comment(comment: &mut NewComment) -> AppResult<()> {
     Ok(())
 }
 
+/// 解析可选 i64 查询参数 / Parses an optional i64 query parameter.
 fn parse_optional_i64(value: Option<&str>, field: &str) -> AppResult<Option<i64>> {
     match value {
         Some(value) if value.trim().is_empty() => Ok(None),
@@ -146,6 +153,7 @@ fn parse_optional_i64(value: Option<&str>, field: &str) -> AppResult<Option<i64>
     }
 }
 
+/// 解析必填正整数 i64 查询参数 / Parses a required positive i64 query parameter.
 fn parse_required_positive_i64(value: Option<&str>, field: &str) -> AppResult<i64> {
     let parsed = parse_positive(value)
         .map(i64::from)

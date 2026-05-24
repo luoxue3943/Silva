@@ -3,8 +3,10 @@ use actix_web::http::StatusCode;
 use actix_web::{HttpResponse, ResponseError};
 use serde_json::Value;
 
+/// 应用统一 Result 类型 / Unified application Result type.
 pub type AppResult<T> = Result<T, AppError>;
 
+/// 应用错误类型 / Application error type.
 #[derive(Debug, thiserror::Error)]
 pub enum AppError {
     #[error("{0}")]
@@ -20,6 +22,7 @@ pub enum AppError {
 }
 
 impl AppError {
+    /// 返回可暴露给客户端的错误消息 / Returns the error message that can be exposed to clients.
     fn public_message(&self) -> String {
         match self {
             Self::BadRequest(message) | Self::NotFound(message) | Self::Internal(message) => {
@@ -32,6 +35,7 @@ impl AppError {
 }
 
 impl ResponseError for AppError {
+    /// 将应用错误映射为 HTTP 状态码 / Maps application errors to HTTP status codes.
     fn status_code(&self) -> StatusCode {
         match self {
             Self::BadRequest(_) => StatusCode::BAD_REQUEST,
@@ -42,6 +46,7 @@ impl ResponseError for AppError {
         }
     }
 
+    /// 构建统一 JSON 错误响应 / Builds the unified JSON error response.
     fn error_response(&self) -> HttpResponse {
         let status = self.status_code();
 
