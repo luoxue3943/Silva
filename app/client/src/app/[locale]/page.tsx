@@ -8,13 +8,13 @@ import {
 import Image from "next/image";
 
 export default function Home() {
-  // 读取当前语言环境 / Reads the current locale
+  // 读取当前语言环境 / Read the current locale
   const locale = useLocale();
 
   // 按语言解析网站所有者名称 / Resolves site owner name by locale
   const siteOwnerName = getLocalizedName(SilvaConfig.site, locale);
 
-  // 读取首页文案翻译函数 / Reads the homepage translation function
+  // 读取首页文案翻译函数 / Read the homepage translation function
   const t = useTranslations("HomePage");
 
   const links: SilvaLinkConfig[] = SilvaConfig.links ?? [];
@@ -40,7 +40,7 @@ export default function Home() {
       </span>
     ));
 
-  // 读取欢迎语文本 / Reads welcome text
+  // 读取欢迎语文本 / Read welcome text
   const welcome = t("welcome");
 
   return (
@@ -111,7 +111,7 @@ export default function Home() {
                   },
                 };
 
-                // 读取当前链接类型的图标配置 / Reads icon config for the current link type
+                // 读取当前链接类型的图标配置 / Read icon config for the current link type
                 const config = iconConfig[link.type];
                 if (!config) return null;
 

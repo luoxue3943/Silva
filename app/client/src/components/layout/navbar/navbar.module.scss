@@ -2,7 +2,7 @@
  * 导航栏模块样式 / Navigation bar module styles
  *
  * 定义导航容器、下拉菜单、链接状态和视图过渡动画。
- * Defines the nav container, dropdown menus, link states, and view transition animations.
+ * Define the nav container, dropdown menus, link states, and view transition animations
  */
 
 @use "../../../app/[locale]/variables" as var;
@@ -42,7 +42,7 @@
   background-color: var.$glass-surface-color;
   box-shadow: 0 -36px 33px -35px var.$glass-inset-shadow inset;
 
-  /* 只过渡描边与阴影，避免背景层闪烁 / Transitions only stroke and shadow to avoid background flicker */
+  /* 只过渡描边与阴影，避免背景层闪烁 / Transition only stroke and shadow to avoid background flicker */
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease;
@@ -132,7 +132,7 @@
   }
 }
 
-/* 滚动状态下移除导航栏底色 / Removes navbar fill when scrolled */
+/* 滚动状态下移除导航栏底色 / Remove navbar fill when scrolled */
 .nav.scrolled .navbar {
   border-color: transparent;
   background-color: transparent;

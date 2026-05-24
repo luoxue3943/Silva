@@ -3,13 +3,13 @@
  * Global CSS entry
  *
  * 配置 Tailwind、Iconify、视图过渡和站点字体。
- * Configures Tailwind, Iconify, view transitions, and the site font.
+ * Configure Tailwind, Iconify, view transitions, and the site font
  */
 
-/* 导入 Tailwind 核心样式 / Imports Tailwind core styles */
+/* 导入 Tailwind 核心样式 / Import Tailwind core styles */
 @import "tailwindcss";
 
-/* 启用 Iconify Tailwind 图标插件 / Enables the Iconify Tailwind icon plugin */
+/* 启用 Iconify Tailwind 图标插件 / Enable the Iconify Tailwind icon plugin */
 @plugin "@iconify/tailwind4";
 
 /* 视图过渡根节点标识 / View transition root node identifier */

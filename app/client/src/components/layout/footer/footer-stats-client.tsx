@@ -20,7 +20,7 @@ const initialStats: SiteStats = {
 };
 
 /**
- * 获取或创建本地访客标识 / Gets or creates the local guest identifier.
+ * 获取或创建本地访客标识 / Gets or creates the local guest identifier
  */
 function getOrCreateGuestId() {
   const storageKey = "silva_guest_id";
@@ -45,10 +45,10 @@ function getOrCreateGuestId() {
 }
 
 /**
- * 页脚统计客户端组件 / Footer stats client component.
+ * 页脚统计客户端组件 / Footer stats client component
  *
  * 记录当前访客访问，并在失败时回退为只读取统计数据。
- * Records the current guest visit and falls back to read-only stats loading on failure.
+ * Record the current guest visit and fall back to read-only stats loading on failure
  */
 export default function FooterStatsClient({
   labels,
@@ -61,7 +61,7 @@ export default function FooterStatsClient({
 
     const loadStats = async () => {
       try {
-        // 优先记录访问以刷新统计 / Prefer recording the visit to refresh stats.
+        // 优先记录访问以刷新统计 / Prefer recording the visit to refresh stats
         const guestId = getOrCreateGuestId();
         const nextStats = await recordVisit({ guestId }).send(true);
 
@@ -70,7 +70,7 @@ export default function FooterStatsClient({
         }
       } catch {
         try {
-          // 记录失败时退回到只读统计接口 / Falls back to the read-only stats API when recording fails.
+          // 记录失败时退回到只读统计接口 / Fall back to the read-only stats API when recording fails
           const nextStats = await getStats().send(true);
 
           if (active) {

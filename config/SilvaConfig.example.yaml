@@ -16,11 +16,11 @@ site:
   name: "示例"
 
   # 简体中文显示名称 / Simplified Chinese display name
-  # 当前语言为中文时优先显示 / Preferred when the current language is Chinese
+  # 当前语言为中文时优先显示 / Prefer when the current language is Chinese
   name_zh: "示例"
 
   # 英文显示名称 / English display name
-  # 当前语言为英文时优先显示 / Preferred when the current language is English
+  # 当前语言为英文时优先显示 / Prefer when the current language is English
   name_en: "example"
 
   # 首页座右铭 / Homepage motto
@@ -132,7 +132,7 @@ seo:
   theme_color: "#7bf1a8"
 
   # Open Graph 分享配置 / Open Graph sharing configuration
-  # 控制社交平台分享卡片展示 / Controls social platform sharing cards
+  # 控制社交平台分享卡片展示 / Control social platform sharing cards
   og:
     # Open Graph 标题 / Open Graph title
     # 社交分享卡片标题 / Title shown in social sharing cards
@@ -152,7 +152,7 @@ seo:
     image: "https://example.com/og-image.jpg"
 
   # Twitter/X 卡片配置 / Twitter/X card configuration
-  # 控制 Twitter/X 平台分享展示 / Controls sharing display on Twitter/X
+  # 控制 Twitter/X 平台分享展示 / Control sharing display on Twitter/X
   twitter:
     # Twitter/X 站点账号 / Twitter/X site account
     # 格式为 @username / Format is @username

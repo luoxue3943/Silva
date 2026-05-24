@@ -1,5 +1,5 @@
 /**
- * 评论记录类型 / Comment record type.
+ * 评论记录类型 / Comment record type
  */
 export type Comment = {
   id: number;

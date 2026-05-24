@@ -11,7 +11,7 @@ export interface LocalizedNameConfig {
    * 默认展示名称 / Default display name
    *
    * 从 names.default 或第一个可用的本地化名称归一化得到。
-   * Normalized from names.default or the first available localized name.
+   * Normalize from names.default or the first available localized name
    */
   name: string;
 

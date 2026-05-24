@@ -1,5 +1,5 @@
 /**
- * 文章记录类型 / Post record type.
+ * 文章记录类型 / Post record type
  */
 export type Post = {
   id: number;

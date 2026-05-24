@@ -8,7 +8,7 @@ import type { PaginationResponse } from "@/types/pagination";
  * 无限分页 Hook / Infinite pagination hook
  *
  * 统一处理分页状态、并发请求保护、错误状态和触底加载。
- * Centralizes pagination state, concurrent-request guards, errors, and load-more triggers.
+ * Centralize pagination state, concurrent-request guards, errors, and load-more triggers
  */
 
 type UseInfinitePaginationOptions<T> = {
@@ -21,7 +21,7 @@ type UseInfinitePaginationOptions<T> = {
 };
 
 /**
- * 管理分页加载状态 / Manages paginated loading state.
+ * 管理分页加载状态 / Manage paginated loading state
  */
 export function useInfinitePagination<T>({
   pageSize,
@@ -55,12 +55,12 @@ export function useInfinitePagination<T>({
 
   const loadPage = useCallback(
     async (nextPage: number, replace = false) => {
-      // 禁用状态或已有请求进行中时跳过 / Skips when disabled or when a request is already running.
+      // 禁用状态或已有请求进行中时跳过 / Skip when disabled or when a request is already running
       if (!enabled || loadingRef.current) {
         return;
       }
 
-      // 追加加载时没有更多数据则跳过 / Skips append loading when no more data exists.
+      // 追加加载时没有更多数据则跳过 / Skip append loading when no more data exists
       if (!replace && !hasMoreRef.current) {
         return;
       }
@@ -75,7 +75,7 @@ export function useInfinitePagination<T>({
       try {
         const response = await getPage(nextPage, pageSize).send(true);
 
-        // 丢弃过期请求结果 / Discards stale request results.
+        // 丢弃过期请求结果 / Discard stale request results
         if (requestId !== requestIdRef.current) {
           return;
         }
@@ -115,7 +115,7 @@ export function useInfinitePagination<T>({
       return;
     }
 
-    // getPage 或 enabled 变化时重置第一页 / Resets to the first page when getPage or enabled changes.
+    // getPage 或 enabled 变化时重置第一页 / Reset to the first page when getPage or enabled changes
     loadingRef.current = false;
     hasMoreRef.current = true;
     pageRef.current = 0;
@@ -170,7 +170,7 @@ export function useInfinitePagination<T>({
 }
 
 /**
- * 创建触底加载哨兵引用 / Creates an intersection sentinel ref for load-more behavior.
+ * 创建触底加载哨兵引用 / Create an intersection sentinel ref for load-more behavior
  */
 export function useLoadMoreSentinel(
   canLoadMore: boolean,
@@ -185,7 +185,7 @@ export function useLoadMoreSentinel(
       return;
     }
 
-    // 提前 240px 触发，降低滚动到底部时的等待感 / Triggers 240px early to reduce perceived waiting at the bottom.
+    // 提前 240px 触发，降低滚动到底部时的等待感 / Trigger 240px early to reduce perceived waiting at the bottom
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];

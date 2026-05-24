@@ -3,7 +3,7 @@
  * Home page module styles
  *
  * 组织首页布局、逐字弹出动画和社交图标样式。
- * Organizes home page layout, per-character pop animation, and social icon styles.
+ * Organize home page layout, per-character pop animation, and social icon styles
  */
 
 /* 逐字弹出动画基础类 / Base class for per-character pop animation */
@@ -136,7 +136,7 @@
  * Per-character animation delay class generator
  *
  * 为字符生成递增延迟，实现依次弹出的节奏。
- * Generates incremental delays so characters pop in sequence.
+ * Generate incremental delays so characters pop in sequence
  */
 @for $i from 0 through 100 {
   .delay-#{$i} {
@@ -149,7 +149,7 @@
  * Pop translate animation
  *
  * 从下方进入并轻微越过目标位置后回落。
- * Enters from below, slightly overshoots, then settles into place.
+ * Enter from below, slightly overshoot, then settle into place
  */
 @keyframes pop-up-translate {
   0% {

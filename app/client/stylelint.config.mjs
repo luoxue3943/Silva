@@ -1,5 +1,5 @@
 /**
- * Stylelint 配置类型提示 / Stylelint config type hint.
+ * Stylelint 配置类型提示 / Stylelint config type hint
  *
  * @type {import("stylelint").Config}
  */

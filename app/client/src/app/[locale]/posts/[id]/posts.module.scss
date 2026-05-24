@@ -2,7 +2,7 @@
  * 文章详情页样式 / Post detail page styles
  *
  * 定义 Markdown 排版、代码块高亮、复制按钮和目录侧栏。
- * Defines Markdown typography, code highlighting, copy buttons, and the TOC sidebar.
+ * Define Markdown typography, code highlighting, copy buttons, and the TOC sidebar
  */
 
 /**
@@ -243,7 +243,7 @@
     line-height: 1.6;
     tab-size: 2;
 
-    // 代码块内部 code 元素重置 / Resets code element inside code blocks
+    // 代码块内部 code 元素重置 / Reset code element inside code blocks
     :global(code[class*="language-"]) {
       border: none;
       padding: 0;

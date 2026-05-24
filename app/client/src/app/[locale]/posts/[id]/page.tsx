@@ -42,7 +42,7 @@ function extractTocItems(htmlContent: string): TocItem[] {
  * 文章详情页面 / Post detail page
  *
  * 获取文章内容、编译 Markdown，并交给客户端组件处理目录交互。
- * Fetches post content, compiles Markdown, and delegates TOC interactions to the client component.
+ * Fetch post content, compile Markdown, and delegate TOC interactions to the client component
  */
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { id } = await params;

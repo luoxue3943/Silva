@@ -3,10 +3,10 @@ import type { Comment } from "@/types/comment";
 import type { PaginationResponse } from "@/types/pagination";
 
 /**
- * 评论数据服务 / Comment data service.
+ * 评论数据服务 / Comment data service
  *
  * 封装站点留言和文章评论的分页查询与提交请求。
- * Wraps paginated queries and submit requests for site and article comments.
+ * Wrap paginated queries and submit requests for site and article comments
  */
 export const SITE_COMMENTS_URL = "/comments/site";
 export const ARTICLE_COMMENTS_URL = "/comments/article";
@@ -36,7 +36,7 @@ type CreateArticleCommentParams = CreateCommentParams & {
 };
 
 /**
- * 获取站点留言分页数据 / Fetches paginated site-level comments.
+ * 获取站点留言分页数据 / Fetch paginated site-level comments
  */
 export function getSiteComments({
   page,
@@ -53,7 +53,7 @@ export function getSiteComments({
 }
 
 /**
- * 获取文章评论分页数据 / Fetches paginated article comments.
+ * 获取文章评论分页数据 / Fetch paginated article comments
  */
 export function getArticleComments({
   postId,
@@ -72,21 +72,21 @@ export function getArticleComments({
 }
 
 /**
- * 提交站点留言 / Submits a site-level comment.
+ * 提交站点留言 / Submit a site-level comment
  */
 export function createSiteComment(data: CreateCommentParams) {
   return silvaAlova.Post<Comment>(SITE_COMMENTS_URL, data);
 }
 
 /**
- * 提交文章评论或回复 / Submits an article comment or reply.
+ * 提交文章评论或回复 / Submit an article comment or reply
  */
 export function createArticleComment(data: CreateArticleCommentParams) {
   return silvaAlova.Post<Comment>(ARTICLE_COMMENTS_URL, data);
 }
 
 /**
- * 评论分页大小常量 / Comment pagination size constants.
+ * 评论分页大小常量 / Comment pagination size constants
  */
 export const COMMENT_PAGE_SIZE = ROOT_COMMENT_PAGE_SIZE;
 export const COMMENT_REPLY_PAGE_SIZE = REPLY_PAGE_SIZE;

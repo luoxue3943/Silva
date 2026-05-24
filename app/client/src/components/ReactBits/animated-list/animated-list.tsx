@@ -4,7 +4,7 @@
  * 动画列表组件 / Animated list component
  *
  * 提供可自定义渲染的列表项、键盘导航和滚动边缘渐变。
- * Provides custom item rendering, keyboard navigation, and scroll edge gradients.
+ * Provide custom item rendering, keyboard navigation, and scroll edge gradients
  */
 
 import {

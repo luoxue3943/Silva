@@ -4,7 +4,7 @@ import { ViewTransition } from "react";
 import ParticlesBackground from "@/components/ReactBits/particles/particles";
 import Footer from "@/components/layout/footer/footer";
 
-// 加载全局样式入口 / Loads global style entry points
+// 加载全局样式入口 / Load global style entry points
 import "./global.css";
 import "./global.scss";
 import Navbar from "@/components/layout/navbar/navbar";

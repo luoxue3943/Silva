@@ -8,23 +8,23 @@ import FooterStatsClient from "./footer-stats-client";
 import Modules from "./footer.module.scss";
 
 /**
- * 页脚组件 / Footer component.
+ * 页脚组件 / Footer component
  *
  * 展示站点统计、版权声明和备案链接。
- * Displays site stats, copyright text, and filing links.
+ * Display site stats, copyright text, and filing links
  */
 export default function Footer() {
-  // 读取当前语言环境 / Reads the current locale.
+  // 读取当前语言环境 / Read the current locale
   const locale = useLocale();
-  // 读取统计文案翻译函数 / Reads the stats translation function.
+  // 读取统计文案翻译函数 / Read the stats translation function
   const t = useTranslations("Stats");
-  // 按当前语言解析站点名称 / Resolves site name for the current locale.
+  // 按当前语言解析站点名称 / Resolve site name for the current locale
   const siteName = getLocalizedName(SilvaConfig.site, locale);
-  // 生成默认版权文案 / Builds fallback copyright text.
+  // 生成默认版权文案 / Build fallback copyright text
   const copyrightText =
     SilvaConfig.site.copyright ??
     `Copyright (c) 2025${siteName ? ` ${siteName}` : ""}`;
-  // 读取备案链接列表 / Reads filing link list.
+  // 读取备案链接列表 / Read filing link list
   const filings = SilvaConfig.filings ?? [];
 
   return (

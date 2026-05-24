@@ -1,5 +1,5 @@
 /**
- * 分页响应数据结构 / Paginated response shape.
+ * 分页响应数据结构 / Paginated response shape
  */
 export type PaginationResponse<T> = {
   data: T[];

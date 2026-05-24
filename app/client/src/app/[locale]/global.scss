@@ -3,10 +3,10 @@
  * Global SCSS base styles
  *
  * 定义页面骨架布局、背景层和滚动条外观。
- * Defines page shell layout, background layer, and scrollbar appearance.
+ * Define page shell layout, background layer, and scrollbar appearance
  */
 
-/* 引入共享主题变量 / Imports shared theme variables */
+/* 引入共享主题变量 / Import shared theme variables */
 @use "./variables" as var;
 
 /* 页面 body 基础布局 / Base layout for the page body */

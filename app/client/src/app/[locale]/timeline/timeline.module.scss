@@ -2,7 +2,7 @@
  * 时间线页面样式 / Timeline page styles
  *
  * 定义按年份分组的文章时间线布局与交互状态。
- * Defines layout and interaction states for posts grouped by year.
+ * Define layout and interaction states for posts grouped by year
  */
 @use "../../../app/[locale]/variables" as var;
 
@@ -54,7 +54,7 @@
 .year-group {
   margin-bottom: 1rem;
 
-  /* 移除最后一个年份分组的底部间距 / Removes bottom spacing from the final year group */
+  /* 移除最后一个年份分组的底部间距 / Remove bottom spacing from the final year group */
   &:last-child {
     margin-bottom: 0;
   }
@@ -89,7 +89,7 @@
   padding-left: 2rem;
 }
 
-/* 多篇文章时显示时间线竖线 / Shows timeline line when multiple posts exist */
+/* 多篇文章时显示时间线竖线 / Show timeline line when multiple posts exist */
 .posts-list.has-line::before {
   position: absolute;
   top: 1.5rem;
@@ -113,12 +113,12 @@
 
   /* 桌面悬停交互 / Desktop hover interaction */
   &:hover {
-    /* 悬停时标题变为主题色 / Turns title into theme color on hover */
+    /* 悬停时标题变为主题色 / Turn title into theme color on hover */
     .post-title {
       color: var.$theme-color;
     }
 
-    /* 悬停时圆点高亮并显示光晕 / Highlights dot and adds glow on hover */
+    /* 悬停时圆点高亮并显示光晕 / Highlight dot and add glow on hover */
     .post-dot {
       background: var.$theme-color;
       box-shadow: 0 0 0 4px rgb(122.77 241.32 167.54 / 20%);

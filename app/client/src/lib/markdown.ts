@@ -4,7 +4,7 @@ import "server-only";
  * Markdown 渲染工具 / Markdown rendering utilities
  *
  * 将 Markdown 安全转换为 HTML，并为代码块补充高亮与复制能力。
- * Converts Markdown to safe HTML and adds highlighting plus copy support for code blocks.
+ * Convert Markdown to safe HTML and add highlighting plus copy support for code blocks
  */
 
 import type { Root as MdastRoot } from "mdast";
@@ -46,7 +46,7 @@ function isText(node: unknown): node is Text {
  * remark safety plugin: Downgrades HTML nodes to plain text nodes.
  *
  * 避免 Markdown 原生 HTML 直接渲染成真实 DOM。
- * Prevents raw Markdown HTML from being rendered as real DOM.
+ * Prevent raw Markdown HTML from being rendered as real DOM
  */
 function remarkHtmlToText() {
   return (tree: MdastRoot) => {
@@ -178,7 +178,7 @@ function rehypeCodeBlock() {
 
 /**
  * 将 Markdown 字符串编译为经过清理的 HTML。
- * Compiles a Markdown string into sanitized HTML.
+ * Compile a Markdown string into sanitized HTML
  *
  * 安全处理流程 / Security pipeline:
  * 1. remarkHtmlToText：把 Markdown 原生 HTML 转为纯文本。
