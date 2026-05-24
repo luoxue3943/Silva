@@ -42,7 +42,7 @@ async fn list_comments(
         WHERE deleted_at IS NULL
           AND post_id IS NOT DISTINCT FROM $1
           AND parent_id IS NOT DISTINCT FROM $2
-        ORDER BY floor ASC, id ASC
+        ORDER BY created_at DESC, id DESC
         LIMIT $3 OFFSET $4
         "#,
     )

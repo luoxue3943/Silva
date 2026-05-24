@@ -13,6 +13,7 @@ pub struct Config {
     pub redis_url: String,
     pub cors_allowed_origins: Vec<String>,
     pub default_comment_location: String,
+    pub ipinfo_token: Option<String>,
     pub online_user_ttl_seconds: u64,
     pub online_users_key: String,
 }
@@ -29,6 +30,8 @@ struct RawConfig {
     cors: RawCorsConfig,
     #[serde(default)]
     comments: RawCommentsConfig,
+    #[serde(default)]
+    ipinfo: RawIpinfoConfig,
     #[serde(default)]
     stats: RawStatsConfig,
 }
@@ -105,6 +108,12 @@ impl Default for RawCommentsConfig {
     }
 }
 
+#[derive(Debug, Default, Deserialize)]
+struct RawIpinfoConfig {
+    #[serde(default)]
+    token: Option<String>,
+}
+
 /// 统计模块配置 / Stats module configuration.
 #[derive(Debug, Deserialize)]
 struct RawStatsConfig {
@@ -142,6 +151,11 @@ impl Config {
                 .filter(|origin| !origin.is_empty())
                 .collect(),
             default_comment_location: raw.comments.default_location,
+            ipinfo_token: raw
+                .ipinfo
+                .token
+                .map(|token| token.trim().to_owned())
+                .filter(|token| !token.is_empty()),
             online_user_ttl_seconds: raw.stats.online_user_ttl_seconds,
             online_users_key: raw.redis.online_users_key,
         })

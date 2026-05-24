@@ -2,6 +2,7 @@
 
 pub mod dto;
 pub mod handler;
+pub mod location;
 pub mod model;
 pub mod repo;
 pub mod route;

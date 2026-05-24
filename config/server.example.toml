@@ -25,6 +25,11 @@ allowed_origins = [
 # 无法解析位置时使用的默认评论地点 / Default comment location when location cannot be resolved
 default_location = "Unknown"
 
+[ipinfo]
+# IPinfo Lite API token, used to resolve comment locations from visitor IPs.
+# Get one from https://ipinfo.io/developers/lite-api
+token = ""
+
 [stats]
 # 在线用户心跳过期秒数 / Online user heartbeat expiration in seconds
 online_user_ttl_seconds = 120
