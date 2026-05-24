@@ -1,8 +1,8 @@
 import Comments from "@/components/comments/comments";
-import { MOCK_COMMENTS } from "@/data/mock-comments";
-import { MOCK_POSTS, getPostContent } from "@/data/mock-posts";
+import { readArticleMarkdown } from "@/lib/articles";
 import { getLocalizedName, SilvaConfig } from "@/lib/silva-config";
 import { markdownToHtml } from "@/lib/markdown";
+import { getPostById } from "@/services/posts";
 import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import Modules from "../posts.module.scss";
@@ -51,7 +51,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const t = await getTranslations("PostDetail");
   const locale = await getLocale();
 
-  const post = MOCK_POSTS.find((item) => item.id === postId);
+  const post = await getPostById(postId).send(true);
 
   if (!post) {
     return (
@@ -65,7 +65,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
     );
   }
 
-  const content = getPostContent(post.storage_path);
+  const content = await readArticleMarkdown(post.id);
   const htmlContent = await markdownToHtml(content);
   const tocItems = extractTocItems(htmlContent);
 
@@ -102,7 +102,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
       />
 
       <div className="mt-12">
-        <Comments comments={MOCK_COMMENTS} postId={String(post.id)} />
+        <Comments source="article" postId={post.id} />
       </div>
     </>
   );

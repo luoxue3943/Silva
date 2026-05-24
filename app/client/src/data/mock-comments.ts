@@ -1,305 +1,162 @@
 /**
- * 评论记录类型 / Comment record type
+ * Comment record type.
  */
 export type Comment = {
-  id: number; // 评论唯一 ID / Unique comment ID
-  post_id: number; // 所属文章 ID（对应 posts.id）/ Owning post ID (maps to posts.id)
-  parent_id: number | null; // 父评论 ID（用于回复）/ Parent comment ID for replies
-  author: string; // 作者展示名快照 / Snapshot of author display name
-  floor: number; // 评论楼层号（如 1、1.2）/ Comment floor number (for example, 1 or 1.2)
-  email: string; // 作者邮箱地址 / Author email address
-  content: string; // 评论正文内容 / Comment body text
-  location: string; // 粗粒度评论地区 / Coarse-grained comment location
-  created_at: number; // 创建时间戳（毫秒）/ Creation timestamp in milliseconds
-  updated_at: number | null; // 更新时间戳（毫秒）/ Update timestamp in milliseconds
-  deleted_at: number | null; // 软删除时间戳（毫秒）/ Soft-delete timestamp in milliseconds
+  id: number;
+  post_id: number;
+  parent_id: number | null;
+  author: string;
+  floor: number;
+  email: string;
+  content: string;
+  location: string;
+  created_at: number;
+  updated_at: number | null;
+  deleted_at: number | null;
 };
 
+const AUTHORS = [
+  "Ada",
+  "Linus",
+  "Grace",
+  "Ken",
+  "Mira",
+  "Nolan",
+  "Rhea",
+  "Tao",
+  "Vera",
+  "Yuki",
+] as const;
+
+const LOCATIONS = [
+  "Shanghai",
+  "Beijing",
+  "Shenzhen",
+  "Hangzhou",
+  "Chengdu",
+  "Nanjing",
+  "Guangzhou",
+  "Suzhou",
+] as const;
+
+let nextCommentId = 1;
+
+function makeComment(options: {
+  postId: number;
+  parentId: number | null;
+  floor: number;
+  content: string;
+  offsetHours: number;
+}): Comment {
+  const id = nextCommentId;
+  const author = AUTHORS[id % AUTHORS.length] ?? AUTHORS[0];
+
+  nextCommentId += 1;
+
+  return {
+    id,
+    post_id: options.postId,
+    parent_id: options.parentId,
+    author,
+    floor: options.floor,
+    email: `${author.toLowerCase()}${id}@example.com`,
+    content: options.content,
+    location: LOCATIONS[id % LOCATIONS.length] ?? LOCATIONS[0],
+    created_at:
+      new Date("2026-05-23T12:00:00+08:00").getTime() -
+      options.offsetHours * 60 * 60 * 1000,
+    updated_at: null,
+    deleted_at: null,
+  };
+}
+
+function appendThread(
+  target: Comment[],
+  options: {
+    postId: number;
+    floor: number;
+    replyCount: number;
+    sourceLabel: string;
+  },
+) {
+  const root = makeComment({
+    postId: options.postId,
+    parentId: null,
+    floor: options.floor,
+    offsetHours: options.floor * 7,
+    content: `${options.sourceLabel} comment ${options.floor}: this entry is part of the pagination dataset and should remain stable across reloads.`,
+  });
+
+  target.push(root);
+
+  for (let index = 1; index <= options.replyCount; index += 1) {
+    target.push(
+      makeComment({
+        postId: options.postId,
+        parentId: root.id,
+        floor: Number(`${options.floor}.${index}`),
+        offsetHours: options.floor * 7 + index,
+        content: `Reply ${index} for comment ${options.floor}: loaded in groups of five to exercise the child pagination button.`,
+      }),
+    );
+  }
+}
+
+function buildSiteComments() {
+  const comments: Comment[] = [];
+
+  for (let floor = 1; floor <= 16; floor += 1) {
+    appendThread(comments, {
+      postId: 0,
+      floor,
+      replyCount: floor <= 4 ? 7 : floor % 3,
+      sourceLabel: "Site",
+    });
+  }
+
+  return comments;
+}
+
+function buildArticleComments() {
+  const comments: Comment[] = [];
+
+  for (let floor = 1; floor <= 18; floor += 1) {
+    appendThread(comments, {
+      postId: 1,
+      floor,
+      replyCount: floor <= 5 ? 8 : floor % 4,
+      sourceLabel: "Article 1",
+    });
+  }
+
+  for (let postId = 2; postId <= 20; postId += 1) {
+    for (let floor = 1; floor <= 6; floor += 1) {
+      appendThread(comments, {
+        postId,
+        floor,
+        replyCount: floor <= 2 ? 6 : floor % 2,
+        sourceLabel: `Article ${postId}`,
+      });
+    }
+  }
+
+  return comments;
+}
+
 /**
- * 本地模拟评论列表 / Local mock comment list
+ * Local mock site-level comments.
+ */
+export const MOCK_SITE_COMMENTS: Comment[] = buildSiteComments();
+
+/**
+ * Local mock article-level comments.
+ */
+export const MOCK_ARTICLE_COMMENTS: Comment[] = buildArticleComments();
+
+/**
+ * Compatibility export for callers that still need the full mock list.
  */
 export const MOCK_COMMENTS: Comment[] = [
-  // 第 1 条顶级评论 / Top-level comment 1
-  {
-    id: 1,
-    post_id: 1,
-    parent_id: null,
-    author: "TechExplorer",
-    floor: 1,
-    email: "techexplorer@example.com",
-    content:
-      "这篇文章写得太好了！特别是关于多租户架构的部分，解决了我最近项目中遇到的痛点。请问作者有没有考虑过在微服务架构下如何实现租户隔离？",
-    location: "北京市海淀区",
-    created_at: 1734329425000, // 创建时间：2025-12-16T14:30:25+08:00 / Created at: 2025-12-16T14:30:25+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 评论 1 的第 1 条回复 / First reply to comment 1
-  {
-    id: 2,
-    post_id: 1,
-    parent_id: 1,
-    author: "博主",
-    floor: 1.1,
-    email: "author@example.com",
-    content:
-      "感谢支持！微服务架构下的租户隔离确实是个有趣的话题，我会在后续文章中详细探讨。简单来说，可以通过 API Gateway 层面的路由策略和服务网格来实现。",
-    location: "中国",
-    created_at: 1734333910000, // 创建时间：2025-12-16T15:45:10+08:00 / Created at: 2025-12-16T15:45:10+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 评论 1 的第 2 条回复 / Second reply to comment 1
-  {
-    id: 3,
-    post_id: 1,
-    parent_id: 1,
-    author: "TechExplorer",
-    floor: 1.2,
-    email: "techexplorer@example.com",
-    content: "期待你的后续文章！已经关注了你的博客 RSS。",
-    location: "北京市海淀区",
-    created_at: 1734335133000, // 创建时间：2025-12-16T16:05:33+08:00 / Created at: 2025-12-16T16:05:33+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 2 条顶级评论 / Top-level comment 2
-  {
-    id: 4,
-    post_id: 1,
-    parent_id: null,
-    author: "CodeNinja",
-    floor: 2,
-    email: "codeninja@example.com",
-    content:
-      "文章中提到的 Better Auth 看起来很强大，但是文档好像还不够完善。有没有推荐的学习资源或者实战项目可以参考？",
-    location: "上海市浦东新区",
-    created_at: 1734317415000, // 创建时间：2025-12-16T11:20:15+08:00 / Created at: 2025-12-16T11:20:15+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 3 条顶级评论 / Top-level comment 3
-  {
-    id: 5,
-    post_id: 1,
-    parent_id: null,
-    author: "DevMaster",
-    floor: 3,
-    email: "devmaster@example.com",
-    content:
-      "代码示例非常清晰！不过我注意到在生产环境中，租户 ID 的验证可能还需要考虑性能问题。如果租户数量很大，每次请求都查询数据库会不会成为瓶颈？",
-    location: "中国",
-    created_at: 1734245442000, // 创建时间：2025-12-15T16:30:42+08:00 / Created at: 2025-12-15T16:30:42+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 评论 3 的第 1 条回复 / First reply to comment 3
-  {
-    id: 6,
-    post_id: 1,
-    parent_id: 5,
-    author: "博主",
-    floor: 3.1,
-    email: "author@example.com",
-    content:
-      "好问题！确实需要考虑性能优化。通常的做法是在 JWT token 中包含租户信息，或者使用 Redis 缓存租户权限数据，避免每次都查询数据库。",
-    location: "中国",
-    created_at: 1734248120000, // 创建时间：2025-12-15T17:15:20+08:00 / Created at: 2025-12-15T17:15:20+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 4 条顶级评论 / Top-level comment 4
-  {
-    id: 7,
-    post_id: 1,
-    parent_id: null,
-    author: "FrontendGuru",
-    floor: 4,
-    email: "frontendguru@example.com",
-    content:
-      "View Transitions API 真的太酷了！我在自己的项目中也尝试使用了，但是在 Safari 上的兼容性还是有点问题。期待浏览器厂商能尽快完善支持。",
-    location: "广东省深圳市",
-    created_at: 1734141918000, // 创建时间：2025-12-14T09:45:18+08:00 / Created at: 2025-12-14T09:45:18+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 5 条顶级评论 / Top-level comment 5
-  {
-    id: 8,
-    post_id: 1,
-    parent_id: null,
-    author: "学习中的小白",
-    floor: 5,
-    email: "newbie@example.com",
-    content:
-      "作为一个刚入门的开发者，这篇文章对我来说有点难度，但是我还是努力看完了。请问有没有更基础的教程推荐？特别是关于认证和授权的部分。",
-    location: "中国",
-    created_at: 1734091855000, // 创建时间：2025-12-13T20:10:55+08:00 / Created at: 2025-12-13T20:10:55+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 评论 5 的第 1 条回复 / First reply to comment 5
-  {
-    id: 9,
-    post_id: 1,
-    parent_id: 8,
-    author: "热心网友",
-    floor: 5.1,
-    email: "helper@example.com",
-    content:
-      "推荐你先看看 MDN 上关于 Web Authentication 的文档，然后再回来看这篇文章会更容易理解。加油！",
-    location: "中国",
-    created_at: 1734096640000, // 创建时间：2025-12-13T21:30:40+08:00 / Created at: 2025-12-13T21:30:40+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 6 条顶级评论 / Top-level comment 6
-  {
-    id: 10,
-    post_id: 1,
-    parent_id: null,
-    author: "FullStackDev",
-    floor: 6,
-    email: "fullstackdev@example.com",
-    content:
-      "Paraglide JS 的性能确实比 i18next 好很多，我在项目中切换后，首屏加载时间减少了 30%。强烈推荐给需要国际化的项目！",
-    location: "浙江省杭州市",
-    created_at: 1733984730000, // 创建时间：2025-12-12T14:25:30+08:00 / Created at: 2025-12-12T14:25:30+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 7 条顶级评论 / Top-level comment 7
-  {
-    id: 11,
-    post_id: 1,
-    parent_id: null,
-    author: "SecurityExpert",
-    floor: 7,
-    email: "securityexpert@example.com",
-    content:
-      "文章中的 XSS 防护测试很有意思。建议在实际项目中还要考虑 CSRF、SQL 注入等其他安全问题。安全无小事！",
-    location: "中国",
-    created_at: 1733883322000, // 创建时间：2025-12-11T10:15:22+08:00 / Created at: 2025-12-11T10:15:22+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 评论 7 的第 1 条回复 / First reply to comment 7
-  {
-    id: 12,
-    post_id: 1,
-    parent_id: 11,
-    author: "博主",
-    floor: 7.1,
-    email: "author@example.com",
-    content:
-      "非常感谢提醒！安全确实是一个系统工程，我会在后续文章中专门讨论 Web 安全最佳实践。",
-    location: "中国",
-    created_at: 1733887245000, // 创建时间：2025-12-11T11:20:45+08:00 / Created at: 2025-12-11T11:20:45+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 8 条顶级评论 / Top-level comment 8
-  {
-    id: 13,
-    post_id: 1,
-    parent_id: null,
-    author: "OpenSourceFan",
-    floor: 8,
-    email: "opensourcefan@example.com",
-    content:
-      "看到你的博客是开源的，已经 star 了！代码质量很高，学到了很多。希望能有机会为项目贡献代码。",
-    location: "四川省成都市",
-    created_at: 1733731212000, // 创建时间：2025-12-09T16:40:12+08:00 / Created at: 2025-12-09T16:40:12+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 9 条顶级评论 / Top-level comment 9
-  {
-    id: 14,
-    post_id: 1,
-    parent_id: null,
-    author: "DesignLover",
-    floor: 9,
-    email: "designlover@example.com",
-    content:
-      "博客的设计很漂亮！特别喜欢这个深色主题和粒子背景效果。请问是用什么技术栈实现的？",
-    location: "中国",
-    created_at: 1733720750000, // 创建时间：2025-12-09T13:25:50+08:00 / Created at: 2025-12-09T13:25:50+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 评论 9 的第 1 条回复 / First reply to comment 9
-  {
-    id: 15,
-    post_id: 1,
-    parent_id: 14,
-    author: "博主",
-    floor: 9.1,
-    email: "author@example.com",
-    content:
-      "谢谢！博客使用 Qwik + TypeScript 构建，粒子效果是自己封装的组件。代码都在 GitHub 上，欢迎查看。",
-    location: "中国",
-    created_at: 1733723435000, // 创建时间：2025-12-09T14:10:35+08:00 / Created at: 2025-12-09T14:10:35+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 10 条顶级评论 / Top-level comment 10
-  {
-    id: 16,
-    post_id: 1,
-    parent_id: null,
-    author: "路过的访客",
-    floor: 10,
-    email: "visitor@example.com",
-    content:
-      "偶然搜索到这篇文章，内容很实用。已经收藏了，准备在下个项目中尝试这些技术方案。",
-    location: "中国",
-    created_at: 1733137825000, // 创建时间：2025-12-02T18:30:25+08:00 / Created at: 2025-12-02T18:30:25+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 11 条顶级评论 / Top-level comment 11
-  {
-    id: 17,
-    post_id: 1,
-    parent_id: null,
-    author: "PerformanceGeek",
-    floor: 11,
-    email: "performancegeek@example.com",
-    content:
-      "注意到你的博客加载速度非常快，Lighthouse 评分应该很高吧？能分享一下性能优化的经验吗？",
-    location: "江苏省南京市",
-    created_at: 1733126440000, // 创建时间：2025-12-02T15:20:40+08:00 / Created at: 2025-12-02T15:20:40+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 第 12 条顶级评论 / Top-level comment 12
-  {
-    id: 18,
-    post_id: 1,
-    parent_id: null,
-    author: "BackendEngineer",
-    floor: 12,
-    email: "backendengineer@example.com",
-    content:
-      "多租户架构的数据库设计部分讲得很透彻。我们公司正在做 SaaS 平台改造，这篇文章给了我很多启发。感谢分享！",
-    location: "中国",
-    created_at: 1732496130000, // 创建时间：2025-11-25T09:15:30+08:00 / Created at: 2025-11-25T09:15:30+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
-  // 评论 12 的第 1 条回复 / First reply to comment 12
-  {
-    id: 19,
-    post_id: 1,
-    parent_id: 18,
-    author: "博主",
-    floor: 12.1,
-    email: "author@example.com",
-    content: "很高兴能帮到你！如果在实施过程中遇到问题，欢迎随时交流。",
-    location: "中国",
-    created_at: 1732500615000, // 创建时间：2025-11-25T10:30:15+08:00 / Created at: 2025-11-25T10:30:15+08:00
-    updated_at: null,
-    deleted_at: null,
-  },
+  ...MOCK_SITE_COMMENTS,
+  ...MOCK_ARTICLE_COMMENTS,
 ];

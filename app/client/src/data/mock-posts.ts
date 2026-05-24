@@ -1,236 +1,163 @@
 /**
- * 文章记录类型 / Post record type
+ * Post record type.
  */
 export type Post = {
-  id: number; // 文章唯一 ID / Unique post ID
-  title: string; // 文章标题文本 / Post title text
-  category: string | null; // 可选分类标识 / Optional category slug
-  storage_path: string; // Markdown 内容相对路径 / Relative path to Markdown content
-  views: number; // 浏览次数统计 / View count
-  created_at: number; // 创建时间戳（毫秒）/ Creation timestamp in milliseconds
-  updated_at: number | null; // 更新时间戳（毫秒）/ Update timestamp in milliseconds
-  deleted_at: number | null; // 软删除时间戳（毫秒）/ Soft-delete timestamp in milliseconds
+  id: number;
+  title: string;
+  category: string | null;
+  storage_path: string;
+  views: number;
+  created_at: number;
+  updated_at: number | null;
+  deleted_at: number | null;
 };
 
-/**
- * 本地模拟文章列表 / Local mock post list
- */
-export const MOCK_POSTS: Post[] = [
+type PostSeed = {
+  title: string;
+  category: NonNullable<Post["category"]>;
+  views: number;
+  createdAt: string;
+  updatedAt?: string;
+};
+
+const POST_SEEDS: PostSeed[] = [
   {
-    id: 1,
-    title: "Better Auth 的多租户用户鉴权的构想",
+    title: "Building a Mock API Layer with alova",
     category: "tech",
-    storage_path: "posts/2025/better-auth-multi-tenant.md",
-    views: 0,
-    created_at: 1734105620000, // 创建时间：2025-12-14T00:47:00+08:00 / Created at: 2025-12-14T00:47:00+08:00
-    updated_at: 1734105620000, // 更新时间：2025-12-14T00:47:00+08:00 / Updated at: 2025-12-14T00:47:00+08:00
-    deleted_at: null,
+    views: 1248,
+    createdAt: "2026-05-18T09:30:00+08:00",
+    updatedAt: "2026-05-19T14:20:00+08:00",
   },
   {
-    id: 2,
-    title: "View Transitions in Qwik",
+    title: "Infinite Scroll without Duplicate Requests",
     category: "advanced",
-    storage_path: "posts/2024/view-transitions-qwik.md",
-    views: 856,
-    created_at: 1708358400000, // 创建时间：2024-02-20T00:00:00+08:00 / Created at: 2024-02-20T00:00:00+08:00
-    updated_at: null,
-    deleted_at: null,
+    views: 1182,
+    createdAt: "2026-05-14T16:15:00+08:00",
   },
   {
-    id: 3,
-    title: "Paraglide JS + Qwik",
+    title: "Markdown Compatibility Checklist",
+    category: "tech",
+    views: 936,
+    createdAt: "2026-05-09T11:00:00+08:00",
+  },
+  {
+    title: "Designing Comment Pagination",
+    category: "advanced",
+    views: 862,
+    createdAt: "2026-05-04T20:10:00+08:00",
+  },
+  {
+    title: "International Routes in Next.js",
     category: "i18n",
-    storage_path: "posts/2024/paraglide-js-qwik.md",
-    views: 567,
-    created_at: 1710028800000, // 创建时间：2024-03-10T00:00:00+08:00 / Created at: 2024-03-10T00:00:00+08:00
-    updated_at: null,
-    deleted_at: null,
+    views: 754,
+    createdAt: "2026-04-28T08:45:00+08:00",
+  },
+  {
+    title: "Server-rendered Article Content",
+    category: "tech",
+    views: 690,
+    createdAt: "2026-04-20T18:30:00+08:00",
+  },
+  {
+    title: "Testing Tables and Task Lists",
+    category: "advanced",
+    views: 646,
+    createdAt: "2026-04-12T10:25:00+08:00",
+  },
+  {
+    title: "Sanitizing User Markdown",
+    category: "tech",
+    views: 588,
+    createdAt: "2026-04-02T22:05:00+08:00",
+  },
+  {
+    title: "Timeline Grouping by Year",
+    category: "advanced",
+    views: 533,
+    createdAt: "2026-03-24T15:50:00+08:00",
+  },
+  {
+    title: "Locale-aware Date Labels",
+    category: "i18n",
+    views: 488,
+    createdAt: "2026-03-10T12:40:00+08:00",
+  },
+  {
+    title: "Client Hooks for Mocked Data",
+    category: "tech",
+    views: 447,
+    createdAt: "2026-02-22T09:15:00+08:00",
+  },
+  {
+    title: "Reply Threads That Stay Fast",
+    category: "advanced",
+    views: 420,
+    createdAt: "2026-02-06T17:05:00+08:00",
+  },
+  {
+    title: "Fallback States for Empty Lists",
+    category: "tech",
+    views: 396,
+    createdAt: "2026-01-21T13:30:00+08:00",
+  },
+  {
+    title: "Code Blocks, Copy Buttons, and Prism",
+    category: "advanced",
+    views: 371,
+    createdAt: "2026-01-04T19:55:00+08:00",
+  },
+  {
+    title: "Translation Keys for Categories",
+    category: "i18n",
+    views: 342,
+    createdAt: "2025-12-18T21:45:00+08:00",
+  },
+  {
+    title: "Request Guards for Scroll Sentinels",
+    category: "advanced",
+    views: 319,
+    createdAt: "2025-12-02T07:30:00+08:00",
+  },
+  {
+    title: "Rendering Safe HTML from Markdown",
+    category: "tech",
+    views: 287,
+    createdAt: "2025-11-17T10:10:00+08:00",
+  },
+  {
+    title: "Long-form Content Layout Notes",
+    category: "advanced",
+    views: 251,
+    createdAt: "2025-10-29T16:35:00+08:00",
+  },
+  {
+    title: "Multilingual Article Metadata",
+    category: "i18n",
+    views: 238,
+    createdAt: "2025-09-11T14:00:00+08:00",
+  },
+  {
+    title: "Final Mock Dataset Verification",
+    category: "tech",
+    views: 220,
+    createdAt: "2025-08-26T23:20:00+08:00",
   },
 ];
 
 /**
- * 本地模拟文章内容映射（临时数据源）/ Local mock post content map (temporary data source)
- * 正式接入时应改为按 storage_path 读取 Markdown 文件。 / Production code should read Markdown files from storage_path.
+ * Local mock post list.
  */
-const POST_CONTENT_MAP: Record<string, string> = {
-  "posts/2025/better-auth-multi-tenant.md": `
-## 什么是多租户？
+export const MOCK_POSTS: Post[] = POST_SEEDS.map((post, index) => {
+  const id = index + 1;
 
-多租户（Multi-tenancy）是一种软件架构，允许单个应用实例为多个独立的客户（租户）提供服务。每个租户的数据和配置都是隔离的，但共享同一套代码和基础设施。
-
-### 核心挑战
-
-- **数据隔离**：确保租户之间的数据完全隔离
-- **权限管理**：不同租户可能有不同的权限模型
-- **性能优化**：在多租户环境下保持高性能
-
-## Better Auth 的优势
-
-Better Auth 提供了灵活的鉴权机制，非常适合构建多租户系统：
-
-\`\`\`ts
-import { betterAuth } from "better-auth";
-
-const auth = betterAuth({
-  database: {
-    provider: "postgres",
-    url: process.env.DATABASE_URL,
-  },
-  tenancy: {
-    enabled: true,
-    tenantIdField: "tenant_id",
-  },
+  return {
+    id,
+    title: post.title,
+    category: post.category,
+    storage_path: `article/${id}.md`,
+    views: post.views,
+    created_at: new Date(post.createdAt).getTime(),
+    updated_at: post.updatedAt ? new Date(post.updatedAt).getTime() : null,
+    deleted_at: null,
+  };
 });
-\`\`\`
-
-## 实现方案
-
-### 1. 租户识别
-
-通过子域名或路径参数识别租户：
-
-\`\`\`ts
-function getTenantId(request: Request): string {
-  const hostname = new URL(request.url).hostname;
-  const subdomain = hostname.split('.')[0];
-  return subdomain;
-}
-\`\`\`
-
-### 2. 权限隔离
-
-确保用户只能访问所属租户的资源：
-
-\`\`\`ts
-async function checkTenantAccess(userId: string, tenantId: string) {
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    include: { tenants: true },
-  });
-
-  return user?.tenants.some(t => t.id === tenantId);
-}
-\`\`\`
-
-> **重要**：始终在服务端验证租户权限，不要依赖客户端传递的租户 ID。
-
-## 总结
-
-Better Auth 为多租户鉴权提供了坚实的基础，通过合理的架构设计，我们可以构建出安全、高效的多租户系统。
-`,
-  "posts/2024/view-transitions-qwik.md": `
-# View Transitions in Qwik
-
-视图过渡 API 让页面切换更加流畅自然。
-
-## 基础用法
-
-在 Qwik City 中使用 View Transitions 非常简单：
-
-\`\`\`ts
-// src/routes/layout.tsx
-import { component$ } from "@builder.io/qwik";
-import { useDocumentHead, useLocation } from "@builder.io/qwik-city";
-
-export default component$(() => {
-  const loc = useLocation();
-
-  return (
-    <html>
-      <head>
-        <meta name="view-transition" content="same-origin" />
-      </head>
-      <body>
-        <main>
-          <Slot />
-        </main>
-      </body>
-    </html>
-  );
-});
-\`\`\`
-
-## CSS 配置
-
-\`\`\`css
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.3s;
-}
-\`\`\`
-
-### 浏览器支持
-
-| 浏览器 | 版本 | 支持状态 |
-|--------|------|----------|
-| Chrome | 111+ | ✅ 完全支持 |
-| Edge | 111+ | ✅ 完全支持 |
-| Safari | 18+ | ✅ 完全支持 |
-| Firefox | - | ⏳ 开发中 |
-
-## 注意事项
-
-- [x] 确保浏览器支持
-- [x] 添加降级方案
-- [ ] 测试性能影响
-`,
-  "posts/2024/paraglide-js-qwik.md": `
-# Paraglide JS + Qwik 国际化方案
-
-完整的 i18n 集成指南。
-
-## 安装依赖
-
-\`\`\`bash
-pnpm add @inlang/paraglide-js
-pnpm add -D @inlang/paraglide-js-adapter-vite
-\`\`\`
-
-## 配置文件
-
-\`\`\`ts
-// vite.config.ts
-import { paraglide } from "@inlang/paraglide-js-adapter-vite";
-
-export default defineConfig({
-  plugins: [
-    paraglide({
-      project: "./project.inlang",
-      outdir: "./src/paraglide",
-    }),
-  ],
-});
-\`\`\`
-
-## 使用示例
-
-\`\`\`ts
-import * as m from "@/paraglide/messages";
-
-export default component$(() => {
-  return <h1>{m.hello()}</h1>;
-});
-\`\`\`
-
-**重要**：~~不要使用旧的 i18next 方案~~，Paraglide 性能更好。
-
-## XSS 防护测试
-
-下面的代码**不会执行**，会被安全转义：
-
-<script>alert("XSS Test")</script>
-
-<div onclick="alert('Click')">危险的点击</div>
-
-<img src=x onerror=alert('Error')>
-
-如果你能看到上面的尖括号，说明 XSS 防护成功！
-`,
-};
-
-/**
- * 按 storage_path 读取模拟文章内容 / Reads mock post content by storage_path
- */
-export function getPostContent(storagePath: string): string {
-  return POST_CONTENT_MAP[storagePath] || "";
-}

@@ -12,6 +12,9 @@
     "generate-license-file": "generate-license-file --input ./package.json --output ../../THIRD_PARTY_LICENSES.txt --overwrite --ci"
   },
   "dependencies": {
+    "@alova/scene-react": "^1.6.2",
+    "alova": "^3.5.1",
+    "framer-motion": "^12.40.0",
     "motion": "^12.39.0",
     "next": "16.2.6",
     "next-intl": "^4.12.0",

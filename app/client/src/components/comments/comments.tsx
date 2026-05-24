@@ -1,21 +1,32 @@
 "use client";
 
 /**
- * 评论区组件 / Comments component
+ * Comments component.
  *
- * 渲染评论列表、评论表单和回复交互。
- * Renders the comment list, comment form, and reply interactions.
+ * Renders the comment form, paginated top-level comments, and paginated replies.
  */
 
+import PulsatingDots from "@/components/loading/pulsating-dots";
 import type { Comment } from "@/data/mock-comments";
+import {
+  useInfinitePagination,
+  useLoadMoreSentinel,
+} from "@/hooks/use-infinite-pagination";
+import {
+  COMMENT_PAGE_SIZE,
+  COMMENT_REPLY_PAGE_SIZE,
+  getArticleComments,
+  getSiteComments,
+} from "@/services/comments";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import Modules from "./comments.module.scss";
 
-/** 评论区入口参数 / Comments entry props */
+type CommentsSource = "site" | "article";
+
 interface CommentsProps {
-  comments: Comment[];
-  postId?: string;
+  source: CommentsSource;
+  postId?: number;
 }
 
 interface CommentFormProps {
@@ -30,9 +41,6 @@ interface CommentFormProps {
   placeholder?: string;
 }
 
-/**
- * 可复用评论表单 / Reusable comment form
- */
 function CommentForm({
   authorName,
   authorEmail,
@@ -110,9 +118,6 @@ function CommentForm({
   );
 }
 
-/**
- * 将时间戳格式化为页面展示文本 / Formats timestamp for page display
- */
 function formatTime(timestamp: number): string {
   const date = new Date(timestamp);
 
@@ -126,9 +131,6 @@ function formatTime(timestamp: number): string {
   return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 }
 
-/**
- * 获取作者名称的首字母 / Gets the first letter of the author name
- */
 function getFirstLetter(name: string): string {
   if (!name) {
     return "?";
@@ -137,9 +139,6 @@ function getFirstLetter(name: string): string {
   return name.charAt(0).toUpperCase();
 }
 
-/**
- * 根据字符串生成稳定头像颜色 / Generates a stable avatar color from a string
- */
 function getColorFromString(str: string): string {
   const colors = [
     "#FF6B6B",
@@ -168,69 +167,46 @@ function getColorFromString(str: string): string {
   return colors[colorIndex] ?? colors[0];
 }
 
-interface CommentItemProps {
-  comment: Comment;
-  allComments: Comment[];
-  isReply?: boolean;
-}
-
-/**
- * 单条评论及其回复列表 / Single comment with its reply list
- */
-function CommentItem({
-  comment,
-  allComments,
-  isReply = false,
-}: CommentItemProps) {
-  const t = useTranslations("Comments");
-
-  const [showReplyForm, setShowReplyForm] = useState(false);
-  const [replyContent, setReplyContent] = useState("");
-  const [replyAuthorName, setReplyAuthorName] = useState("");
-  const [replyAuthorEmail, setReplyAuthorEmail] = useState("");
-
-  const replies = useMemo(
-    () => allComments.filter((item) => item.parent_id === comment.id),
-    [allComments, comment.id],
-  );
-
-  /**
-   * 打开或关闭回复表单 / Opens or closes the reply form
-   */
-  const toggleReplyForm = () => {
-    setShowReplyForm((current) => {
-      const next = !current;
-
-      if (!next) {
-        setReplyContent("");
-        setReplyAuthorName("");
-        setReplyAuthorEmail("");
+function useCommentsPageGetter(
+  source: CommentsSource,
+  postId: number | undefined,
+  parentId?: number,
+) {
+  return useCallback(
+    (page: number, pageSize: number) => {
+      if (source === "article") {
+        return getArticleComments({
+          postId: postId ?? 0,
+          page,
+          pageSize,
+          parentId,
+        });
       }
 
-      return next;
-    });
-  };
+      return getSiteComments({
+        page,
+        pageSize,
+        parentId,
+      });
+    },
+    [parentId, postId, source],
+  );
+}
 
-  /**
-   * 组装并提交回复数据 / Builds and submits reply data
-   */
-  const handleReplySubmit = () => {
-    const replyData = {
-      parent_id: comment.id,
-      parentFloor: comment.floor,
-      content: replyContent,
-      author: replyAuthorName,
-      email: replyAuthorEmail,
-      created_at: Date.now(),
-    };
+interface CommentBubbleProps {
+  comment: Comment;
+  isReply?: boolean;
+  onReplyClick?: () => void;
+  showReplyForm?: boolean;
+}
 
-    console.log("回复表单数据:", replyData);
-
-    setReplyContent("");
-    setReplyAuthorName("");
-    setReplyAuthorEmail("");
-    setShowReplyForm(false);
-  };
+function CommentBubble({
+  comment,
+  isReply = false,
+  onReplyClick,
+  showReplyForm = false,
+}: CommentBubbleProps) {
+  const t = useTranslations("Comments");
 
   return (
     <div className={isReply ? Modules.reply : Modules.comment}>
@@ -261,10 +237,10 @@ function CommentItem({
             <div className={Modules["comment-content"]}>{comment.content}</div>
           </div>
 
-          {!isReply && (
+          {!isReply && onReplyClick && (
             <button
               className={Modules["reply-button"]}
-              onClick={toggleReplyForm}
+              onClick={onReplyClick}
               type="button"
               aria-label={showReplyForm ? t("cancelReply") : t("reply")}
             >
@@ -273,8 +249,77 @@ function CommentItem({
           )}
         </div>
       </div>
+    </div>
+  );
+}
 
-      {!isReply && showReplyForm && (
+interface CommentItemProps {
+  comment: Comment;
+  source: CommentsSource;
+  postId?: number;
+}
+
+function CommentItem({ comment, source, postId }: CommentItemProps) {
+  const t = useTranslations("Comments");
+
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [replyContent, setReplyContent] = useState("");
+  const [replyAuthorName, setReplyAuthorName] = useState("");
+  const [replyAuthorEmail, setReplyAuthorEmail] = useState("");
+
+  const getRepliesPage = useCommentsPageGetter(source, postId, comment.id);
+  const {
+    items: replies,
+    hasMore,
+    loading,
+    initialLoading,
+    loadMore,
+  } = useInfinitePagination<Comment>({
+    pageSize: COMMENT_REPLY_PAGE_SIZE,
+    getPage: getRepliesPage,
+  });
+
+  const toggleReplyForm = () => {
+    setShowReplyForm((current) => {
+      const next = !current;
+
+      if (!next) {
+        setReplyContent("");
+        setReplyAuthorName("");
+        setReplyAuthorEmail("");
+      }
+
+      return next;
+    });
+  };
+
+  const handleReplySubmit = () => {
+    const replyData = {
+      parent_id: comment.id,
+      parentFloor: comment.floor,
+      content: replyContent,
+      author: replyAuthorName,
+      email: replyAuthorEmail,
+      created_at: Date.now(),
+    };
+
+    console.log("Reply form data:", replyData);
+
+    setReplyContent("");
+    setReplyAuthorName("");
+    setReplyAuthorEmail("");
+    setShowReplyForm(false);
+  };
+
+  return (
+    <div>
+      <CommentBubble
+        comment={comment}
+        onReplyClick={toggleReplyForm}
+        showReplyForm={showReplyForm}
+      />
+
+      {showReplyForm && (
         <div className={Modules["reply-form"]}>
           <CommentForm
             authorName={replyAuthorName}
@@ -290,47 +335,72 @@ function CommentItem({
         </div>
       )}
 
-      {replies.length > 0 && (
+      {(initialLoading || replies.length > 0) && (
         <div className={Modules.replies}>
           {replies.map((reply) => (
-            <CommentItem
-              key={reply.id}
-              comment={reply}
-              allComments={allComments}
-              isReply
-            />
+            <CommentBubble key={reply.id} comment={reply} isReply />
           ))}
+
+          {initialLoading && (
+            <div className={Modules["reply-loading"]}>
+              <PulsatingDots />
+            </div>
+          )}
+
+          {hasMore && !loading && (
+            <button
+              type="button"
+              className={Modules["load-more-replies"]}
+              onClick={loadMore}
+            >
+              Load more replies
+            </button>
+          )}
+
+          {loading && !initialLoading && (
+            <div className={Modules["reply-loading"]}>
+              <PulsatingDots />
+            </div>
+          )}
         </div>
       )}
     </div>
   );
 }
 
-export default function Comments({ comments, postId }: CommentsProps) {
+export default function Comments({ source, postId }: CommentsProps) {
   const t = useTranslations("Comments");
 
   const [commentContent, setCommentContent] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [authorEmail, setAuthorEmail] = useState("");
 
-  const rootComments = useMemo(
-    () => comments.filter((comment) => comment.parent_id == null),
-    [comments],
-  );
+  const getRootCommentsPage = useCommentsPageGetter(source, postId);
+  const {
+    items: rootComments,
+    hasMore,
+    loading,
+    initialLoading,
+    error,
+    loadMore,
+  } = useInfinitePagination<Comment>({
+    pageSize: COMMENT_PAGE_SIZE,
+    getPage: getRootCommentsPage,
+    enabled: source === "site" || typeof postId === "number",
+  });
 
-  /**
-   * 组装并提交顶级评论数据 / Builds and submits top-level comment data
-   */
+  const sentinelRef = useLoadMoreSentinel(hasMore && !loading, loadMore);
+
   const handleSubmit = () => {
     const formData = {
-      post_id: postId ? Number(postId) : 1,
+      post_id: source === "article" ? (postId ?? 1) : 0,
       content: commentContent,
       author: authorName,
       email: authorEmail,
       created_at: Date.now(),
     };
 
-    console.log("评论表单数据:", formData);
+    console.log("Comment form data:", formData);
 
     setCommentContent("");
     setAuthorName("");
@@ -353,16 +423,27 @@ export default function Comments({ comments, postId }: CommentsProps) {
       </div>
 
       <div className={Modules["comments-list"]}>
-        {comments.length === 0 ? (
-          <div className={Modules["empty-state"]}>{t("emptyState")}</div>
-        ) : (
-          rootComments.map((comment) => (
-            <CommentItem
-              key={comment.id}
-              comment={comment}
-              allComments={comments}
-            />
-          ))
+        {rootComments.map((comment) => (
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            source={source}
+            postId={postId}
+          />
+        ))}
+
+        {!initialLoading && rootComments.length === 0 && (
+          <div className={Modules["empty-state"]}>
+            {error ? error.message : t("emptyState")}
+          </div>
+        )}
+
+        <div ref={sentinelRef} className={Modules.sentinel} />
+
+        {loading && (
+          <div className={Modules.loading}>
+            <PulsatingDots />
+          </div>
         )}
       </div>
     </div>

@@ -1,14 +1,21 @@
 "use client";
 
-import { AnimatedList } from "@/components/ReactBits/animated-list/animated-list";
+import PulsatingDots from "@/components/loading/pulsating-dots";
 import type { Post } from "@/data/mock-posts";
-import { useRouter } from "next/navigation";
+import {
+  useInfinitePagination,
+  useLoadMoreSentinel,
+} from "@/hooks/use-infinite-pagination";
+import { getPosts } from "@/services/posts";
+import Link from "next/link";
 import { useCallback } from "react";
 import Modules from "./posts.module.scss";
 
 type PostsListClientProps = {
-  posts: Post[];
+  category?: string;
 };
+
+const POSTS_PAGE_SIZE = 15;
 
 function formatPostDate(dateString: number) {
   const date = new Date(dateString);
@@ -19,58 +26,72 @@ function formatPostDate(dateString: number) {
   )}/${String(date.getDate()).padStart(2, "0")}`;
 }
 
-export default function PostsListClient({ posts }: PostsListClientProps) {
-  const router = useRouter();
-
-  const handleItemSelect = useCallback(
-    (post: Post) => {
-      console.log("Selected:", post.title);
-
-      // 跳转到选中文章详情页 / Navigates to the selected post detail page
-      router.push(`/posts/${post.id}`);
-    },
-    [router],
+export default function PostsListClient({ category }: PostsListClientProps) {
+  const getPage = useCallback(
+    (page: number, pageSize: number) => getPosts(page, pageSize, category),
+    [category],
   );
 
-  const renderPost = useCallback((post: Post) => {
-    const formattedDate = formatPostDate(post.created_at);
+  const { items, hasMore, loading, initialLoading, error, loadMore } =
+    useInfinitePagination<Post>({
+      pageSize: POSTS_PAGE_SIZE,
+      getPage,
+    });
 
-    return (
-      <div className="flex w-full flex-col gap-3">
-        <h3 className="m-0 text-xl font-bold text-white">{post.title}</h3>
-
-        <div className="flex items-center gap-2 text-sm text-gray-400">
-          <span className={Modules.label}>
-            <span className="icon-[mynaui--clock-four]" />
-            <span>{formattedDate}</span>
-          </span>
-
-          <span className={Modules.label}>
-            <span className="icon-[mynaui--hash-circle] h-4 w-3" />
-            <span>{post.category}</span>
-          </span>
-
-          <span className={Modules.label}>
-            <span className="icon-[mynaui--eye]" />
-            <span>{post.views}</span>
-          </span>
-        </div>
-      </div>
-    );
-  }, []);
+  const sentinelRef = useLoadMoreSentinel(hasMore && !loading, loadMore);
 
   return (
     <section className={Modules["posts-section"]}>
-      <AnimatedList
-        items={posts}
-        onItemSelect={handleItemSelect}
-        renderItem={renderPost}
-        showGradients={false}
-        enableArrowNavigation={false}
-        displayScrollbar={false}
-        itemHeight="100px"
-        className={Modules["animated-list"]}
-      />
+      <div className={Modules["posts-list"]}>
+        {items.map((post) => {
+          const formattedDate = formatPostDate(post.created_at);
+
+          return (
+            <Link
+              key={post.id}
+              href={`/posts/${post.id}`}
+              className={Modules["post-card"]}
+            >
+              <div className="flex w-full flex-col gap-3">
+                <h3 className="m-0 text-xl font-bold text-white">
+                  {post.title}
+                </h3>
+
+                <div className="flex flex-wrap items-center gap-2 text-sm text-gray-400">
+                  <span className={Modules.label}>
+                    <span className="icon-[mynaui--clock-four]" />
+                    <span>{formattedDate}</span>
+                  </span>
+
+                  <span className={Modules.label}>
+                    <span className="icon-[mynaui--hash-circle] h-4 w-3" />
+                    <span>{post.category}</span>
+                  </span>
+
+                  <span className={Modules.label}>
+                    <span className="icon-[mynaui--eye]" />
+                    <span>{post.views}</span>
+                  </span>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+
+        {!initialLoading && items.length === 0 && (
+          <div className={Modules["empty-state"]}>
+            {error ? error.message : "No posts found."}
+          </div>
+        )}
+
+        <div ref={sentinelRef} className={Modules.sentinel} />
+
+        {loading && (
+          <div className={Modules.loading}>
+            <PulsatingDots />
+          </div>
+        )}
+      </div>
     </section>
   );
 }
