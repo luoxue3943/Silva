@@ -354,7 +354,7 @@ function CommentItem({ comment, source, postId }: CommentItemProps) {
               className={Modules["load-more-replies"]}
               onClick={loadMore}
             >
-              Load more replies
+              {t("loadMoreReplies")}
             </button>
           )}
 

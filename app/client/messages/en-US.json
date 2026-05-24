@@ -48,6 +48,7 @@
     "from": "From: ",
     "reply": "Reply",
     "cancelReply": "Cancel Reply",
+    "loadMoreReplies": "Load more replies",
     "emptyState": "No comments yet, be the first!"
   },
   "MessageBoard": {
