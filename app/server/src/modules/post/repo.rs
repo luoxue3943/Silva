@@ -13,7 +13,19 @@ pub async fn list_posts(
 
     let rows = sqlx::query_as::<_, PostRecord>(
         r#"
-        SELECT id, title, category, storage_path, views, created_at, updated_at, deleted_at
+        SELECT
+            id,
+            title,
+            COALESCE(slug, id::TEXT) AS slug,
+            summary,
+            cover_image,
+            COALESCE(keywords, '{}'::TEXT[]) AS keywords,
+            category,
+            storage_path,
+            views,
+            created_at,
+            updated_at,
+            deleted_at
         FROM posts
         WHERE deleted_at IS NULL
           AND ($1::TEXT IS NULL OR category = $1)
@@ -46,7 +58,19 @@ pub async fn list_posts(
 pub async fn find_post_by_id(db: &PgPool, id: i64) -> AppResult<Option<PostRecord>> {
     let post = sqlx::query_as::<_, PostRecord>(
         r#"
-        SELECT id, title, category, storage_path, views, created_at, updated_at, deleted_at
+        SELECT
+            id,
+            title,
+            COALESCE(slug, id::TEXT) AS slug,
+            summary,
+            cover_image,
+            COALESCE(keywords, '{}'::TEXT[]) AS keywords,
+            category,
+            storage_path,
+            views,
+            created_at,
+            updated_at,
+            deleted_at
         FROM posts
         WHERE id = $1 AND deleted_at IS NULL
         "#,

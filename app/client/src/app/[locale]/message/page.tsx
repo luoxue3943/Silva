@@ -1,5 +1,17 @@
 import Comments from "@/components/comments/comments";
+import { createPageMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("MessageBoard");
+
+  return createPageMetadata({
+    title: t("title"),
+    description: t("welcome"),
+    pathname: "/message",
+  });
+}
 
 /**
  * 留言板页面 / Message board page

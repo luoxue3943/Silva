@@ -1,4 +1,8 @@
 import PostsListClient from "./posts-list-client";
+import { createPageMetadata } from "@/lib/seo";
+import { SilvaConfig } from "@/lib/silva-config";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 /**
  * 文章列表页面 / Posts list page
@@ -12,6 +16,16 @@ type PostsPageProps = {
     category?: string | string[];
   }>;
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Navbar");
+
+  return createPageMetadata({
+    title: t("posts"),
+    description: SilvaConfig.seo.description,
+    pathname: "/posts",
+  });
+}
 
 export default async function PostsPage({ searchParams }: PostsPageProps) {
   const { category } = await searchParams;

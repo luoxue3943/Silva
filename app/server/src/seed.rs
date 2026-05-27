@@ -203,13 +203,21 @@ async fn seed_posts(db: &PgPool) -> SeedResult<()> {
         let created_at = parse_seed_time(post.created_at);
         let updated_at = post.updated_at.map(parse_seed_time);
         let storage_path = format!("article/{id}.md");
+        let slug = slugify_title(post.title);
+        let keywords = vec![post.category.to_owned()];
 
         sqlx::query(
             r#"
-            INSERT INTO posts (id, title, category, storage_path, views, created_at, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            INSERT INTO posts (
+                id, title, slug, summary, cover_image, keywords, category, storage_path, views, created_at, updated_at
+            )
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
             ON CONFLICT (id) DO UPDATE
             SET title = EXCLUDED.title,
+                slug = EXCLUDED.slug,
+                summary = EXCLUDED.summary,
+                cover_image = EXCLUDED.cover_image,
+                keywords = EXCLUDED.keywords,
                 category = EXCLUDED.category,
                 storage_path = EXCLUDED.storage_path,
                 views = EXCLUDED.views,
@@ -219,6 +227,10 @@ async fn seed_posts(db: &PgPool) -> SeedResult<()> {
         )
         .bind(id)
         .bind(post.title)
+        .bind(slug)
+        .bind(Option::<String>::None)
+        .bind(Option::<String>::None)
+        .bind(keywords)
         .bind(post.category)
         .bind(storage_path)
         .bind(post.views)
@@ -379,6 +391,31 @@ fn make_comment(
         location,
         created_at,
     }
+}
+
+/// Builds a stable URL slug from an ASCII title.
+fn slugify_title(title: &str) -> String {
+    let mut slug = String::new();
+    let mut previous_dash = false;
+
+    for character in title.chars().flat_map(char::to_lowercase) {
+        if character.is_ascii_alphanumeric() {
+            slug.push(character);
+            previous_dash = false;
+            continue;
+        }
+
+        if !previous_dash && !slug.is_empty() {
+            slug.push('-');
+            previous_dash = true;
+        }
+    }
+
+    if slug.ends_with('-') {
+        slug.pop();
+    }
+
+    slug
 }
 
 /// 刷新 posts 和 comments 的自增序列 / Refreshes serial sequences for posts and comments.

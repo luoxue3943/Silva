@@ -1,8 +1,12 @@
 import localFont from "next/font/local";
+import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 import { ViewTransition } from "react";
 import ParticlesBackground from "@/components/ReactBits/particles/particles";
 import Footer from "@/components/layout/footer/footer";
+import { createDefaultMetadata } from "@/lib/seo";
+import { SilvaConfig } from "@/lib/silva-config";
 
 // 加载全局样式入口 / Load global style entry points
 import "./global.css";
@@ -13,14 +17,22 @@ const ChillRoundF = localFont({
   src: "../../../public/fonts/ChillRoundM.otf",
 });
 
+export const metadata: Metadata = createDefaultMetadata("/");
+
+export const viewport: Viewport = {
+  themeColor: SilvaConfig.seo.theme_color,
+};
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
     <ViewTransition>
-      <html lang="zh-CN">
+      <html lang={locale}>
         <body className={ChillRoundF.className}>
           <NextIntlClientProvider>
             {/* 固定背景层：粒子动画效果 / Fixed background layer: particle animation */}

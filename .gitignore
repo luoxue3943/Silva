@@ -5,3 +5,4 @@ app/server/target/
 server.toml
 SilvaConfig.yaml
 .codex-screenshots/
+.pnpm-store

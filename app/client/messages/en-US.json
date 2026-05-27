@@ -61,5 +61,11 @@
   "MessageBoard": {
     "title": "Message Board",
     "welcome": "Welcome to leave your thoughts and suggestions here"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you visited may have moved, been deleted, or is temporarily unavailable.",
+    "home": "Back home",
+    "posts": "View posts"
   }
 }

@@ -16,6 +16,10 @@ pub struct PostListQuery {
 pub struct PostDto {
     pub id: i64,
     pub title: String,
+    pub slug: String,
+    pub summary: Option<String>,
+    pub cover_image: Option<String>,
+    pub keywords: Vec<String>,
     pub category: Option<String>,
     pub storage_path: String,
     pub views: i64,
@@ -30,6 +34,10 @@ impl From<PostRecord> for PostDto {
         Self {
             id: post.id,
             title: post.title,
+            slug: post.slug,
+            summary: post.summary,
+            cover_image: post.cover_image,
+            keywords: post.keywords,
             category: post.category,
             storage_path: post.storage_path,
             views: post.views,

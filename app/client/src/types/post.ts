@@ -4,6 +4,10 @@
 export type Post = {
   id: number;
   title: string;
+  slug: string;
+  summary: string | null;
+  cover_image: string | null;
+  keywords: string[];
   category: string | null;
   storage_path: string;
   views: number;

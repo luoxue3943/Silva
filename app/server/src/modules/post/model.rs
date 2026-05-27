@@ -6,6 +6,10 @@ use sqlx::FromRow;
 pub struct PostRecord {
     pub id: i64,
     pub title: String,
+    pub slug: String,
+    pub summary: Option<String>,
+    pub cover_image: Option<String>,
+    pub keywords: Vec<String>,
     pub category: Option<String>,
     pub storage_path: String,
     pub views: i64,

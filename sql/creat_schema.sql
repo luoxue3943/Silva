@@ -1,6 +1,10 @@
 CREATE TABLE IF NOT EXISTS posts (
     id BIGSERIAL PRIMARY KEY,
     title TEXT NOT NULL,
+    slug TEXT,
+    summary TEXT,
+    cover_image TEXT,
+    keywords TEXT[] NOT NULL DEFAULT '{}',
     category TEXT,
     storage_path TEXT NOT NULL UNIQUE,
     views BIGINT NOT NULL DEFAULT 0 CHECK (views >= 0),
@@ -9,8 +13,14 @@ CREATE TABLE IF NOT EXISTS posts (
     deleted_at TIMESTAMPTZ
 );
 
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS slug TEXT;
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS summary TEXT;
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS cover_image TEXT;
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS keywords TEXT[] NOT NULL DEFAULT '{}';
+
 CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_posts_category ON posts (category) WHERE deleted_at IS NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_posts_slug ON posts (slug) WHERE slug IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS comments (
     id BIGSERIAL PRIMARY KEY,
