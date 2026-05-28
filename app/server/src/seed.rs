@@ -249,9 +249,9 @@ async fn seed_comments(db: &PgPool) -> SeedResult<()> {
         sqlx::query(
             r#"
             INSERT INTO comments (
-                id, post_id, parent_id, author, floor, email, content, location, created_at
+                id, post_id, parent_id, author, floor, email, content, location, is_visible, created_at
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, TRUE, $9)
             ON CONFLICT (id) DO UPDATE
             SET post_id = EXCLUDED.post_id,
                 parent_id = EXCLUDED.parent_id,
@@ -260,6 +260,7 @@ async fn seed_comments(db: &PgPool) -> SeedResult<()> {
                 email = EXCLUDED.email,
                 content = EXCLUDED.content,
                 location = EXCLUDED.location,
+                is_visible = EXCLUDED.is_visible,
                 created_at = EXCLUDED.created_at
             "#,
         )

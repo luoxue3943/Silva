@@ -12,6 +12,7 @@ pub struct CommentRecord {
     pub email: String,
     pub content: String,
     pub location: String,
+    pub is_visible: bool,
     pub created_at: DateTime<Utc>,
     pub updated_at: Option<DateTime<Utc>>,
     pub deleted_at: Option<DateTime<Utc>>,

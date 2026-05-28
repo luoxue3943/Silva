@@ -36,10 +36,11 @@ async fn list_comments(
 
     let rows = sqlx::query_as::<_, CommentRecord>(
         r#"
-        SELECT id, post_id, parent_id, author, floor, email, content, location,
+        SELECT id, post_id, parent_id, author, floor, email, content, location, is_visible,
                created_at, updated_at, deleted_at
         FROM comments
         WHERE deleted_at IS NULL
+          AND is_visible = TRUE
           AND post_id IS NOT DISTINCT FROM $1
           AND parent_id IS NOT DISTINCT FROM $2
         ORDER BY created_at DESC, id DESC
@@ -58,6 +59,7 @@ async fn list_comments(
         SELECT COUNT(*)
         FROM comments
         WHERE deleted_at IS NULL
+          AND is_visible = TRUE
           AND post_id IS NOT DISTINCT FROM $1
           AND parent_id IS NOT DISTINCT FROM $2
         "#,
@@ -78,11 +80,12 @@ pub async fn find_comment_in_scope(
 ) -> AppResult<Option<CommentRecord>> {
     let comment = sqlx::query_as::<_, CommentRecord>(
         r#"
-        SELECT id, post_id, parent_id, author, floor, email, content, location,
+        SELECT id, post_id, parent_id, author, floor, email, content, location, is_visible,
                created_at, updated_at, deleted_at
         FROM comments
         WHERE id = $1
           AND post_id IS NOT DISTINCT FROM $2
+          AND is_visible = TRUE
           AND deleted_at IS NULL
         "#,
     )
@@ -145,7 +148,7 @@ pub async fn insert_comment(
         r#"
         INSERT INTO comments (post_id, parent_id, author, floor, email, content, location)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING id, post_id, parent_id, author, floor, email, content, location,
+        RETURNING id, post_id, parent_id, author, floor, email, content, location, is_visible,
                   created_at, updated_at, deleted_at
         "#,
     )

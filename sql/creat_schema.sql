@@ -31,10 +31,13 @@ CREATE TABLE IF NOT EXISTS comments (
     email TEXT NOT NULL,
     content TEXT NOT NULL,
     location TEXT NOT NULL,
+    is_visible BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ,
     deleted_at TIMESTAMPTZ
 );
+
+ALTER TABLE comments ADD COLUMN IF NOT EXISTS is_visible BOOLEAN NOT NULL DEFAULT FALSE;
 
 CREATE INDEX IF NOT EXISTS idx_comments_site_scope
     ON comments (parent_id, floor, id)
@@ -43,6 +46,14 @@ CREATE INDEX IF NOT EXISTS idx_comments_site_scope
 CREATE INDEX IF NOT EXISTS idx_comments_article_scope
     ON comments (post_id, parent_id, floor, id)
     WHERE post_id IS NOT NULL AND deleted_at IS NULL;
+
+CREATE INDEX IF NOT EXISTS idx_comments_visible_site_scope
+    ON comments (parent_id, floor, id)
+    WHERE post_id IS NULL AND deleted_at IS NULL AND is_visible = TRUE;
+
+CREATE INDEX IF NOT EXISTS idx_comments_visible_article_scope
+    ON comments (post_id, parent_id, floor, id)
+    WHERE post_id IS NOT NULL AND deleted_at IS NULL AND is_visible = TRUE;
 
 CREATE TABLE IF NOT EXISTS site_stats (
     id SMALLINT PRIMARY KEY DEFAULT 1 CHECK (id = 1),

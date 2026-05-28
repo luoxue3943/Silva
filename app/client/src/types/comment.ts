@@ -10,6 +10,7 @@ export type Comment = {
   email: string;
   content: string;
   location: string;
+  is_visible: boolean;
   created_at: number;
   updated_at: number | null;
   deleted_at: number | null;
