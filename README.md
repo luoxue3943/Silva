@@ -1,5 +1,9 @@
 # Silva
 
+**English** | [中文](https://github.com/luoxue3943/Silva/blob/master/README_zh.md)
+
+---
+
 ## 📄 License
 
 [**AGPL-3.0-only**](LICENSE) © 2025 [珞雪(luoxue)](https://github.com/luoxue3943)
