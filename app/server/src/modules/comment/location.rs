@@ -15,7 +15,7 @@ struct IpinfoLiteResponse {
     continent: Option<String>,
 }
 
-/// Resolves the best display location for a comment without blocking comment creation on failures.
+/// 解析评论的最佳展示地点，失败时不阻塞评论创建 / Resolves the best display location for a comment without blocking comment creation on failures.
 pub async fn resolve_comment_location(request: &HttpRequest, config: &Config) -> String {
     let default_location = normalized_default_location(config);
     let Some(token) = config.ipinfo_token.as_deref() else {

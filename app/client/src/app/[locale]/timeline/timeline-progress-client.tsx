@@ -3,8 +3,7 @@
 /**
  * 时间进度客户端组件 / Time progress client component
  *
- * 展示当前年份进度和当天进度，避免服务端时间与客户端时间不一致。
- * Display current year and day progress while avoiding server-client time mismatch
+ * 展示当前年份进度和当天进度，避免服务端时间与客户端时间不一致。 / Display current year and day progress while avoiding server-client time mismatch
  */
 
 import { useTranslations } from "next-intl";

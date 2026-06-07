@@ -35,6 +35,7 @@ const hexToRgb = (hex: string): [number, number, number] => {
   return [r, g, b];
 };
 
+// 顶点着色器源码，保留 glsl 标签供编辑器高亮 / Vertex shader source; keep the glsl tag for editor highlighting
 const vertex = /* glsl */ `
   attribute vec3 position;
   attribute vec4 random;
@@ -77,6 +78,7 @@ const vertex = /* glsl */ `
   }
 `;
 
+// 片元着色器源码，保留 glsl 标签供编辑器高亮 / Fragment shader source; keep the glsl tag for editor highlighting
 const fragment = /* glsl */ `
   precision highp float;
   
@@ -246,6 +248,7 @@ const Particles: React.FC<ParticlesProps> = ({
       }
     };
     // 依赖列表显式覆盖会重建 WebGL 场景的参数 / Dependency list explicitly covers parameters that rebuild the WebGL scene
+    // 保留下一行 ESLint 指令以允许完整依赖列表 / Keep the next ESLint directive to allow the explicit dependency list
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     particleCount,

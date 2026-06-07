@@ -21,8 +21,7 @@ export default function Home() {
   const motto = SilvaConfig.site.motto ?? "";
 
   /**
-   * 将文本拆分为逐字动画 span
-   * Splits text into per-character animated spans
+   * 将文本拆分为逐字动画 span / Splits text into per-character animated spans
    *
    * @param text 待拆分文本 / Text to split
    * @param className 附加 CSS 类名 / Extra CSS class name

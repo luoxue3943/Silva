@@ -3,8 +3,7 @@
 /**
  * 文章列表客户端组件 / Post list client component
  *
- * 负责按分类加载文章、渲染卡片列表，并通过滚动哨兵追加分页数据。
- * Load posts by category, render cards, and append paginated data through a scroll sentinel
+ * 负责按分类加载文章、渲染卡片列表，并通过滚动哨兵追加分页数据。 / Load posts by category, render cards, and append paginated data through a scroll sentinel
  */
 
 import PulsatingDots from "@/components/loading/pulsating-dots";

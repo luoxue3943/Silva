@@ -10,8 +10,7 @@ import Modules from "./footer.module.scss";
 /**
  * 页脚组件 / Footer component
  *
- * 展示站点统计、版权声明和备案链接。
- * Display site stats, copyright text, and filing links
+ * 展示站点统计、版权声明和备案链接。 / Display site stats, copyright text, and filing links
  */
 export default function Footer() {
   // 读取当前语言环境 / Read the current locale

@@ -1,6 +1,7 @@
 /**
  * Stylelint 配置类型提示 / Stylelint config type hint
  *
+ * JSDoc 类型声明供编辑器和类型检查读取 / JSDoc type declaration for editor and type-checker support
  * @type {import("stylelint").Config}
  */
 const stylelintConfig = {

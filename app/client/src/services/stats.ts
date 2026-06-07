@@ -4,8 +4,7 @@ import type { SiteStats } from "@/types/stats";
 /**
  * 站点统计数据服务 / Site stats data service
  *
- * 封装统计读取和访问记录请求。
- * Wrap stats retrieval and visit-recording requests
+ * 封装统计读取和访问记录请求。 / Wrap stats retrieval and visit-recording requests
  */
 type VisitParams = {
   guestId: string;

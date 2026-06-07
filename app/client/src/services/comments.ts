@@ -5,8 +5,7 @@ import type { PaginationResponse } from "@/types/pagination";
 /**
  * 评论数据服务 / Comment data service
  *
- * 封装站点留言和文章评论的分页查询与提交请求。
- * Wrap paginated queries and submit requests for site and article comments
+ * 封装站点留言和文章评论的分页查询与提交请求。 / Wrap paginated queries and submit requests for site and article comments
  */
 export const SITE_COMMENTS_URL = "/comments/site";
 export const ARTICLE_COMMENTS_URL = "/comments/article";

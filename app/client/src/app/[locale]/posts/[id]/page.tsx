@@ -58,8 +58,7 @@ function extractTocItems(htmlContent: string): TocItem[] {
 /**
  * 文章详情页面 / Post detail page
  *
- * 获取文章内容、编译 Markdown，并交给客户端组件处理目录交互。
- * Fetch post content, compile Markdown, and delegate TOC interactions to the client component
+ * 获取文章内容、编译 Markdown，并交给客户端组件处理目录交互。 / Fetch post content, compile Markdown, and delegate TOC interactions to the client component
  */
 async function getPostDescription(post: Post) {
   const summary = post.summary?.trim();

@@ -4,8 +4,7 @@ import { routing } from "./i18n/routing";
 /**
  * Next.js 代理中间件 / Next.js proxy middleware
  *
- * 将页面请求交给 next-intl 处理本地化上下文。
- * Delegate page requests to next-intl for locale context handling
+ * 将页面请求交给 next-intl 处理本地化上下文。 / Delegate page requests to next-intl for locale context handling
  */
 export default createMiddleware(routing);
 

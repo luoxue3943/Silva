@@ -98,8 +98,7 @@ export default function PostDetailClient({
   );
 
   /**
-   * 为 Markdown 标题补充 id，并绑定代码块复制按钮。
-   * Add IDs to Markdown headings and bind code-copy buttons
+   * 为 Markdown 标题补充 id，并绑定代码块复制按钮。 / Add IDs to Markdown headings and bind code-copy buttons
    */
   useEffect(() => {
     if (!post.tocItems.length) {
@@ -187,8 +186,7 @@ export default function PostDetailClient({
   }, [post.tocItems]);
 
   /**
-   * 监听滚动，更新阅读进度和当前目录高亮。
-   * Listen to scrolling and update reading progress plus the active TOC item
+   * 监听滚动，更新阅读进度和当前目录高亮。 / Listen to scrolling and update reading progress plus the active TOC item
    */
   useEffect(() => {
     const handleScroll = () => {

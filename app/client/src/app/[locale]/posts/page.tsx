@@ -7,8 +7,7 @@ import { getTranslations } from "next-intl/server";
 /**
  * 文章列表页面 / Posts list page
  *
- * 从 URL 查询参数解析分类，并将筛选条件交给客户端分页列表。
- * Read category from URL search params and pass the filter into the client paginated list
+ * 从 URL 查询参数解析分类，并将筛选条件交给客户端分页列表。 / Read category from URL search params and pass the filter into the client paginated list
  */
 
 type PostsPageProps = {

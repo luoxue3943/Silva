@@ -16,8 +16,7 @@ type ApiEnvelope<T> = {
 /**
  * Silva API 客户端实例 / Silva API client instance
  *
- * 统一解析后端响应包裹结构，并把错误响应转换为 Error。
- * Parse backend response envelopes and convert error responses into Error
+ * 统一解析后端响应包裹结构，并把错误响应转换为 Error。 / Parse backend response envelopes and convert error responses into Error
  */
 export const silvaAlova = createAlova({
   baseURL: API_BASE_URL,

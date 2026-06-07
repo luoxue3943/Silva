@@ -4,8 +4,7 @@ import NavbarClient, { type NavbarCategory } from "./navbar-client";
 /**
  * 导航栏服务端组件 / Navigation server component
  *
- * 从站点配置读取分类数据，并传递给客户端导航栏处理交互。
- * Read categories from site config and pass them to the client navbar for interactions
+ * 从站点配置读取分类数据，并传递给客户端导航栏处理交互。 / Read categories from site config and pass them to the client navbar for interactions
  */
 export default function Navbar() {
   // 只暴露导航栏需要的分类字段 / Expose only the category fields needed by the navbar

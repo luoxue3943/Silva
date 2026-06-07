@@ -3,8 +3,7 @@
 /**
  * 评论组件 / Comments component
  *
- * 渲染评论表单、分页顶级评论和分页回复列表。
- * Render the comment form, paginated top-level comments, and paginated replies
+ * 渲染评论表单、分页顶级评论和分页回复列表。 / Render the comment form, paginated top-level comments, and paginated replies
  */
 
 import PulsatingDots from "@/components/loading/pulsating-dots";

@@ -3,8 +3,7 @@
 /**
  * 导航栏客户端组件 / Navigation bar client component
  *
- * 处理主导航高亮、滚动状态、分类菜单和语言切换。
- * Handle primary nav highlighting, scroll state, category menu, and locale switching
+ * 处理主导航高亮、滚动状态、分类菜单和语言切换。 / Handle primary nav highlighting, scroll state, category menu, and locale switching
  */
 
 import Link from "next/link";

@@ -542,7 +542,7 @@ fn make_comment(
     }
 }
 
-/// Builds a stable URL slug from an ASCII title.
+/// 根据 ASCII 标题生成稳定的 URL slug / Builds a stable URL slug from an ASCII title.
 fn slugify_title(title: &str) -> String {
     let mut slug = String::new();
     let mut previous_dash = false;

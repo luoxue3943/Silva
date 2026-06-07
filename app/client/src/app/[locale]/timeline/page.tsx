@@ -20,8 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * 时间线页面 / Timeline page
  *
- * 将文章时间线交给客户端组件处理分页和滚动加载。
- * Delegate the post timeline to the client component for pagination and infinite loading
+ * 将文章时间线交给客户端组件处理分页和滚动加载。 / Delegate the post timeline to the client component for pagination and infinite loading
  */
 export default function TimelinePage() {
   return <TimelineClient />;

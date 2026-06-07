@@ -1,9 +1,7 @@
 /**
- * 首页模块样式
- * Home page module styles
+ * 首页模块样式 / Home page module styles
  *
- * 组织首页布局、逐字弹出动画和社交图标样式。
- * Organize home page layout, per-character pop animation, and social icon styles
+ * 组织首页布局、逐字弹出动画和社交图标样式。 / Organize home page layout, per-character pop animation, and social icon styles
  */
 
 /* 逐字弹出动画基础类 / Base class for per-character pop animation */
@@ -34,8 +32,7 @@
 }
 
 /**
- * 欢迎信息布局
- * Welcome message layout
+ * 欢迎信息布局 / Welcome message layout
  */
 .welcome {
   display: flex;
@@ -132,11 +129,9 @@
 }
 
 /**
- * 逐字动画延迟类生成器
- * Per-character animation delay class generator
+ * 逐字动画延迟类生成器 / Per-character animation delay class generator
  *
- * 为字符生成递增延迟，实现依次弹出的节奏。
- * Generate incremental delays so characters pop in sequence
+ * 为字符生成递增延迟，实现依次弹出的节奏。 / Generate incremental delays so characters pop in sequence
  */
 @for $i from 0 through 100 {
   .delay-#{$i} {
@@ -145,11 +140,9 @@
 }
 
 /**
- * 弹出位移动画
- * Pop translate animation
+ * 弹出位移动画 / Pop translate animation
  *
- * 从下方进入并轻微越过目标位置后回落。
- * Enter from below, slightly overshoot, then settle into place
+ * 从下方进入并轻微越过目标位置后回落。 / Enter from below, slightly overshoot, then settle into place
  */
 @keyframes pop-up-translate {
   0% {
@@ -170,8 +163,7 @@
 }
 
 /**
- * 向下提示弹跳动画
- * Downward indicator bounce animation
+ * 向下提示弹跳动画 / Downward indicator bounce animation
  */
 @keyframes indicator-bounce {
   0%,

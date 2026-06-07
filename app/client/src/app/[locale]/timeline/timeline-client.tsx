@@ -3,8 +3,7 @@
 /**
  * 时间线客户端组件 / Timeline client component
  *
- * 按年份分组分页文章，并渲染带加载哨兵的时间线列表。
- * Group paginated posts by year and render the timeline with a load-more sentinel
+ * 按年份分组分页文章，并渲染带加载哨兵的时间线列表。 / Group paginated posts by year and render the timeline with a load-more sentinel
  */
 
 import PulsatingDots from "@/components/loading/pulsating-dots";

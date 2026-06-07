@@ -5,8 +5,7 @@ import type { Post } from "@/types/post";
 /**
  * 文章数据服务 / Post data service
  *
- * 封装文章列表、时间线列表和文章详情的后端请求。
- * Wrap backend requests for post lists, timeline lists, and post details
+ * 封装文章列表、时间线列表和文章详情的后端请求。 / Wrap backend requests for post lists, timeline lists, and post details
  */
 const POSTS_PAGE_SIZE = 15;
 

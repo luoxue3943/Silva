@@ -1,5 +1,5 @@
-# Git 忽略规则参考 / Reference for Git ignore rules:
-# https://help.github.com/articles/ignoring-files/
+# Git 忽略规则参考 / Reference for Git ignore rules
+# 参考链接 / Reference link: https://help.github.com/articles/ignoring-files/
 
 # 依赖目录 / Dependency directories
 /node_modules
@@ -31,7 +31,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# 环境变量文件（需要时可选择提交）/ Environment files (can opt in to committing when needed)
+# 环境变量文件（需要时可选择提交） / Environment files (can opt in to committing when needed)
 .env*
 
 # Vercel 本地产物 / Vercel local artifacts

@@ -10,8 +10,7 @@ export interface LocalizedNameConfig {
   /**
    * 默认展示名称 / Default display name
    *
-   * 从 names.default 或第一个可用的本地化名称归一化得到。
-   * Normalize from names.default or the first available localized name
+   * 从 names.default 或第一个可用的本地化名称归一化得到。 / Normalize from names.default or the first available localized name
    */
   name: string;
 
@@ -19,10 +18,10 @@ export interface LocalizedNameConfig {
    * 可扩展的本地化名称映射 / Extensible localized name map
    *
    * 示例 / Examples:
-   * - default: "示例"
-   * - zh-CN: "示例"
-   * - en-US: "example"
-   * - ja-JP: "サンプル"
+   * - 默认值示例 / Default example: default: "示例"
+   * - 中文示例 / Chinese example: zh-CN: "示例"
+   * - 英文示例 / English example: en-US: "example"
+   * - 日文示例 / Japanese example: ja-JP: "サンプル"
    */
   names?: LocalizedTextMap;
 }

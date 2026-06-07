@@ -1,6 +1,5 @@
 # ============================================================================
-# Silva 配置文件示例
-# Silva Configuration File Example
+# Silva 配置文件示例 / Silva Configuration File Example
 # ============================================================================
 # 使用说明 / Usage Instructions:
 # 1. 复制此文件并重命名为 `SilvaConfig.yaml` / Copy this file and rename to `SilvaConfig.yaml`
@@ -9,8 +8,7 @@
 # ============================================================================
 
 # ----------------------------------------------------------------------------
-# 网站信息配置
-# Site Information Configuration
+# 网站信息配置 / Site Information Configuration
 # ----------------------------------------------------------------------------
 site:
   # 网站所有者名称（默认）/ Site owner name (default)
@@ -31,16 +29,12 @@ site:
   copyright: "Copyright © 2025 珞雪"
 
   # 注意事项 / Notes:
-  # - 建议名称长度：中文 5 字符以内，英文 10 字符以内
-  #   Recommended length: Chinese within 5 chars, English within 10 chars
-  # - names 支持继续添加更多语言，例如 ja-JP、ko-KR、fr-FR
-  #   names supports adding more languages, such as ja-JP, ko-KR, fr-FR
-  # - default 是最终兜底名称；如果当前 locale 没有匹配项，会显示 default
-  #   default is the final fallback name when the current locale has no match
+  # - 建议名称长度：中文 5 字符以内，英文 10 字符以内 / Recommended length: Chinese within 5 chars, English within 10 chars
+  # - names 支持继续添加更多语言，例如 ja-JP、ko-KR、fr-FR / names supports adding more languages, such as ja-JP, ko-KR, fr-FR
+  # - default 是最终兜底名称；如果当前 locale 没有匹配项，会显示 default / default is the final fallback name when the current locale has no match
 
 # ----------------------------------------------------------------------------
-# 社交链接配置
-# Social Links Configuration
+# 社交链接配置 / Social Links Configuration
 # ----------------------------------------------------------------------------
 links:
   # GitHub 链接 / GitHub link
@@ -64,8 +58,7 @@ links:
   # - 可以删除不需要的链接 / Can remove unwanted links
 
 # ----------------------------------------------------------------------------
-# 备案信息配置
-# Filing Information Configuration
+# 备案信息配置 / Filing Information Configuration
 # ----------------------------------------------------------------------------
 filings:
   # ICP 备案 / ICP Filing
@@ -77,14 +70,12 @@ filings:
     url: "http://www.beian.gov.cn/portal/registerSystemInfo"
 
   # 注意事项 / Notes:
-  # - 如果不需要备案信息，可以删除整个 filings 部分
-  #   If filing info is not needed, remove the entire filings section
+  # - 如果不需要备案信息，可以删除整个 filings 部分 / If filing info is not needed, remove the entire filings section
   # - 可以添加多个备案信息 / Can add multiple filing entries
   # - 将 xxxxxxxx 替换为实际的备案号 / Replace xxxxxxxx with actual filing number
 
 # ----------------------------------------------------------------------------
-# 文章分类配置
-# Post Categories Configuration
+# 文章分类配置 / Post Categories Configuration
 # ----------------------------------------------------------------------------
 categories:
   # 分类名称 / Category name
@@ -116,8 +107,7 @@ categories:
     # - 可以根据需要添加更多分类 / Can add more categories as needed
 
 # ----------------------------------------------------------------------------
-# SEO 元数据配置
-# SEO Metadata Configuration
+# SEO 元数据配置 / SEO Metadata Configuration
 # ----------------------------------------------------------------------------
 seo:
   # 网站标题 / Site title

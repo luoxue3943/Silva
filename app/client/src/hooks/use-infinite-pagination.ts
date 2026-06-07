@@ -7,8 +7,7 @@ import type { PaginationResponse } from "@/types/pagination";
 /**
  * 无限分页 Hook / Infinite pagination hook
  *
- * 统一处理分页状态、并发请求保护、错误状态和触底加载。
- * Centralize pagination state, concurrent-request guards, errors, and load-more triggers
+ * 统一处理分页状态、并发请求保护、错误状态和触底加载。 / Centralize pagination state, concurrent-request guards, errors, and load-more triggers
  */
 
 type UseInfinitePaginationOptions<T> = {

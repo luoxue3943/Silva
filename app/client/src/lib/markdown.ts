@@ -3,8 +3,7 @@ import "server-only";
 /**
  * Markdown 渲染工具 / Markdown rendering utilities
  *
- * 将 Markdown 安全转换为 HTML，并为代码块补充高亮与复制能力。
- * Convert Markdown to safe HTML and add highlighting plus copy support for code blocks
+ * 将 Markdown 安全转换为 HTML，并为代码块补充高亮与复制能力。 / Convert Markdown to safe HTML and add highlighting plus copy support for code blocks
  */
 
 import type { Root as MdastRoot } from "mdast";
@@ -42,11 +41,9 @@ function isText(node: unknown): node is Text {
 }
 
 /**
- * remark 安全插件：将 HTML 节点降级为纯文本节点。
- * remark safety plugin: Downgrades HTML nodes to plain text nodes.
+ * remark 安全插件：将 HTML 节点降级为纯文本节点。 / remark safety plugin: Downgrades HTML nodes to plain text nodes.
  *
- * 避免 Markdown 原生 HTML 直接渲染成真实 DOM。
- * Prevent raw Markdown HTML from being rendered as real DOM
+ * 避免 Markdown 原生 HTML 直接渲染成真实 DOM。 / Prevent raw Markdown HTML from being rendered as real DOM
  */
 function remarkHtmlToText() {
   return (tree: MdastRoot) => {
@@ -93,8 +90,7 @@ function getCodeLanguage(codeNode: Element): string {
 }
 
 /**
- * rehype 代码块插件：添加语言标签和复制按钮。
- * rehype code block plugin: Adds language labels and copy buttons.
+ * rehype 代码块插件：添加语言标签和复制按钮。 / rehype code block plugin: Adds language labels and copy buttons.
  */
 function rehypeCodeBlock() {
   return (tree: HastRoot) => {
@@ -177,15 +173,14 @@ function rehypeCodeBlock() {
 }
 
 /**
- * 将 Markdown 字符串编译为经过清理的 HTML。
- * Compile a Markdown string into sanitized HTML
+ * 将 Markdown 字符串编译为经过清理的 HTML。 / Compile a Markdown string into sanitized HTML
  *
  * 安全处理流程 / Security pipeline:
- * 1. remarkHtmlToText：把 Markdown 原生 HTML 转为纯文本。
- * 2. remark-rehype：保持 allowDangerousHtml 关闭。
- * 3. rehype-prism-plus：在服务端完成代码高亮。
- * 4. rehypeCodeBlock：注入代码块工具栏与复制按钮。
- * 5. rehype-sanitize：只保留允许的标签和属性。
+ * 1. remarkHtmlToText：把 Markdown 原生 HTML 转为纯文本 / Converts raw Markdown HTML into plain text.
+ * 2. remark-rehype：保持 allowDangerousHtml 关闭 / Keeps allowDangerousHtml disabled.
+ * 3. rehype-prism-plus：在服务端完成代码高亮 / Applies code highlighting on the server.
+ * 4. rehypeCodeBlock：注入代码块工具栏与复制按钮 / Injects the code block toolbar and copy button.
+ * 5. rehype-sanitize：只保留允许的标签和属性 / Keeps only allowed tags and attributes.
  *
  * @param markdown 待渲染的 Markdown 原文 / Markdown source to render
  * @returns 清理后的 HTML 字符串 / Sanitized HTML string

@@ -47,8 +47,7 @@ function getOrCreateGuestId() {
 /**
  * 页脚统计客户端组件 / Footer stats client component
  *
- * 记录当前访客访问，并在失败时回退为只读取统计数据。
- * Record the current guest visit and fall back to read-only stats loading on failure
+ * 记录当前访客访问，并在失败时回退为只读取统计数据。 / Record the current guest visit and fall back to read-only stats loading on failure
  */
 export default function FooterStatsClient({
   labels,

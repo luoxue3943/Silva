@@ -6,8 +6,7 @@ import path from "node:path";
 /**
  * 本地文章读取工具 / Local article reading utilities
  *
- * 从项目 article 目录读取 Markdown，并为缺失文件提供回退内容。
- * Read Markdown from the project article directory and provide fallback content when missing
+ * 从项目 article 目录读取 Markdown，并为缺失文件提供回退内容。 / Read Markdown from the project article directory and provide fallback content when missing
  */
 
 const ARTICLE_ROOT = path.join(process.cwd(), "article");

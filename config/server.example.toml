@@ -26,8 +26,8 @@ allowed_origins = [
 default_location = "Unknown"
 
 [ipinfo]
-# IPinfo Lite API token, used to resolve comment locations from visitor IPs.
-# Get one from https://ipinfo.io/developers/lite-api
+# IPinfo Lite API token，用于根据访客 IP 解析评论地点 / IPinfo Lite API token, used to resolve comment locations from visitor IPs
+# 获取地址 / Get one from: https://ipinfo.io/developers/lite-api
 token = ""
 
 [stats]

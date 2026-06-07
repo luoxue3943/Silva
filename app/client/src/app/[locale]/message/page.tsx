@@ -16,8 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * 留言板页面 / Message board page
  *
- * 渲染页面标题、欢迎文案和站点级评论组件。
- * Render the page title, welcome text, and site-level comments component
+ * 渲染页面标题、欢迎文案和站点级评论组件。 / Render the page title, welcome text, and site-level comments component
  */
 export default async function MessagePage() {
   const t = await getTranslations("MessageBoard");
