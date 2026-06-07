@@ -22,4 +22,4 @@ This project includes or uses third-party components under their respective lice
 
 See the [LICENSE](LICENSE) file and [LICENSES/](LICENSES/) directory for complete license texts.
 
-For a full list of third-party dependencies and their licenses, see [THIRD_PARTY_LICENSES.txt](THIRD_PARTY_LICENSES.txt).
+For full lists of third-party dependencies and their licenses, see [THIRD_PARTY_LICENSES_CLIENT.txt](LICENSES/THIRD_PARTY_LICENSES_CLIENT.txt) and [THIRD_PARTY_LICENSES_ADMIN.txt](LICENSES/THIRD_PARTY_LICENSES_ADMIN.txt).

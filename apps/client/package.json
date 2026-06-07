@@ -9,7 +9,7 @@
     "start": "next start",
     "check": "eslint . && stylelint \"src/**/*.{css,scss}\" && prettier . --check",
     "fix": "eslint . --fix && stylelint \"src/**/*.{css,scss}\" --fix && prettier . --write",
-    "generate-license-file": "generate-license-file --input ./package.json --output ../../THIRD_PARTY_LICENSES.txt --overwrite --ci"
+    "generate-license-file": "generate-license-file --input ./package.json --output ../../LICENSES/THIRD_PARTY_LICENSES_CLIENT.txt --overwrite --ci"
   },
   "dependencies": {
     "@alova/scene-react": "^1.6.2",
