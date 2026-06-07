@@ -1,0 +1,15 @@
+# pnpm build script allowlist
+allowBuilds:
+  "@parcel/watcher": true
+  "@swc/core": true
+  sharp: true
+  unrs-resolver: true
+
+# Dependency build scripts handled separately
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
+# Published packages allowed without release-age delay
+minimumReleaseAgeExclude:
+  - generate-license-file@4.2.1

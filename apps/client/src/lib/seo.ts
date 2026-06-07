@@ -68,7 +68,7 @@ export function getSeoTitle(title?: string | null) {
     return siteTitle;
   }
 
-  return `${title} | ${siteTitle}`;
+  return `${title} - ${siteTitle}`;
 }
 
 export function getSeoKeywords(keywords?: string[] | null) {
@@ -149,7 +149,7 @@ export function createDefaultMetadata(pathname = "/"): Metadata {
     metadataBase: new URL(getSiteBaseUrl()),
     title: {
       default: title,
-      template: `%s | ${title}`,
+      template: `%s - ${title}`,
     },
     description,
     authors: [{ name: SilvaConfig.seo.author }],

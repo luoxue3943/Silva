@@ -1,0 +1,35 @@
+@use "./variables" as var;
+
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  color: rgb(255 255 255);
+  background-color: var.$background-color;
+  flex-direction: column;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  flex: 1;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgb(136 136 136);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(85 85 85);
+}
