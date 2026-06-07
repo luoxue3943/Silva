@@ -22,6 +22,27 @@ CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_posts_category ON posts (category) WHERE deleted_at IS NULL;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_posts_slug ON posts (slug) WHERE slug IS NOT NULL;
 
+CREATE TABLE IF NOT EXISTS projects (
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    summary TEXT NOT NULL DEFAULT '',
+    link TEXT NOT NULL,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ,
+    deleted_at TIMESTAMPTZ
+);
+
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS summary TEXT NOT NULL DEFAULT '';
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS link TEXT NOT NULL DEFAULT '';
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS sort_order INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ;
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ;
+
+CREATE INDEX IF NOT EXISTS idx_projects_sort_order
+    ON projects (sort_order ASC, id ASC)
+    WHERE deleted_at IS NULL;
+
 CREATE TABLE IF NOT EXISTS comments (
     id BIGSERIAL PRIMARY KEY,
     post_id BIGINT REFERENCES posts (id) ON DELETE CASCADE,
@@ -68,7 +89,7 @@ CREATE TABLE IF NOT EXISTS site_guests (
     last_seen_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-TRUNCATE TABLE comments, posts, site_guests, site_stats RESTART IDENTITY CASCADE;
+TRUNCATE TABLE comments, posts, projects, site_guests, site_stats RESTART IDENTITY CASCADE;
 
 INSERT INTO site_stats (id, total_visits, total_guests)
 VALUES (1, 0, 0);

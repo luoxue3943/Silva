@@ -2,4 +2,5 @@
 
 pub mod comment;
 pub mod post;
+pub mod project;
 pub mod stats;

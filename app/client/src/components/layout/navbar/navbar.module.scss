@@ -335,3 +335,11 @@
     transform: translate(-50%, 0.75rem) scale(0.96);
   }
 }
+
+.nav-trigger {
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: default;
+  font: inherit;
+}

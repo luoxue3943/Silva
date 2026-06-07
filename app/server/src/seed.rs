@@ -13,6 +13,14 @@ struct PostSeed {
     updated_at: Option<&'static str>,
 }
 
+/// 项目种子数据 / Project seed data.
+struct ProjectSeed {
+    name: &'static str,
+    summary: &'static str,
+    link: &'static str,
+    sort_order: i32,
+}
+
 /// 评论种子数据 / Comment seed data.
 struct CommentSeed {
     id: i64,
@@ -170,6 +178,64 @@ const POST_SEEDS: &[PostSeed] = &[
     },
 ];
 
+/// 项目种子列表 / Project seed list.
+const PROJECT_SEEDS: &[ProjectSeed] = &[
+    ProjectSeed {
+        name: "Silva Blog",
+        summary: "A personal publishing site with posts, timeline, comments, and statistics.",
+        link: "http://localhost:3000",
+        sort_order: 10,
+    },
+    ProjectSeed {
+        name: "Project Gallery",
+        summary: "The new card-based project directory used to verify the More dropdown route.",
+        link: "http://localhost:3000/more/project",
+        sort_order: 20,
+    },
+    ProjectSeed {
+        name: "Comment Threads",
+        summary: "Nested site and article comments with visible pagination test data.",
+        link: "http://localhost:3000/message",
+        sort_order: 30,
+    },
+    ProjectSeed {
+        name: "Timeline Archive",
+        summary: "Chronological post archive that checks grouping by year and pagination.",
+        link: "http://localhost:3000/timeline",
+        sort_order: 40,
+    },
+    ProjectSeed {
+        name: "Tech Category",
+        summary: "Filtered post list for the tech category from the navbar article dropdown.",
+        link: "http://localhost:3000/posts?category=tech",
+        sort_order: 50,
+    },
+    ProjectSeed {
+        name: "Advanced Notes",
+        summary: "Filtered post list for advanced implementation notes and UI states.",
+        link: "http://localhost:3000/posts?category=advanced",
+        sort_order: 60,
+    },
+    ProjectSeed {
+        name: "I18n Routes",
+        summary: "Internationalization examples for route labels, metadata, and date copy.",
+        link: "http://localhost:3000/posts?category=i18n",
+        sort_order: 70,
+    },
+    ProjectSeed {
+        name: "Article Detail",
+        summary: "A populated article detail page with metadata, markdown fallback, and comments.",
+        link: "http://localhost:3000/posts/1",
+        sort_order: 80,
+    },
+    ProjectSeed {
+        name: "Stats Footer",
+        summary: "Persisted visitor and guest counters for checking the footer statistics.",
+        link: "http://localhost:3000",
+        sort_order: 90,
+    },
+];
+
 /// 评论作者池 / Comment author pool.
 const AUTHORS: &[&str] = &[
     "Ada", "Linus", "Grace", "Ken", "Mira", "Nolan", "Rhea", "Tao", "Vera", "Yuki",
@@ -190,7 +256,10 @@ const LOCATIONS: &[&str] = &[
 /// 写入所有种子数据并刷新自增序列 / Writes all seed data and refreshes serial sequences.
 pub async fn run(db: &PgPool) -> SeedResult<()> {
     seed_posts(db).await?;
+    seed_projects(db).await?;
     seed_comments(db).await?;
+    seed_site_stats(db).await?;
+    seed_site_guests(db).await?;
     refresh_sequences(db).await?;
 
     Ok(())
@@ -243,6 +312,41 @@ async fn seed_posts(db: &PgPool) -> SeedResult<()> {
     Ok(())
 }
 
+/// 写入项目种子数据 / Writes project seed data.
+async fn seed_projects(db: &PgPool) -> SeedResult<()> {
+    for (index, project) in PROJECT_SEEDS.iter().enumerate() {
+        let id = index as i64 + 1;
+
+        sqlx::query(
+            r#"
+            INSERT INTO projects (
+                id, name, summary, link, sort_order, created_at, updated_at
+            )
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            ON CONFLICT (id) DO UPDATE
+            SET name = EXCLUDED.name,
+                summary = EXCLUDED.summary,
+                link = EXCLUDED.link,
+                sort_order = EXCLUDED.sort_order,
+                created_at = EXCLUDED.created_at,
+                updated_at = EXCLUDED.updated_at,
+                deleted_at = NULL
+            "#,
+        )
+        .bind(id)
+        .bind(project.name)
+        .bind(project.summary)
+        .bind(project.link)
+        .bind(project.sort_order)
+        .bind(parse_seed_time("2026-06-07T09:00:00+08:00") + Duration::minutes(index as i64))
+        .bind(parse_seed_time("2026-06-07T10:00:00+08:00"))
+        .execute(db)
+        .await?;
+    }
+
+    Ok(())
+}
+
 /// 写入评论种子数据 / Writes comment seed data.
 async fn seed_comments(db: &PgPool) -> SeedResult<()> {
     for comment in build_comments() {
@@ -273,6 +377,50 @@ async fn seed_comments(db: &PgPool) -> SeedResult<()> {
         .bind(comment.content)
         .bind(comment.location)
         .bind(comment.created_at)
+        .execute(db)
+        .await?;
+    }
+
+    Ok(())
+}
+
+/// 写入站点统计种子数据 / Writes site stats seed data.
+async fn seed_site_stats(db: &PgPool) -> SeedResult<()> {
+    sqlx::query(
+        r#"
+        INSERT INTO site_stats (id, total_visits, total_guests, updated_at)
+        VALUES (1, 12876, 128, $1)
+        ON CONFLICT (id) DO UPDATE
+        SET total_visits = EXCLUDED.total_visits,
+            total_guests = EXCLUDED.total_guests,
+            updated_at = EXCLUDED.updated_at
+        "#,
+    )
+    .bind(parse_seed_time("2026-06-07T10:30:00+08:00"))
+    .execute(db)
+    .await?;
+
+    Ok(())
+}
+
+/// 写入站点访客种子数据 / Writes site guest seed data.
+async fn seed_site_guests(db: &PgPool) -> SeedResult<()> {
+    for index in 1..=128 {
+        let first_seen_at = parse_seed_time("2026-05-01T08:00:00+08:00") + Duration::hours(index);
+        let last_seen_at = first_seen_at + Duration::days((index % 21) as i64);
+
+        sqlx::query(
+            r#"
+            INSERT INTO site_guests (guest_id, first_seen_at, last_seen_at)
+            VALUES ($1, $2, $3)
+            ON CONFLICT (guest_id) DO UPDATE
+            SET first_seen_at = EXCLUDED.first_seen_at,
+                last_seen_at = EXCLUDED.last_seen_at
+            "#,
+        )
+        .bind(format!("seed-guest-{index:03}"))
+        .bind(first_seen_at)
+        .bind(last_seen_at)
         .execute(db)
         .await?;
     }
@@ -419,13 +567,25 @@ fn slugify_title(title: &str) -> String {
     slug
 }
 
-/// 刷新 posts 和 comments 的自增序列 / Refreshes serial sequences for posts and comments.
+/// 刷新自增序列 / Refreshes serial sequences.
 async fn refresh_sequences(db: &PgPool) -> SeedResult<()> {
     sqlx::query(
         r#"
         SELECT setval(
             pg_get_serial_sequence('posts', 'id')::regclass,
             (SELECT GREATEST(COALESCE(MAX(id), 1), 1) FROM posts),
+            true
+        )
+        "#,
+    )
+    .execute(db)
+    .await?;
+
+    sqlx::query(
+        r#"
+        SELECT setval(
+            pg_get_serial_sequence('projects', 'id')::regclass,
+            (SELECT GREATEST(COALESCE(MAX(id), 1), 1) FROM projects),
             true
         )
         "#,

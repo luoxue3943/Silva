@@ -1,0 +1,117 @@
+.projects-section {
+  padding: 2rem 1rem 4rem;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.projects-header {
+  margin: 0 auto 2rem;
+  width: min(80%, 72rem);
+  text-align: center;
+
+  h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0 auto;
+  width: min(80%, 72rem);
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 8px;
+  padding: 1.25rem;
+  min-height: 12rem;
+  text-decoration: none;
+  color: inherit;
+  background: rgb(17 17 17 / 88%);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    border-color: rgb(122 241 167 / 30%);
+    background: rgb(42 48 45 / 88%);
+    transform: translateY(-2px);
+  }
+}
+
+.project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.7;
+    color: rgb(255 255 255 / 68%);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.empty-state {
+  margin: 0 auto;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 8px;
+  padding: 3rem 1rem;
+  width: min(80%, 72rem);
+  text-align: center;
+  color: rgb(255 255 255 / 50%);
+  background: rgb(255 255 255 / 3%);
+}
+
+@media (width <= 960px) {
+  .projects-header,
+  .projects-grid,
+  .empty-state {
+    width: min(92%, 48rem);
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width <= 640px) {
+  .projects-section {
+    padding: 1rem 0.75rem 3rem;
+  }
+
+  .projects-header,
+  .projects-grid,
+  .empty-state {
+    width: 100%;
+  }
+
+  .projects-header h1 {
+    font-size: 2rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

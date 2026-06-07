@@ -90,6 +90,18 @@ type NavbarClientProps = {
   categories: NavbarCategory[];
 };
 
+type MoreMenuItem = {
+  title: string;
+  href: string;
+};
+
+const moreMenuItems: MoreMenuItem[] = [
+  {
+    title: "项目",
+    href: "http://localhost:3000/more/project",
+  },
+];
+
 export default function NavbarClient({ categories }: NavbarClientProps) {
   const pathname = usePathname() ?? "/";
   const locale = useLocale();
@@ -113,6 +125,11 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
     null,
   );
   const categoryMenuRef = useRef<HTMLDivElement | null>(null);
+
+  const [showMoreMenu, setShowMoreMenuState] = useState(false);
+  const [moreMenuClosing, setMoreMenuClosing] = useState(false);
+  const moreMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const moreMenuRef = useRef<HTMLDivElement | null>(null);
 
   const isActive = useCallback(
     (targetPathname: string) => normalizedPathname === targetPathname,
@@ -182,6 +199,35 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
     [finishCategoryClose, showCategoryMenu],
   );
 
+  const finishMoreClose = useCallback(() => {
+    setShowMoreMenuState(false);
+    setMoreMenuClosing(false);
+    moreMenuTimerRef.current = null;
+  }, []);
+
+  const setMoreMenu = useCallback(
+    (nextOpen: boolean) => {
+      if (moreMenuTimerRef.current) {
+        clearTimeout(moreMenuTimerRef.current);
+        moreMenuTimerRef.current = null;
+      }
+
+      if (nextOpen) {
+        setMoreMenuClosing(false);
+        setShowMoreMenuState(true);
+        return;
+      }
+
+      if (!showMoreMenu) {
+        return;
+      }
+
+      setMoreMenuClosing(true);
+      moreMenuTimerRef.current = setTimeout(finishMoreClose, 180);
+    },
+    [finishMoreClose, showMoreMenu],
+  );
+
   useEffect(() => {
     const updateScrolledState = () => {
       const scrollThreshold = window.innerHeight / 5;
@@ -220,6 +266,15 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
       ) {
         setCategoryMenu(false);
       }
+
+      if (
+        showMoreMenu &&
+        moreMenuRef.current &&
+        target &&
+        !moreMenuRef.current.contains(target)
+      ) {
+        setMoreMenu(false);
+      }
     };
 
     window.addEventListener("click", handleWindowClick);
@@ -227,7 +282,14 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
     return () => {
       window.removeEventListener("click", handleWindowClick);
     };
-  }, [setCategoryMenu, setLocaleMenu, showCategoryMenu, showLocaleMenu]);
+  }, [
+    setCategoryMenu,
+    setLocaleMenu,
+    setMoreMenu,
+    showCategoryMenu,
+    showLocaleMenu,
+    showMoreMenu,
+  ]);
 
   useEffect(() => {
     return () => {
@@ -237,6 +299,10 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
 
       if (categoryMenuTimerRef.current) {
         clearTimeout(categoryMenuTimerRef.current);
+      }
+
+      if (moreMenuTimerRef.current) {
+        clearTimeout(moreMenuTimerRef.current);
       }
     };
   }, []);
@@ -348,21 +414,54 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
           </Link>
 
           {/* 更多导航项占位 / More navigation placeholder */}
-          <div className={Modules["link-button"]}>
-            <div
-              className={`${Modules.title} ${
-                isStartWith("/more") ? Modules.active : ""
-              }`}
+          <div
+            className={Modules["category-wrapper"]}
+            onMouseEnter={() => setMoreMenu(true)}
+            onMouseLeave={() => setMoreMenu(false)}
+            ref={moreMenuRef}
+          >
+            <button
+              type="button"
+              className={`${Modules["link-button"]} ${Modules["nav-trigger"]}`}
+              aria-haspopup="menu"
+              aria-expanded={showMoreMenu}
             >
-              <span
-                className={`${Modules["nav-icon"]} icon-[mynaui--dots-circle] ${
-                  isStartWith("/more") ? "" : "hidden"
+              <div
+                className={`${Modules.title} ${
+                  isStartWith("/more") ? Modules.active : ""
                 }`}
-              />
-              <span className={Modules["nav-text"]} data-page="more">
-                {t("more")}
-              </span>
-            </div>
+              >
+                <span
+                  className={`${Modules["nav-icon"]} icon-[mynaui--dots-circle] ${
+                    isStartWith("/more") ? "" : "hidden"
+                  }`}
+                />
+                <span className={Modules["nav-text"]} data-page="more">
+                  {t("more")}
+                </span>
+              </div>
+            </button>
+
+            {showMoreMenu && (
+              <div
+                className={`${Modules["category-menu"]} ${
+                  moreMenuClosing ? Modules.closing : ""
+                }`.trim()}
+                onMouseEnter={() => setMoreMenu(true)}
+                onMouseLeave={() => setMoreMenu(false)}
+              >
+                {moreMenuItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={Modules["category-option"]}
+                    onClick={() => setMoreMenu(false)}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

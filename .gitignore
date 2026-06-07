@@ -2,6 +2,7 @@
 app/client/.vscode/
 app/client/article/
 app/server/target/
+sql/seed_check_data.sql
 server.toml
 SilvaConfig.yaml
 .codex-screenshots/
