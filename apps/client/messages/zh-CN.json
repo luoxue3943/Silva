@@ -6,6 +6,7 @@
     "home": "首页",
     "posts": "文章",
     "timeline": "时间线",
+    "murmurs": "碎碎念",
     "messages": "留言",
     "more": "更多",
     "message": "留言"
@@ -32,6 +33,12 @@
     "dayPercentage": "今天已过 {percentage}%",
     "motto": "活在当下，珍惜眼下",
     "postsCount": "{count} 篇"
+  },
+  "Murmurs": {
+    "title": "碎碎念",
+    "totalMurmurs": "共有 {count} 条碎碎念",
+    "murmursCount": "{count} 条",
+    "motto": "一些还没长成文章的小念头。"
   },
   "Categories": {
     "tech": "技术",

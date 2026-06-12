@@ -257,8 +257,12 @@
     view-transition-name: nav-text-timeline;
   }
 
-  &[data-page="messages"] {
-    view-transition-name: nav-text-messages;
+  &[data-page="murmurs"] {
+    view-transition-name: nav-text-murmurs;
+  }
+
+  &[data-page="message"] {
+    view-transition-name: nav-text-message;
   }
 
   &[data-page="more"] {
@@ -275,8 +279,10 @@
 ::view-transition-new(nav-text-posts),
 ::view-transition-old(nav-text-timeline),
 ::view-transition-new(nav-text-timeline),
-::view-transition-old(nav-text-messages),
-::view-transition-new(nav-text-messages),
+::view-transition-old(nav-text-murmurs),
+::view-transition-new(nav-text-murmurs),
+::view-transition-old(nav-text-message),
+::view-transition-new(nav-text-message),
 ::view-transition-old(nav-text-more),
 ::view-transition-new(nav-text-more) {
   animation-duration: 0.5s;

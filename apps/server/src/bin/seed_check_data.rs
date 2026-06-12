@@ -15,6 +15,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "SELECT COUNT(*) FROM projects WHERE deleted_at IS NULL",
     )
     .await?;
+    let murmurs =
+        scalar_count(&db, "SELECT COUNT(*) FROM murmurs WHERE deleted_at IS NULL").await?;
     let posts = scalar_count(&db, "SELECT COUNT(*) FROM posts WHERE deleted_at IS NULL").await?;
     let site_comments = scalar_count(
         &db,
@@ -32,6 +34,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
 
     println!("seeded projects: {projects}");
+    println!("seeded murmurs: {murmurs}");
     println!("seeded posts: {posts}");
     println!("seeded site comments: {site_comments}");
     println!("seeded article comments: {article_comments}");

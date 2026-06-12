@@ -21,6 +21,13 @@ struct ProjectSeed {
     sort_order: i32,
 }
 
+/// Murmur seed data.
+struct MurmurSeed {
+    content: &'static str,
+    created_at: &'static str,
+    updated_at: Option<&'static str>,
+}
+
 /// 评论种子数据 / Comment seed data.
 struct CommentSeed {
     id: i64,
@@ -237,6 +244,51 @@ const PROJECT_SEEDS: &[ProjectSeed] = &[
 ];
 
 /// 评论作者池 / Comment author pool.
+/// Murmur seed list.
+const MURMUR_SEEDS: &[MurmurSeed] = &[
+    MurmurSeed {
+        content: "把今天的任务拆小一点，再拆小一点，落地就会轻很多。",
+        created_at: "2026-06-11T22:18:00+08:00",
+        updated_at: None,
+    },
+    MurmurSeed {
+        content: "雨停之后的空气很清醒。\n适合整理一段代码，也适合重新想一想下一篇要写什么。",
+        created_at: "2026-06-08T20:45:00+08:00",
+        updated_at: None,
+    },
+    MurmurSeed {
+        content: "给时间线旁边添一块更轻的地方，放一些没有长成文章的念头。",
+        created_at: "2026-06-02T09:12:00+08:00",
+        updated_at: None,
+    },
+    MurmurSeed {
+        content: "有些想法不需要完整标题。\n两三行也可以自洽，留下当时的温度就够了。",
+        created_at: "2026-05-26T23:06:00+08:00",
+        updated_at: None,
+    },
+    MurmurSeed {
+        content: "周末把旧笔记翻了一遍，发现很多问题其实已经回答过自己一次。",
+        created_at: "2026-05-18T16:30:00+08:00",
+        updated_at: None,
+    },
+    MurmurSeed {
+        content: "不要急着把每个页面都做满。\n留白也是结构的一部分。",
+        created_at: "2026-04-29T11:20:00+08:00",
+        updated_at: None,
+    },
+    MurmurSeed {
+        content: "长期维护一个小站，最重要的是愿意回来看看。",
+        created_at: "2026-04-12T18:42:00+08:00",
+        updated_at: None,
+    },
+    MurmurSeed {
+        content: "今天的结论：先把命名想清楚，后面的代码会少很多犹豫。",
+        created_at: "2026-03-19T21:08:00+08:00",
+        updated_at: None,
+    },
+];
+
+/// Comment author pool.
 const AUTHORS: &[&str] = &[
     "Ada", "Linus", "Grace", "Ken", "Mira", "Nolan", "Rhea", "Tao", "Vera", "Yuki",
 ];
@@ -257,6 +309,7 @@ const LOCATIONS: &[&str] = &[
 pub async fn run(db: &PgPool) -> SeedResult<()> {
     seed_posts(db).await?;
     seed_projects(db).await?;
+    seed_murmurs(db).await?;
     seed_comments(db).await?;
     seed_site_stats(db).await?;
     seed_site_guests(db).await?;
@@ -340,6 +393,37 @@ async fn seed_projects(db: &PgPool) -> SeedResult<()> {
         .bind(project.sort_order)
         .bind(parse_seed_time("2026-06-07T09:00:00+08:00") + Duration::minutes(index as i64))
         .bind(parse_seed_time("2026-06-07T10:00:00+08:00"))
+        .execute(db)
+        .await?;
+    }
+
+    Ok(())
+}
+
+/// Writes murmur seed data.
+async fn seed_murmurs(db: &PgPool) -> SeedResult<()> {
+    for (index, murmur) in MURMUR_SEEDS.iter().enumerate() {
+        let id = index as i64 + 1;
+        let created_at = parse_seed_time(murmur.created_at);
+        let updated_at = murmur.updated_at.map(parse_seed_time);
+
+        sqlx::query(
+            r#"
+            INSERT INTO murmurs (
+                id, content, created_at, updated_at
+            )
+            VALUES ($1, $2, $3, $4)
+            ON CONFLICT (id) DO UPDATE
+            SET content = EXCLUDED.content,
+                created_at = EXCLUDED.created_at,
+                updated_at = EXCLUDED.updated_at,
+                deleted_at = NULL
+            "#,
+        )
+        .bind(id)
+        .bind(murmur.content)
+        .bind(created_at)
+        .bind(updated_at)
         .execute(db)
         .await?;
     }
@@ -598,6 +682,18 @@ async fn refresh_sequences(db: &PgPool) -> SeedResult<()> {
         SELECT setval(
             pg_get_serial_sequence('comments', 'id')::regclass,
             (SELECT GREATEST(COALESCE(MAX(id), 1), 1) FROM comments),
+            true
+        )
+        "#,
+    )
+    .execute(db)
+    .await?;
+
+    sqlx::query(
+        r#"
+        SELECT setval(
+            pg_get_serial_sequence('murmurs', 'id')::regclass,
+            (SELECT GREATEST(COALESCE(MAX(id), 1), 1) FROM murmurs),
             true
         )
         "#,

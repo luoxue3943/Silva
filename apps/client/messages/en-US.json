@@ -6,6 +6,7 @@
     "home": "Home",
     "posts": "Posts",
     "timeline": "Timeline",
+    "murmurs": "Murmurs",
     "messages": "Messages",
     "more": "More",
     "message": "Message"
@@ -32,6 +33,12 @@
     "dayPercentage": "{percentage}% of today has passed",
     "postsCount": "{count} posts",
     "motto": "Live in the present and cherish the moment."
+  },
+  "Murmurs": {
+    "title": "Murmurs",
+    "totalMurmurs": "{count} murmurs in total",
+    "murmursCount": "{count} murmurs",
+    "motto": "Small thoughts that have not grown into articles yet."
   },
   "Categories": {
     "tech": "Tech",

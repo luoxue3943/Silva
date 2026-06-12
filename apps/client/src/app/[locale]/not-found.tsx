@@ -5,8 +5,8 @@ export default async function NotFound() {
   const t = await getTranslations("NotFound");
 
   return (
-    <section className="mx-auto flex min-h-[55vh] w-full max-w-3xl flex-col items-center justify-center px-6 py-20 text-center">
-      <p className="mb-3 text-sm font-semibold text-emerald-300">404</p>
+    <section className="px-auto absolute top-0 bottom-0 flex w-full flex-col items-center justify-center pb-14 text-center">
+      <p className="mb-3 text-5xl font-semibold text-emerald-300">404</p>
 
       <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
         {t("title")}

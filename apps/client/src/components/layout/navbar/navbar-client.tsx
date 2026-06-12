@@ -394,6 +394,24 @@ export default function NavbarClient({ categories }: NavbarClientProps) {
             </div>
           </Link>
 
+          {/* 碎碎念导航项 / Murmurs navigation item */}
+          <Link href="/murmurs" className={Modules["link-button"]}>
+            <div
+              className={`${Modules.title} ${
+                isStartWith("/murmurs") ? Modules.active : ""
+              }`}
+            >
+              <span
+                className={`${Modules["nav-icon"]} icon-[mynaui--chat-dots] ${
+                  isStartWith("/murmurs") ? "" : "hidden"
+                }`}
+              />
+              <span className={Modules["nav-text"]} data-page="murmurs">
+                {t("murmurs")}
+              </span>
+            </div>
+          </Link>
+
           {/* 留言导航项 / Message navigation item */}
           <Link href="/message" className={Modules["link-button"]}>
             <div

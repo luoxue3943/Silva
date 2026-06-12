@@ -43,6 +43,22 @@ CREATE INDEX IF NOT EXISTS idx_projects_sort_order
     ON projects (sort_order ASC, id ASC)
     WHERE deleted_at IS NULL;
 
+CREATE TABLE IF NOT EXISTS murmurs (
+    id BIGSERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ,
+    deleted_at TIMESTAMPTZ
+);
+
+ALTER TABLE murmurs ADD COLUMN IF NOT EXISTS content TEXT NOT NULL DEFAULT '';
+ALTER TABLE murmurs ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ;
+ALTER TABLE murmurs ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ;
+
+CREATE INDEX IF NOT EXISTS idx_murmurs_created_at
+    ON murmurs (created_at DESC, id DESC)
+    WHERE deleted_at IS NULL;
+
 CREATE TABLE IF NOT EXISTS comments (
     id BIGSERIAL PRIMARY KEY,
     post_id BIGINT REFERENCES posts (id) ON DELETE CASCADE,
@@ -89,7 +105,7 @@ CREATE TABLE IF NOT EXISTS site_guests (
     last_seen_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-TRUNCATE TABLE comments, posts, projects, site_guests, site_stats RESTART IDENTITY CASCADE;
+TRUNCATE TABLE comments, posts, projects, murmurs, site_guests, site_stats RESTART IDENTITY CASCADE;
 
 INSERT INTO site_stats (id, total_visits, total_guests)
 VALUES (1, 0, 0);
