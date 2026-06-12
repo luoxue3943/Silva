@@ -7,3 +7,4 @@ server.toml
 SilvaConfig.yaml
 .codex-screenshots/
 .pnpm-store
+.idea
