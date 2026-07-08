@@ -10,6 +10,9 @@ importers:
       next:
         specifier: 16.2.10
         version: 16.2.10(@babel/core@7.29.7)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0)
+      ofetch:
+        specifier: ^1.5.1
+        version: 1.5.1
       ogl:
         specifier: ^1.0.11
         version: 1.0.11
@@ -22,6 +25,12 @@ importers:
       sass:
         specifier: ^1.101.0
         version: 1.101.0
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      yaml:
+        specifier: ^2.9.0
+        version: 2.9.0
     devDependencies:
       "@iconify/json":
         specifier: ^2.2.497
@@ -2213,6 +2222,12 @@ packages:
       }
     engines: { node: ">= 0.4" }
 
+  destr@2.0.5:
+    resolution:
+      {
+        integrity: sha512-ugFTXCtDZunbzasqBxrK93Ik/DRYsO6S/fedkWEMKqt04xZ4csmnmwGDBAb07QWNaGMAmnTIemsYZCksjATwsA==,
+      }
+
   detect-libc@2.1.2:
     resolution:
       {
@@ -3869,6 +3884,12 @@ packages:
       }
     engines: { node: ">= 0.4" }
 
+  node-fetch-native@1.6.7:
+    resolution:
+      {
+        integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==,
+      }
+
   node-gyp@12.4.0:
     resolution:
       {
@@ -4009,6 +4030,12 @@ packages:
         integrity: sha512-gXah6aZrcUxjWg2zR2MwouP2eHlCBzdV4pygudehaKXSGW4v2AsRQUK+lwwXhii6KFZcunEnmSUoYp5CXibxtA==,
       }
     engines: { node: ">= 0.4" }
+
+  ofetch@1.5.1:
+    resolution:
+      {
+        integrity: sha512-2W4oUZlVaqAPAil6FUg/difl6YhqhUR7x2eZY4bQCko22UXg3hptq9KLQdqFClV+Wu85UX7hNtdGTngi/1BxcA==,
+      }
 
   ogl@1.0.11:
     resolution:
@@ -4522,6 +4549,12 @@ packages:
       }
     engines: { node: ">=10" }
     hasBin: true
+
+  server-only@0.0.1:
+    resolution:
+      {
+        integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==,
+      }
 
   set-function-length@1.2.2:
     resolution:
@@ -5046,6 +5079,12 @@ packages:
     engines: { node: ">=14.17" }
     hasBin: true
 
+  ufo@1.6.4:
+    resolution:
+      {
+        integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==,
+      }
+
   unbox-primitive@1.1.0:
     resolution:
       {
@@ -5203,6 +5242,14 @@ packages:
         integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==,
       }
     engines: { node: ">=18" }
+
+  yaml@2.9.0:
+    resolution:
+      {
+        integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==,
+      }
+    engines: { node: ">= 14.6" }
+    hasBin: true
 
   yocto-queue@0.1.0:
     resolution:
@@ -6504,6 +6551,8 @@ snapshots:
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
+  destr@2.0.5: {}
+
   detect-libc@2.1.2: {}
 
   doctrine@2.1.0:
@@ -7588,6 +7637,8 @@ snapshots:
       object.entries: 1.1.9
       semver: 6.3.1
 
+  node-fetch-native@1.6.7: {}
+
   node-gyp@12.4.0:
     dependencies:
       env-paths: 2.2.1
@@ -7696,6 +7747,12 @@ snapshots:
       call-bound: 1.0.4
       define-properties: 1.2.1
       es-object-atoms: 1.1.2
+
+  ofetch@1.5.1:
+    dependencies:
+      destr: 2.0.5
+      node-fetch-native: 1.6.7
+      ufo: 1.6.4
 
   ogl@1.0.11: {}
 
@@ -7971,6 +8028,8 @@ snapshots:
   semver@6.3.1: {}
 
   semver@7.8.5: {}
+
+  server-only@0.0.1: {}
 
   set-function-length@1.2.2:
     dependencies:
@@ -8422,6 +8481,8 @@ snapshots:
 
   typescript@5.9.3: {}
 
+  ufo@1.6.4: {}
+
   unbox-primitive@1.1.0:
     dependencies:
       call-bound: 1.0.4
@@ -8546,6 +8607,8 @@ snapshots:
   yallist@4.0.0: {}
 
   yallist@5.0.0: {}
+
+  yaml@2.9.0: {}
 
   yocto-queue@0.1.0: {}
 

@@ -42,6 +42,7 @@ main {
 .basics-background {
   position: fixed;
   inset: 0;
+  pointer-events: none;
 }
 
 /* 页面底部容器 / Page footer container */

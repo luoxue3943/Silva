@@ -13,10 +13,13 @@
   },
   "dependencies": {
     "next": "16.2.10",
+    "ofetch": "^1.5.1",
     "ogl": "^1.0.11",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "sass": "^1.101.0"
+    "sass": "^1.101.0",
+    "server-only": "^0.0.1",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.497",

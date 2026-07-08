@@ -1,7 +1,9 @@
 import localFont from "next/font/local";
 import { ViewTransition } from "react";
 import ParticlesBackground from "@/components/ReactBits/particles/particles";
-import Navbar from "@/layout/navbar/navbar";
+import Navbar from "@/components/layout/navbar/navbar";
+import Footer from "@/components/layout/footer/footer";
+
 import "./global.css";
 import "./global.scss";
 
@@ -42,7 +44,9 @@ export default async function RootLayout({
           <main>{children}</main>
 
           {/* 页面底部区域 */}
-          <footer>{/* <Footer /> */}</footer>
+          <footer>
+            <Footer />
+          </footer>
         </body>
       </html>
     </ViewTransition>
