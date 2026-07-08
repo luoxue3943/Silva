@@ -1,0 +1,3 @@
+# 忽略生成产物 / Ignore generated artifacts:
+build
+coverage
