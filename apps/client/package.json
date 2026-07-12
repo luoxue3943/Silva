@@ -12,6 +12,7 @@
     "generate-license-file": "generate-license-file --input ./package.json --output ../../LICENSES/THIRD_PARTY_LICENSES_CLIENT.txt --overwrite --ci"
   },
   "dependencies": {
+    "ldrs": "^1.1.9",
     "next": "16.2.10",
     "ofetch": "^1.5.1",
     "ogl": "^1.0.11",
@@ -34,6 +35,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
     "generate-license-file": "^4.2.1",
+    "msw": "^2.15.0",
     "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "stylelint": "^17.14.0",
@@ -43,5 +45,10 @@
     "stylelint-scss": "^7.2.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
