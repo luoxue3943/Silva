@@ -15,7 +15,11 @@
 本项目包含或使用了以下第三方组件，它们遵循各自的许可证：
 
 - **字体**：[ChillRound](https://github.com/Warren2060/ChillRound) - OFL-1.1-RFN
+- **图标库**：Idrs - MIT
+- **图标库**：[Meteor Icons](https://github.com/zkreations/meteor-icons) - MIT
+- **图标库**：[Myna UI Icons](https://github.com/praveenjuge/mynaui-icons) - MIT
+- **UI 组件**：[React Bits](https://github.com/DavidHDev/react-bits) - MIT with Commons Clause
 
 完整许可证文本请查看 [LICENSE](LICENSE) 文件和 [LICENSES/](LICENSES/) 目录。
 
-第三方依赖及其许可证的完整列表请查看 [THIRD_PARTY_LICENSES_CLIENT.txt](LICENSES/THIRD_PARTY_LICENSES_CLIENT.txt) 和 [THIRD_PARTY_LICENSES_ADMIN.txt](LICENSES/THIRD_PARTY_LICENSES_ADMIN.txt)。
+客户端依赖及其许可证的完整列表请查看 [THIRD_PARTY_LICENSES_CLIENT.txt](LICENSES/THIRD_PARTY_LICENSES_CLIENT.txt)。
