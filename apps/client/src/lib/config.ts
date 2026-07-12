@@ -10,16 +10,25 @@ export type RegistrationItem = {
   url: string;
 };
 
+export type SilvaLinkConfig = {
+  type: "github" | "twitter" | "email" | "telegram";
+  url: string;
+};
+
 export type SilvaConfig = {
   site: {
     author: string;
+    motto: string;
   };
+  links: SilvaLinkConfig[];
   registration?: RegistrationItem[];
 };
 
 export type SilvaPublicConfig = {
   siteAuthor: string;
+  siteMotto: string;
   registration: RegistrationItem[];
+  links: SilvaLinkConfig[];
 };
 
 async function readYamlFile<T = unknown>(filePath: string): Promise<T> {
@@ -32,7 +41,7 @@ async function readYamlFile<T = unknown>(filePath: string): Promise<T> {
   return parse(content) as T;
 }
 
-export const getSilvaConfig = cache(async (): Promise<SilvaConfig> => {
+const getSilvaConfig = cache(async (): Promise<SilvaConfig> => {
   return readYamlFile<SilvaConfig>("../../configs/SilvaConfig.yaml");
 });
 
@@ -41,6 +50,8 @@ export async function getConfig(): Promise<SilvaPublicConfig> {
 
   return {
     siteAuthor: config.site.author,
+    siteMotto: config.site.motto ?? "",
     registration: config.registration ?? [],
+    links: config.links,
   };
 }

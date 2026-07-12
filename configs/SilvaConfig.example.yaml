@@ -13,11 +13,13 @@
 site:
   # 网站所有者名称
   author: 作者
+  # 座右铭
+  # 网站首页显示的简短描述
+  motto: "example motto goes here."
 
 # ----------------------------------------------------------------------------
 # 备案信息配置
 # ----------------------------------------------------------------------------
-
 registration:
   # ICP 备案
   - name: "京ICP备xxxxxxxx号"
@@ -26,3 +28,27 @@ registration:
   # 公安备案
   - name: "京公网安备xxxxxxxx号"
     url: "http://www.beian.gov.cn/portal/registerSystemInfo"
+
+# ----------------------------------------------------------------------------
+# 社交链接配置 / Social Links Configuration
+# ----------------------------------------------------------------------------
+links:
+  # GitHub 链接 / GitHub link
+  - type: "github"
+    url: "https://github.com/yourusername"
+
+  # Twitter/X 链接 / Twitter/X link
+  - type: "twitter"
+    url: "https://twitter.com/yourusername"
+
+  # 电子邮件 / Email
+  - type: "email"
+    url: "mailto:your@email.com"
+
+  # Telegram 链接 / Telegram link
+  - type: "telegram"
+    url: "https://t.me/yourusername"
+
+  # 注意事项 / Notes:
+  # - 支持的类型 / Supported types: github, twitter, email, telegram
+  # - 可以删除不需要的链接 / Can remove unwanted links
